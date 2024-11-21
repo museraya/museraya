@@ -22,4 +22,11 @@
     android:label="Account"
     tools:layout="@layout/fragment_account" />
 
+    <fragment
+        android:id="@+id/navigation_vintage_radio"
+        android:name="com.example.museraya.VintageRadioFragment"
+        android:label="Vintage Radio"
+        tools:layout="@layout/fragment_vintage_radio" />
+
+
 </navigation>
