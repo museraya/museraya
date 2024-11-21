@@ -1,20 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/mobile_navigation"
+    xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/navigation_home">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.museraya.HomeFragment"
-        android:label="Home" />
+    android:id="@+id/navigation_home"
+    android:name="com.example.museraya.HomeFragment"
+    android:label="Home"
+    tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_liveview"
-        android:name="com.example.museraya.LiveViewFragment"
-        android:label="Live View" />
+    android:id="@+id/navigation_liveview"
+    android:name="com.example.museraya.LiveViewFragment"
+    android:label="Live View"
+    tools:layout="@layout/fragment_liveview" />
 
     <fragment
-        android:id="@+id/navigation_account"
-        android:name="com.example.museraya.AccountFragment"
-        android:label="Account" />
+    android:id="@+id/navigation_account"
+    android:name="com.example.museraya.AccountFragment"
+    android:label="Account"
+    tools:layout="@layout/fragment_account" />
+
 </navigation>

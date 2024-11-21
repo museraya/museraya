@@ -6,4 +6,10 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_Liveview" />
     <string name="title_account" />
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string name="logo">Logo</string>
+    <string name="museraya">Museraya</string>
 </resources>
