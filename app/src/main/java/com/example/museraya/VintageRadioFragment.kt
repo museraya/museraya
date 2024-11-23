@@ -35,13 +35,13 @@ class VintageRadioFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         val view = inflater.inflate(R.layout.fragment_vintage_radio, container, false)
 
-        // Find the radio image by ID
+        // dito ilalagay yung id ng image
         val radioImage: ImageView = view.findViewById(R.id.imageButton) // Replace with your actual ImageView ID
 
-        // Set up the click listener
+        // dito ilalagay yung kung saan mapupunta pag pinindot mo yung nasa taas which is imageButton ang ID HAHAHAHA
         radioImage.setOnClickListener {
             it.findNavController().navigate(R.id.radio1)
         }

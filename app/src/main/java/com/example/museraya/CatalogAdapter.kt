@@ -20,7 +20,6 @@ class CatalogAdapter(
             title.text = item.title
             image.setImageResource(item.imageResId)
 
-            // Set click listeners
             itemView.setOnClickListener { onItemClick(item) }
         }
     }
