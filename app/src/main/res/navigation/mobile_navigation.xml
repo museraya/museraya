@@ -28,5 +28,11 @@
         android:label="Vintage Radio"
         tools:layout="@layout/fragment_vintage_radio" />
 
+    <fragment
+        android:id="@+id/radio1"
+        android:name="com.example.museraya.radio1"
+        android:label="Radio Details"
+        tools:layout="@layout/fragment_radio1" />
+
 
 </navigation>

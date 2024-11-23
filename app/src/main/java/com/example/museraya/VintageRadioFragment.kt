@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
+import android.widget.ImageView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +36,17 @@ class VintageRadioFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_vintage_radio, container, false)
+        val view = inflater.inflate(R.layout.fragment_vintage_radio, container, false)
+
+        // Find the radio image by ID
+        val radioImage: ImageView = view.findViewById(R.id.imageButton) // Replace with your actual ImageView ID
+
+        // Set up the click listener
+        radioImage.setOnClickListener {
+            it.findNavController().navigate(R.id.radio1)
+        }
+
+        return view
     }
 
     companion object {
@@ -46,7 +58,6 @@ class VintageRadioFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment VintageRadio.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             VintageRadioFragment().apply {
