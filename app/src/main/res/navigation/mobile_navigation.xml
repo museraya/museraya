@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/navigation_home">
 
     <fragment
-    android:id="@+id/navigation_home"
-    android:name="com.example.museraya.HomeFragment"
-    android:label="Home"
-    tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_home"
+        android:name="com.example.museraya.HomeFragment"
+        tools:layout="@layout/fragment_home" />
 
     <fragment
-    android:id="@+id/navigation_liveview"
-    android:name="com.example.museraya.LiveViewFragment"
-    android:label="Live View"
-    tools:layout="@layout/fragment_liveview" />
+        android:id="@+id/navigation_liveview"
+        android:name="com.example.museraya.LiveViewFragment"
+        tools:layout="@layout/fragment_liveview" />
 
     <fragment
-    android:id="@+id/navigation_account"
-    android:name="com.example.museraya.AccountFragment"
-    android:label="Account"
-    tools:layout="@layout/fragment_account" />
+        android:id="@+id/navigation_account"
+        android:name="com.example.museraya.AccountFragment"
+        tools:layout="@layout/fragment_account" />
 
     <fragment
-        android:id="@+id/navigation_vintage_radio"
-        android:name="com.example.museraya.VintageRadioFragment"
-        android:label="Vintage Radio"
-        tools:layout="@layout/fragment_vintage_radio" />
+        android:id="@+id/navigation_settings"
+        android:name="com.example.museraya.SettingsFragment"
+        tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/radio1"
         android:name="com.example.museraya.radio1"
-        android:label="Radio Details"
         tools:layout="@layout/fragment_radio1" />
 
-
+    <fragment
+        android:id="@+id/navigation_vintage_radio"
+        android:name="com.example.museraya.VintageRadioFragment"
+        tools:layout="@layout/fragment_vintage_radio" />
 </navigation>

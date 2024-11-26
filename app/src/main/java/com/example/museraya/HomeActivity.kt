@@ -1,8 +1,9 @@
 package com.example.museraya
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.appcompat.app.ActionBarDrawerToggle
+import android.util.Log
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -16,54 +17,92 @@ import com.google.android.material.navigation.NavigationView
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navController: NavController
+    private lateinit var backButton: ImageButton
+    private lateinit var drawerToggle: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        // Toolbar setup
         val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        // Initialize drawer, buttons, and nav controller
         drawerLayout = findViewById(R.id.drawer_layout)
-
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController: NavController = navHostFragment.navController
+        navController = navHostFragment.navController
 
         val navigationView: NavigationView = findViewById(R.id.navigation_view)
-        NavigationUI.setupWithNavController(navigationView, navController)
 
-        val drawerToggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar,
-            R.string.navigation_drawer_open, R.string.navigation_drawer_close
-        )
-        drawerLayout.addDrawerListener(drawerToggle)
-        drawerToggle.syncState()
+        // Handle Navigation Drawer Item Clicks
+        navigationView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_home -> {
+                    navController.navigate(R.id.navigation_home)
+                }
+                R.id.nav_profile -> {
+                    navController.navigate(R.id.navigation_account)
+                }
+                R.id.nav_settings -> {
+                    navController.navigate(R.id.navigation_settings)
+                }
+                R.id.nav_logout -> {
+                    logoutUser()
+                }
+            }
+            drawerLayout.closeDrawer(GravityCompat.END) // Close the drawer after a click
+            true
+        }
 
-        //bot nav
+        // Back Button
+        backButton = findViewById(R.id.back_button)
+        backButton.setOnClickListener {
+            if (!navController.navigateUp()) {
+                finish() // Exit the app if no fragments in the back stack
+            }
+        }
+
+        // Drawer Toggle
+        drawerToggle = findViewById(R.id.drawer_toggle)
+        drawerToggle.setOnClickListener {
+            if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                drawerLayout.closeDrawer(GravityCompat.END)
+            } else {
+                drawerLayout.openDrawer(GravityCompat.END)
+            }
+        }
+
+        // Dynamically show/hide the Back Button
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.navigation_home) {
+                backButton.visibility = ImageButton.INVISIBLE // Keep position but hide the button
+            } else {
+                backButton.visibility = ImageButton.VISIBLE
+            }
+        }
+
+        // Bottom Navigation Bar
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.setupWithNavController(navController)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        return if (item.itemId == android.R.id.home) {
-            drawerLayout.openDrawer(GravityCompat.START)
-            true
-        } else {
-            super.onOptionsItemSelected(item)
-        }
+    private fun logoutUser() {
+        // Example Logout Logic: Navigate to login screen
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
 
     override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
+        if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+            drawerLayout.closeDrawer(GravityCompat.END)
+        } else if (!navController.navigateUp()) {
             super.onBackPressed()
         }
     }
 }
-
-
-
