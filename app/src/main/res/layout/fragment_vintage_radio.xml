@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".VintageRadioFragment"
+    android:background="#9a9077"
     >
 
 
@@ -14,25 +15,37 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="VINTAGE RADIO"
+        android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="16dp"
+        android:background="#FFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="220dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:adjustViewBounds="true"
         android:background="#00000000"
         android:scaleType="fitCenter"
         android:src="@drawable/radiopng"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <TextView
         android:id="@+id/textView2"
@@ -40,9 +53,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Excalibur RD61 Vintage AM/FM  Radio"
+        android:textStyle="bold"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/imageButton"
         app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

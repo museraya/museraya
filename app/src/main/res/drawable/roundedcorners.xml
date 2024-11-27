@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <corners android:radius="16dp" /> <!-- Adjust the radius as needed -->
-    <solid android:color="@android:color/transparent" /> <!-- Transparent background -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Define the corner radius -->
+    <corners android:radius="16dp" />
+
+    <!-- Optional: Define a background color -->
+    <!-- Replace with your desired color or use transparent if you don't want a background color -->
+    <solid android:color="@android:color/transparent" />
+
+    <!-- Optional: Define a stroke (border) -->
+    <!--
+    <stroke
+        android:width="2dp"
+        android:color="@color/your_border_color" />
+    -->
 </shape>

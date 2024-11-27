@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:text="Item Title"
         android:textSize="14sp"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:layout_marginTop="4dp" />
 </LinearLayout>
