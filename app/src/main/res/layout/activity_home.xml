@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <!-- Main Layout -->
     <LinearLayout
@@ -11,17 +12,21 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- Toolbar  ang og color niya ay ?attr/colorPrimary-->
+        <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/gradient_color"
-            android:elevation="4dp">
+            android:background="@android:color/transparent"
+            android:elevation="0dp"
+            android:fitsSystemWindows="true"> <!-- Adjust for system UI -->
 
+            <!-- Constraint Layout for Toolbar Elements -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
 
                 <!-- Back Button -->
                 <ImageButton
@@ -53,13 +58,12 @@
                     android:id="@+id/drawer_toggle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
                     android:background="@null"
                     android:contentDescription="Drawer Toggle"
                     android:src="@drawable/ic_menu"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
 

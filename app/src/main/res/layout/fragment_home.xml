@@ -3,7 +3,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#9a9077">
+    android:background="#9a9077"
+    android:fitsSystemWindows="true">
 
     <TextView
         android:id="@+id/titleTextView"

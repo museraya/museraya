@@ -1,13 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VintageRadioFragment"
     android:background="#9a9077"
-    >
-
+    android:fitsSystemWindows="true">
 
     <TextView
         android:id="@+id/textView"
@@ -52,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Excalibur RD61 Vintage AM/FM  Radio"
+        android:text="Excalibur RD61 Vintage AM/FM Radio"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -60,5 +56,4 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/imageButton"
         app:layout_constraintTop_toBottomOf="@+id/imageButton" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
