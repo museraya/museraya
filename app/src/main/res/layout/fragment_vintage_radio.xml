@@ -57,5 +57,16 @@
         app:layout_constraintTop_toBottomOf="@+id/imageButton"
         app:srcCompat="@drawable/nagra" />
 
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="220dp"
+        android:layout_marginTop="20dp"
+        android:background="#00000000"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton2"
+        app:srcCompat="@drawable/boom_mic" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

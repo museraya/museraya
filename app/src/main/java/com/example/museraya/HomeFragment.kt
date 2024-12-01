@@ -24,16 +24,22 @@ class HomeFragment : Fragment() {
 
         // Sample data for the catalog
         val catalogItems = listOf(
-            CatalogItem("Vintage Radio", R.drawable.d1),
+            CatalogItem("Vintage Audio", R.drawable.d1),
             CatalogItem("Vintage Film", R.drawable.d2),
-            CatalogItem("Vintage Radio 2", R.drawable.d3),
-            CatalogItem("Vintage Camera 2", R.drawable.d4)
+            CatalogItem("Vintage Music", R.drawable.d3),
+            CatalogItem("Paintings and Art", R.drawable.d4)
         )
 
 
         val adapter = CatalogAdapter(catalogItems) { item ->
-            if (item.title == "Vintage Radio") {
+            if (item.title == "Vintage Audio") {
                 view.findNavController().navigate(R.id.navigation_vintage_radio)
+            }
+            if (item.title == "Vintage Film") {
+                view.findNavController().navigate(R.id.vintageFilmFragment)
+            }
+            if (item.title == "Vintage Music") {
+                view.findNavController().navigate(R.id.vintageMusicFragment)
             }
         }
         recyclerView.adapter = adapter

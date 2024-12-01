@@ -39,4 +39,43 @@
         android:name="com.example.museraya.audio_narga"
         android:label="fragment_audio_narga"
         tools:layout="@layout/fragment_audio_narga" />
+    <fragment
+        android:id="@+id/vintageFilmFragment"
+        android:name="com.example.museraya.VintageFilmFragment"
+        android:label="VintageFilmFragment" />
+    <fragment
+        android:id="@+id/audioBoomFragment"
+        android:name="com.example.museraya.AudioBoomFragment"
+        android:label="fragment_audio_boom"
+        tools:layout="@layout/fragment_audio_boom" />
+    <fragment
+        android:id="@+id/filmViewerFragment"
+        android:name="com.example.museraya.FilmViewerFragment"
+        android:label="FilmViewerFragment" />
+    <fragment
+        android:id="@+id/filmCameraFragment"
+        android:name="com.example.museraya.FilmCameraFragment"
+        android:label="FilmCameraFragment" />
+    <fragment
+        android:id="@+id/filmPolaroidFragment"
+        android:name="com.example.museraya.FilmPolaroidFragment"
+        android:label="FilmPolaroidFragment" />
+    <fragment
+        android:id="@+id/vintageMusicFragment"
+        android:name="com.example.museraya.VintageMusicFragment"
+        android:label="fragment_vintage_music"
+        tools:layout="@layout/fragment_vintage_music" />
+    <fragment
+        android:id="@+id/turntableFragment"
+        android:name="com.example.museraya.TurntableFragment"
+        android:label="fragment_turntable"
+        tools:layout="@layout/fragment_turntable" />
+    <fragment
+        android:id="@+id/vinylFragment"
+        android:name="com.example.museraya.VinylFragment"
+        android:label="VinylFragment" />
+    <fragment
+        android:id="@+id/singleVinylFragment"
+        android:name="com.example.museraya.SingleVinylFragment"
+        android:label="SingleVinylFragment" />
 </navigation>

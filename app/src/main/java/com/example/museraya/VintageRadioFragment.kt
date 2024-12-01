@@ -41,6 +41,7 @@ class VintageRadioFragment : Fragment() {
         // dito ilalagay yung id ng image
         val radioImage: ImageView = view.findViewById(R.id.imageButton) // Replace with your actual ImageView ID
         val nargaImage: ImageView = view.findViewById(R.id.imageButton2) // Replace with your actual second ImageView ID
+        val boomImage: ImageView = view.findViewById(R.id.imageButton3) // Replace with your actual second ImageView ID
 
         // dito ilalagay yung kung saan mapupunta pag pinindot mo yung nasa taas which is imageButton ang ID HAHAHAHA
         radioImage.setOnClickListener {
@@ -48,6 +49,9 @@ class VintageRadioFragment : Fragment() {
         }
         nargaImage.setOnClickListener {
             it.findNavController().navigate(R.id.audio_narga) // Replace with the actual ID of fragment_audio_narga in your navigation graph
+        }
+        boomImage.setOnClickListener {
+            it.findNavController().navigate(R.id.audioBoomFragment) // Replace with the actual ID of fragment_audio_narga in your navigation graph
         }
 
         return view
