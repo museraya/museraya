@@ -1,35 +1,41 @@
 package com.example.museraya
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
+import android.hardware.camera2.CameraAccessException
+import android.hardware.camera2.CameraCaptureSession
+import android.hardware.camera2.CameraDevice
+import android.hardware.camera2.CameraManager
 import android.os.Bundle
-import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Surface
+import android.view.SurfaceView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.google.ar.core.ArCoreApk
-import com.google.ar.core.Session
-import com.google.ar.core.exceptions.UnavailableException
-import com.google.ar.core.Config
 
 class LiveViewFragment : Fragment() {
 
     private val TAG = "LiveViewFragment"
-    private var session: Session? = null
+    private lateinit var surfaceView: SurfaceView
+    private var cameraDevice: CameraDevice? = null
+    private lateinit var cameraCaptureSession: CameraCaptureSession
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_liveview, container, false)
+        val view = inflater.inflate(R.layout.fragment_liveview, container, false)
+
+        // Initialize the SurfaceView to display the camera feed
+        surfaceView = view.findViewById(R.id.surface_view)
+
+        return view
     }
 
     override fun onResume() {
@@ -41,96 +47,85 @@ class LiveViewFragment : Fragment() {
             return
         }
 
-        // Check ARCore installation and version status
-        if (isARCoreSupportedAndUpToDate()) {
-            Toast.makeText(requireContext(), "ARCore is supported and up to date!", Toast.LENGTH_SHORT).show()
-
-            // Create and initialize the AR session
-            createSession()
-        } else {
-            Toast.makeText(requireContext(), "ARCore is not supported or needs an update.", Toast.LENGTH_SHORT).show()
-        }
+        // Start the camera after permission is granted
+        startCamera()
     }
 
-    private fun createSession() {
+    private fun startCamera() {
+        val cameraManager = requireActivity().getSystemService(CameraManager::class.java)
         try {
-            // Create a new ARCore session
-            session = Session(requireContext())
+            val cameraId = cameraManager.cameraIdList[0] // Assuming the first camera
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                cameraManager.openCamera(cameraId, object : CameraDevice.StateCallback() {
+                    override fun onOpened(camera: CameraDevice) {
+                        cameraDevice = camera
+                        startPreview()
+                    }
 
-            // Create a session config
-            val config = Config(session)
+                    override fun onDisconnected(camera: CameraDevice) {
+                        cameraDevice?.close()
+                    }
 
-            // Do feature-specific operations here, such as enabling depth or turning on support for Augmented Faces
-            // For example, enabling depth:
-            config.updateMode = Config.UpdateMode.LATEST_CAMERA_IMAGE
-
-            // Configure the session
-            session?.configure(config)
-
-            Log.i(TAG, "AR session created and configured.")
-        } catch (e: UnavailableException) {
-            Log.e(TAG, "Failed to create AR session: ARCore not available", e)
+                    override fun onError(camera: CameraDevice, error: Int) {
+                        Log.e(TAG, "Camera error: $error")
+                    }
+                }, null)
+            }
+        } catch (e: CameraAccessException) {
+            Log.e(TAG, "Camera access error", e)
         }
     }
 
-    private fun isARCoreSupportedAndUpToDate(): Boolean {
-        return when (ArCoreApk.getInstance().checkAvailability(requireContext())) {
-            ArCoreApk.Availability.SUPPORTED_INSTALLED -> true
-            ArCoreApk.Availability.SUPPORTED_APK_TOO_OLD, ArCoreApk.Availability.SUPPORTED_NOT_INSTALLED -> {
-                try {
-                    // Request ARCore installation or update if needed
-                    when (ArCoreApk.getInstance().requestInstall(requireActivity(), true)) {
-                        ArCoreApk.InstallStatus.INSTALL_REQUESTED -> {
-                            Log.i(TAG, "ARCore installation requested.")
-                            false
-                        }
-                        ArCoreApk.InstallStatus.INSTALLED -> true
+    private fun startPreview() {
+        try {
+            // Get the Surface from the SurfaceView's holder
+            val surface = surfaceView.holder.surface
+
+            // Create a capture session to display the preview
+            cameraDevice?.createCaptureSession(
+                listOf(surface),
+                object : CameraCaptureSession.StateCallback() {
+                    override fun onConfigured(session: CameraCaptureSession) {
+                        cameraCaptureSession = session
+
+                        // Start the camera preview
+                        val previewRequest = cameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
+                        previewRequest.addTarget(surface)
+                        cameraCaptureSession.setRepeatingRequest(previewRequest.build(), null, null)
                     }
-                } catch (e: UnavailableException) {
-                    Log.e(TAG, "ARCore not installed", e)
-                    false
-                }
-            }
-            ArCoreApk.Availability.UNSUPPORTED_DEVICE_NOT_CAPABLE -> {
-                Log.e(TAG, "This device does not support ARCore.")
-                false
-            }
-            ArCoreApk.Availability.UNKNOWN_CHECKING -> {
-                Log.i(TAG, "ARCore is checking availability. Please retry.")
-                false
-            }
-            ArCoreApk.Availability.UNKNOWN_ERROR, ArCoreApk.Availability.UNKNOWN_TIMED_OUT -> {
-                Log.e(TAG, "Error checking ARCore availability.")
-                false
-            }
+
+                    override fun onConfigureFailed(session: CameraCaptureSession) {
+                        Log.e(TAG, "Camera configuration failed")
+                    }
+                },
+                null
+            )
+        } catch (e: CameraAccessException) {
+            Log.e(TAG, "Error starting camera preview", e)
         }
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+
+        // Release the camera when the fragment is paused
+        cameraDevice?.close()
+        cameraDevice = null
     }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
-        results: IntArray
+        grantResults: IntArray
     ) {
-        super.onRequestPermissionsResult(requestCode, permissions, results)
-        if (!CameraPermissionHelper.hasCameraPermission(requireActivity())) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(requireContext(), "Camera permission is needed to run this application", Toast.LENGTH_LONG).show()
-
-            if (!CameraPermissionHelper.shouldShowRequestPermissionRationale(requireActivity())) {
-                // Permission denied with "Do not ask again" checked
-                CameraPermissionHelper.launchPermissionSettings(requireActivity())
-            }
-            requireActivity().finish()
+        } else {
+            // Permission granted, start the camera
+            startCamera()
         }
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        // Release AR session when the fragment is paused or no longer in use.
-        session?.close()
-        session = null
-
-        Log.i(TAG, "AR session closed and resources released.")
     }
 }
 
@@ -141,16 +136,6 @@ object CameraPermissionHelper {
 
     fun requestCameraPermission(activity: androidx.fragment.app.FragmentActivity) {
         ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_REQUEST_CODE)
-    }
-
-    fun shouldShowRequestPermissionRationale(activity: androidx.fragment.app.FragmentActivity): Boolean {
-        return ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.CAMERA)
-    }
-
-    fun launchPermissionSettings(activity: androidx.fragment.app.FragmentActivity) {
-        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-        intent.data = Uri.fromParts("package", activity.packageName, null)
-        activity.startActivity(intent)
     }
 
     private const val CAMERA_PERMISSION_REQUEST_CODE = 0

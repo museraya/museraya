@@ -25,7 +25,7 @@ class HomeFragment : Fragment() {
         // Sample data for the catalog
         val catalogItems = listOf(
             CatalogItem("Vintage Radio", R.drawable.d1),
-            CatalogItem("Vintage Camera", R.drawable.d2),
+            CatalogItem("Vintage Film", R.drawable.d2),
             CatalogItem("Vintage Radio 2", R.drawable.d3),
             CatalogItem("Vintage Camera 2", R.drawable.d4)
         )

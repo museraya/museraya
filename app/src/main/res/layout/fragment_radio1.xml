@@ -10,11 +10,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Excalibur RD61 Vintage AM/FM Radio"
+        android:text="Bell Telephone"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.094"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,7 +26,7 @@
         android:layout_marginTop="20dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/radio1box"
+        android:src="@drawable/bell_telephone_box"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -35,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="The Story Behind This:"
+        android:text="About This:"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -44,11 +45,12 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="372dp"
-        android:layout_height="65dp"
+        android:layout_width="367dp"
+        android:layout_height="136dp"
         android:layout_marginTop="5dp"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        android:text="One of the first patented concepts of wired telephone started by Alexander Graham Bell. Before telephones were invented, telegraphs were used. "
         android:textColor="@color/white"
+        android:textSize="17sp"
         app:layout_constraintStart_toStartOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 

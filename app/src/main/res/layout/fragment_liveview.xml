@@ -5,6 +5,12 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true">
 
+    <!-- SurfaceView to show the camera feed -->
+    <SurfaceView
+        android:id="@+id/surface_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <Button
         android:id="@+id/ar_button"
         android:layout_width="wrap_content"

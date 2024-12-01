@@ -34,4 +34,9 @@
         android:id="@+id/navigation_vintage_radio"
         android:name="com.example.museraya.VintageRadioFragment"
         tools:layout="@layout/fragment_vintage_radio" />
+    <fragment
+        android:id="@+id/audio_narga"
+        android:name="com.example.museraya.audio_narga"
+        android:label="fragment_audio_narga"
+        tools:layout="@layout/fragment_audio_narga" />
 </navigation>
