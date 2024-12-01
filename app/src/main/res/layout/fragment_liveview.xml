@@ -5,10 +5,10 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true">
 
-    <TextView
-        android:id="@+id/homeTextView"
+    <Button
+        android:id="@+id/ar_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Live View"
-        android:textSize="24sp" />
+        android:text="Start AR"
+        android:visibility="gone" />
 </LinearLayout>
