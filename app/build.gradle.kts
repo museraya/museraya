@@ -56,5 +56,6 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.material)
-    implementation("com.google.ar:core:1.37.0")
+    implementation("com.google.ar:core:1.46.0")
+    implementation(libs.sceneform.ux)
 }
