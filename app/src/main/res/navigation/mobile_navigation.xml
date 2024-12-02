@@ -78,4 +78,22 @@
         android:id="@+id/singleVinylFragment"
         android:name="com.example.museraya.SingleVinylFragment"
         android:label="SingleVinylFragment" />
+    <fragment
+        android:id="@+id/artFragment"
+        android:name="com.example.museraya.ArtFragment"
+        android:label="fragment_art"
+        tools:layout="@layout/fragment_art" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.museraya.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/texFragment"
+        android:name="com.example.museraya.TexFragment"
+        android:label="TexFragment" />
+    <fragment
+        android:id="@+id/woodcutterFragment"
+        android:name="com.example.museraya.WoodcutterFragment"
+        android:label="WoodcutterFragment" />
 </navigation>

@@ -41,6 +41,10 @@ class HomeFragment : Fragment() {
             if (item.title == "Vintage Music") {
                 view.findNavController().navigate(R.id.vintageMusicFragment)
             }
+            if (item.title == "Paintings and Art") {
+                view.findNavController().navigate(R.id.artFragment)
+            }
+
         }
         recyclerView.adapter = adapter
 
