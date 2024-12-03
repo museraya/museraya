@@ -34,7 +34,8 @@
             android:layout_height="200dp"
             android:layout_marginTop="16dp"
             android:adjustViewBounds="true"
-            android:background="#00000000"
+            android:background="@drawable/roundedcorners"
+            android:clipToOutline="true"
             android:scaleType="fitCenter"
             android:src="@drawable/turntable"
             app:layout_constraintEnd_toEndOf="parent"
@@ -46,10 +47,11 @@
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:layout_marginTop="20dp"
-            android:background="#00000000"
+            android:background="@drawable/roundedcorners"
+            android:clipToOutline="true"
+            android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageButton"
             app:srcCompat="@drawable/vinyl" />
@@ -59,12 +61,15 @@
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:layout_marginTop="20dp"
-            android:background="#00000000"
+            android:background="@drawable/roundedcorners"
+            android:clipToOutline="true"
+            android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageButton2"
-            app:srcCompat="@drawable/single_vinyl" />
+            app:srcCompat="@drawable/single_vinyl"
+            android:layout_marginBottom="30dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
