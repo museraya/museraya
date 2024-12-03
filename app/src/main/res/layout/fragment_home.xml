@@ -15,7 +15,8 @@
         android:fontFamily="@font/helvetica"
         android:textColor="@color/black"
         android:layout_marginBottom="16dp"
-        android:textStyle="bold" />
+        android:textStyle="bold|italic"
+        android:layout_gravity="center"/>
 
     <TextView
         android:id="@+id/subtitleTextView"
@@ -25,8 +26,7 @@
         android:textColor="@color/black"
         android:textSize="22sp"
         android:fontFamily="@font/helvetica"
-        android:layout_marginBottom="8dp"
-        android:textStyle="bold" />
+        android:layout_marginBottom="8dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
