@@ -96,4 +96,14 @@
         android:id="@+id/woodcutterFragment"
         android:name="com.example.museraya.WoodcutterFragment"
         android:label="WoodcutterFragment" />
+    <fragment
+        android:id="@+id/filmCassetteFragment"
+        android:name="com.example.museraya.FilmCassetteFragment"
+        android:label="fragment_film_cassette"
+        tools:layout="@layout/fragment_film_cassette" />
+    <fragment
+        android:id="@+id/filmSlideFragment"
+        android:name="com.example.museraya.FilmSlideFragment"
+        android:label="fragment_film_slide"
+        tools:layout="@layout/fragment_film_slide" />
 </navigation>

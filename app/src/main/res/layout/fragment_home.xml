@@ -3,16 +3,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#9a9077"
+    android:background="@color/darkwhite"
     android:fitsSystemWindows="true">
 
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ART WORLD AND NEWSEUM"
+        android:text="Art World and Newseum"
         android:textSize="24sp"
-        android:textColor="@color/white"
+        android:fontFamily="@font/helvetica"
+        android:textColor="@color/black"
         android:layout_marginBottom="16dp"
         android:textStyle="bold" />
 
@@ -20,9 +21,10 @@
         android:id="@+id/subtitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ALL ITEMS"
-        android:textColor="@color/white"
-        android:textSize="16sp"
+        android:text="All Items"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:fontFamily="@font/helvetica"
         android:layout_marginBottom="8dp"
         android:textStyle="bold" />
 

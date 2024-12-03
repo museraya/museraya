@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/darkwhite"
-        android:fitsSystemWindows="true">
+        android:paddingBottom="16dp">
 
         <TextView
             android:id="@+id/textView"
@@ -20,13 +20,24 @@
             android:layout_marginStart="2dp"
             android:layout_marginTop="16dp"
             android:text="Vintage Music"
-            android:textStyle=""
+            android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="22sp"
             android:fontFamily="@font/helvetica"
-            app:layout_constraintHorizontal_bias="0.113"
             app:layout_constraintStart_toStartOf="@+id/imageButton"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/helvetica"
+            android:text="Old Musical Devices and Items"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            app:layout_constraintStart_toStartOf="@+id/imageButton"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <ImageButton
             android:id="@+id/imageButton"
@@ -40,7 +51,7 @@
             android:src="@drawable/turntable"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <ImageButton
             android:id="@+id/imageButton2"

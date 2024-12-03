@@ -41,6 +41,8 @@ class VintageFilmFragment : Fragment() {
         val viewerImage: ImageView = view.findViewById(R.id.imageButton) // Replace with your actual ImageView ID
         val cameraImage: ImageView = view.findViewById(R.id.imageButton2) // Replace with your actual ImageView ID
         val polaroidImage: ImageView = view.findViewById(R.id.imageButton3) // Replace with your actual ImageView ID
+        val cassetteImage: ImageView = view.findViewById(R.id.imageButton4) // Replace with your actual ImageView ID
+        val slideImage: ImageView = view.findViewById(R.id.imageButton5) // Replace with your actual ImageView ID
 
 
         // dito ilalagay yung kung saan mapupunta pag pinindot mo yung nasa taas which is imageButton ang ID HAHAHAHA
@@ -52,6 +54,12 @@ class VintageFilmFragment : Fragment() {
         }
         polaroidImage.setOnClickListener {
             it.findNavController().navigate(R.id.filmPolaroidFragment)
+        }
+        cassetteImage.setOnClickListener {
+            it.findNavController().navigate(R.id.filmCassetteFragment)
+        }
+        slideImage.setOnClickListener {
+            it.findNavController().navigate(R.id.filmSlideFragment)
         }
 
 

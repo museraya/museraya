@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/darkwhite">
+        android:background="@color/darkwhite"
+        android:paddingBottom="16dp">
 
         <TextView
             android:id="@+id/textView"
@@ -20,9 +21,22 @@
             android:fontFamily="@font/helvetica"
             android:text="Vintage Film"
             android:textColor="@color/black"
+            android:textStyle="bold"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="@+id/imageButton"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="342dp"
+            android:layout_height="37dp"
+            android:fontFamily="@font/helvetica"
+            android:text="Old forms of Filmmaking Media and Materials such as Editors, Cameras, and Viewers."
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            app:layout_constraintStart_toStartOf="@+id/imageButton"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <ImageButton
             android:id="@+id/imageButton"
@@ -36,7 +50,7 @@
             android:src="@drawable/film_viewer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
         <ImageButton
             android:id="@+id/imageButton2"
@@ -65,6 +79,34 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageButton2"
             app:srcCompat="@drawable/polaroid" />
+
+        <ImageButton
+            android:id="@+id/imageButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/roundedcorners"
+            android:clipToOutline="true"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton3"
+            app:srcCompat="@drawable/cassette_recorder" />
+
+        <ImageButton
+            android:id="@+id/imageButton5"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/roundedcorners"
+            android:clipToOutline="true"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton4"
+            app:srcCompat="@drawable/slide_projector" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
