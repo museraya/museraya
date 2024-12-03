@@ -2,15 +2,10 @@ package com.example.museraya
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.hardware.camera2.CameraAccessException
-import android.hardware.camera2.CameraCaptureSession
-import android.hardware.camera2.CameraDevice
-import android.hardware.camera2.CameraManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.SurfaceView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -19,7 +14,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.ar.core.Anchor
-import com.google.ar.core.Frame
 import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.math.Vector3
 import com.google.ar.sceneform.rendering.ModelRenderable
@@ -49,6 +43,14 @@ class LiveViewFragment : Fragment() {
         arButton.setOnClickListener {
             startARSession()
         }
+
+        // Set up the listener for tap gestures on the AR surface
+        arFragment.setOnTapArPlaneListener { hitResult, plane, motionEvent ->
+            Log.d(TAG, "Tap detected on the AR plane.")
+            // Create an anchor at the tapped location
+            val anchor = hitResult.createAnchor()
+            place3DModelAtAnchor(anchor)
+        }
     }
 
     override fun onResume() {
@@ -58,39 +60,41 @@ class LiveViewFragment : Fragment() {
         }
     }
 
+    // Function to start the AR session
     private fun startARSession() {
-        val frame: Frame? = arFragment.arSceneView?.arFrame
-
-        if (frame == null) {
-            Log.e(TAG, "AR frame is null")
-            return
-        }
-
-        val hitResult = frame.hitTest(
-            arFragment.arSceneView.width / 2f,
-            arFragment.arSceneView.height / 2f
-        ).firstOrNull()
-
-        if (hitResult != null) {
-            val anchor = hitResult.createAnchor()
-            place3DModelAtAnchor(anchor)
-        } else {
-            Log.d(TAG, "No hit detected")
-        }
+        Log.d(TAG, "AR session started.")
+        // You can add more session setup here if needed
     }
 
+    // Function to place the 3D model at the given anchor
     private fun place3DModelAtAnchor(anchor: Anchor) {
+        Log.d(TAG, "Attempting to load the model...")
+
+        // Use the correct path to the .gltf model in the assets folder
         ModelRenderable.builder()
-            .setSource(context, Uri.parse("donut.obj"))
+            .setSource(context, Uri.parse("models/rubber_duck_toy_4k.gltf")) // Path to the .gltf file in assets folder
             .build()
             .thenAccept { modelRenderable ->
+                Log.d(TAG, "Model loaded successfully.")
+
+                // Create AnchorNode to attach the model to the anchor
                 val anchorNode = AnchorNode(anchor)
                 anchorNode.renderable = modelRenderable
                 anchorNode.setParent(arFragment.arSceneView.scene)
+
+                // Optional: Scale the model to a suitable size
                 anchorNode.localScale = Vector3(0.2f, 0.2f, 0.2f)
+
+                Log.d(TAG, "Model placed at anchor.")
             }
             .exceptionally { throwable ->
-                Log.e(TAG, "Error loading model", throwable)
+                Log.e(TAG, "Error loading model: ", throwable)
+
+                // Display user feedback in case of failure
+                activity?.runOnUiThread {
+                    Toast.makeText(context, "Failed to load 3D model: ${throwable.localizedMessage}", Toast.LENGTH_SHORT).show()
+                }
+
                 null
             }
     }
