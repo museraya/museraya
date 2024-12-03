@@ -3,4 +3,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="colorPrimary">#393534</color>
     <color name="headerTitleColor">#FFD700</color>
+    <color name="darkwhite">#f0f0f0</color>
 </resources>
