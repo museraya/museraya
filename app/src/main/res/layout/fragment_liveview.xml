@@ -1,20 +1,18 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
-    <fragment
-        android:id="@+id/ux_fragment"
-        android:name="com.google.ar.sceneform.ux.ArFragment"
+    <io.github.sceneview.ar.ARSceneView
+        android:id="@+id/arSceneView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <Button
-        android:id="@+id/ar_button"
+        android:id="@+id/btnPlaceModel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start AR"
-        android:visibility="gone" />
-</LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:text="Place Model" />
+</RelativeLayout>

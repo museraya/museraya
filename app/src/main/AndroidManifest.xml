@@ -3,9 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Permissions for Camera and AR features -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-feature android:name="android.hardware.camera.ar" android:required="true" />
     <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:glEsVersion="0x00030000" android:required="true" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -18,7 +23,11 @@
         android:theme="@style/Theme.Museraya"
         tools:targetApi="31">
 
-        <meta-data android:name="com.google.ar.core" android:value="required"/>
+        <!-- Add tools:replace to override the conflicting meta-data value from the library -->
+        <meta-data
+            android:name="com.google.ar.core"
+            android:value="required"
+            tools:replace="android:value"/>
 
         <activity
             android:name=".HomeActivity"

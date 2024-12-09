@@ -1,20 +1,129 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#353e39"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    tools:context=".AccountFragment">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/account_card"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Account Section"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:gravity="center">
+
+            <!-- Personal Information (Move it higher) -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Personal Information"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"/>
+
+            <!-- Avatar ImageView (Circular) -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/avatar_image"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/dummy_avatar"
+                android:layout_gravity="center"
+                app:shapeAppearanceOverlay="@style/CircularImageView"
+                android:contentDescription="@string/avatar" />
+
+            <!-- Profile Name Text -->
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Name"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"/>
+
+            <!-- Change Name Button -->
+            <Button
+                android:id="@+id/change_name_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Change Name"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_button"/>
+
+            <!-- Change Password Button -->
+            <Button
+                android:id="@+id/change_password_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Change Password"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_button"/>
+
+            <!-- Notifications Switch -->
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/notifications_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enable Notifications"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"/>
+
+            <!-- Google Login Button -->
+            <Button
+                android:id="@+id/login_google"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Login with Google"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_button"/>
+
+            <!-- Facebook Login Button -->
+            <Button
+                android:id="@+id/login_facebook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Login with Facebook"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_button"/>
+
+            <!-- Report a Problem Button -->
+            <Button
+                android:id="@+id/report_problem_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Report a Problem"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_button"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

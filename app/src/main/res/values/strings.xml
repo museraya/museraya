@@ -17,4 +17,5 @@
     <string name="account">Account</string>
     <string name="live_view">Live View</string>
     <string name="home">Home</string>
+    <string name="avatar" />
 </resources>

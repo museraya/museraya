@@ -18,7 +18,11 @@
     <fragment
         android:id="@+id/navigation_account"
         android:name="com.example.museraya.AccountFragment"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_account">
+        <argument
+            android:name="username"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_settings"
@@ -106,4 +110,5 @@
         android:name="com.example.museraya.FilmSlideFragment"
         android:label="fragment_film_slide"
         tools:layout="@layout/fragment_film_slide" />
+
 </navigation>

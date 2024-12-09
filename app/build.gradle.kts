@@ -50,12 +50,20 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.material)
+
+    implementation("io.github.sceneview:arsceneview:2.2.1")
+    implementation(libs.kotlin.coroutines)
     implementation("com.google.ar:core:1.46.0")
-    implementation(libs.sceneform.ux)
+    implementation(libs.cardview)
+    implementation("com.google.android.material:material:1.9.0")
+
+
 }
