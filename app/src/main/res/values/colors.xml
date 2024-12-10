@@ -4,4 +4,8 @@
     <color name="colorPrimary">#393534</color>
     <color name="headerTitleColor">#FFD700</color>
     <color name="darkwhite">#f0f0f0</color>
+    <color name="gray">#757575</color>
+    <color name="light_gray">#E0E0E0</color>
+    <color name="red">#D32F2F</color>
+
 </resources>

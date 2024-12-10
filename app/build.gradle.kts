@@ -63,7 +63,7 @@ dependencies {
     implementation(libs.kotlin.coroutines)
     implementation("com.google.ar:core:1.46.0")
     implementation(libs.cardview)
-    implementation("com.google.android.material:material:1.9.0")
+    implementation("com.google.android.material:material:1.12.0")
 
 
 }

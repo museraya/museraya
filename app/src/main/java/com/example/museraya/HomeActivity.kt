@@ -15,6 +15,9 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.switchmaterial.SwitchMaterial
+import android.app.AlertDialog
+import android.widget.TextView
 
 class HomeActivity : AppCompatActivity() {
 
@@ -95,6 +98,72 @@ class HomeActivity : AppCompatActivity() {
         // Bottom Navigation Bar
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.setupWithNavController(navController)
+
+        // Integration for new settings content
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.navigation_settings) {
+                val fragmentView = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.view
+                fragmentView?.let {
+                    val rowProfileSettings = it.findViewById<View>(R.id.row_profile_settings)
+                    val switchPushNotifications =
+                        it.findViewById<SwitchMaterial>(R.id.switch_push_notifications)
+                    val switchEmailNotifications =
+                        it.findViewById<SwitchMaterial>(R.id.switch_email_notifications)
+                    val rowAbout = it.findViewById<View>(R.id.row_about)
+                    val rowLegal = it.findViewById<View>(R.id.row_legal)
+
+                    // Handle Profile Settings click
+                    rowProfileSettings?.setOnClickListener {
+                        Log.d("SettingsFragment", "Profile Settings clicked")
+                        // Navigate to Profile Settings screen or handle the action
+                    }
+
+                    // Handle Push Notifications toggle
+                    switchPushNotifications?.setOnCheckedChangeListener { _, isChecked ->
+                        Log.d("SettingsFragment", "Push Notifications: $isChecked")
+                        // Handle Push Notifications toggle
+                    }
+
+                    // Handle Email Notifications toggle
+                    switchEmailNotifications?.setOnCheckedChangeListener { _, isChecked ->
+                        Log.d("SettingsFragment", "Email Notifications: $isChecked")
+                        // Handle Email Notifications toggle
+                    }
+
+                    // Handle About click
+                    rowAbout?.setOnClickListener {
+                        Log.d("SettingsFragment", "About clicked")
+                        // Navigate to About screen or display an info dialog
+                        showAboutDialog()
+                    }
+
+                    // Handle Legal click
+                    rowLegal?.setOnClickListener {
+                        Log.d("SettingsFragment", "Legal clicked")
+                        // Navigate to Legal screen or display legal information
+                        showLegalDialog()
+                    }
+                }
+            }
+        }
+    }
+
+    // Dialog for About
+    private fun showAboutDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("About")
+            .setMessage("This is an example app demonstrating settings functionality.")
+            .setPositiveButton("OK", null)
+            .show()
+    }
+
+    // Dialog for Legal
+    private fun showLegalDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Legal")
+            .setMessage("Legal information goes here.")
+            .setPositiveButton("OK", null)
+            .show()
     }
 
     private fun logoutUser() {
