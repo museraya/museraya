@@ -28,11 +28,11 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="324dp"
-            android:layout_height="30dp"
+            android:layout_width="325dp"
+            android:layout_height="52dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/helvetica"
-            android:text="Woodcutter's Nightmare"
+            android:text="“Forester’s Nightmare” (26x36) by Art Tibaldo (2010)"
             android:textAlignment="center"
 
             android:textColor="@color/darkwhite"
@@ -48,7 +48,7 @@
             android:layout_height="112dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/helvetica"
-            android:text="Painting by Art Tibaldo (26x36)"
+            android:text="(Acrylic Painting) A surreal depiction of nature getting back at man’s treatment to eart."
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="17sp"

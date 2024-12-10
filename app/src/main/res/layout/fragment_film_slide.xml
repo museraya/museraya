@@ -47,7 +47,7 @@
             android:layout_width="362dp"
             android:layout_height="62dp"
             android:layout_marginTop="16dp"
-            android:text="..."
+            android:text="The forerunner or precursor of today’s LCD projector. This device uses positive film called slides taken by 35mm film cameras."
             android:fontFamily="@font/helvetica"
             android:textAlignment="center"
             android:textColor="@color/white"

@@ -28,11 +28,11 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="324dp"
-            android:layout_height="30dp"
+            android:layout_width="335dp"
+            android:layout_height="74dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/helvetica"
-            android:text="Tex Reavis Painting"
+            android:text="“Tex Reavis Panning Gold in a Benguet River” (40x30cm) by Art Tibaldo (2024)"
             android:textAlignment="center"
 
             android:textColor="@color/darkwhite"
@@ -48,7 +48,7 @@
             android:layout_height="112dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/helvetica"
-            android:text="Painting by Art Tibaldo (40x30cm)"
+            android:text="(Pen and Ink) A historical depiction of an American soldier who stayed in the Philippines after the war and settled as a gold panner."
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="17sp"
