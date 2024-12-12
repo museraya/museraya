@@ -33,7 +33,6 @@
             android:layout_height="55dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/helvetica"
-            android:text="Sony Cassette Tape Field Recorder "
             android:textAlignment="center"
             android:textColor="@color/darkwhite"
             android:textSize="22sp"
@@ -48,7 +47,6 @@
             android:layout_height="62dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/helvetica"
-            android:text="This recorder is used for interviews, radio recordings, and newscasters that can be portable and can be bought for live recordings. "
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="17sp"
@@ -57,35 +55,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="170dp"
-            android:layout_height="31dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/helvetica"
-            android:text="Additional Info:"
-            android:textAlignment="center"
-            android:textColor="@color/darkwhite"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="314dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/helvetica"
-            android:text="This is used by Art Tibaldo in his past career "
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

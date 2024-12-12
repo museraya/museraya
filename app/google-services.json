@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "235868279350",
+    "firebase_url": "https://museraya-1e747-default-rtdb.firebaseio.com",
+    "project_id": "museraya-1e747",
+    "storage_bucket": "museraya-1e747.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235868279350:android:cb2a6f0ef2d044f7fd3e97",
+        "android_client_info": {
+          "package_name": "com.example.museraya"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiHbnLx-Z2u35wlpl5oJTaBua-8_KDZCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

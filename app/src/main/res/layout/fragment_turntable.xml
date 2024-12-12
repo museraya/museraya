@@ -32,7 +32,6 @@
             android:layout_height="53dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/helvetica"
-            android:text="Vintage Phonograph with AM Radio (1940s-1950s)"
             android:textAlignment="center"
 
             android:textColor="@color/darkwhite"
@@ -48,7 +47,6 @@
             android:layout_height="112dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/helvetica"
-            android:text="Turntable that plays 33rpm and 45rpm vinyl records"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="17sp"

@@ -32,9 +32,7 @@
             android:layout_height="30dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/helvetica"
-            android:text="Polaroid Instant Photo  "
             android:textAlignment="center"
-
             android:textColor="@color/darkwhite"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -48,7 +46,6 @@
             android:layout_height="112dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/helvetica"
-            android:text="These cameras were used back then to take pictures in a matter of seconds, and the pictures will immediately come out. These are older versions, and newer versions are still available nowadays, but come at a higher price point. "
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="17sp"

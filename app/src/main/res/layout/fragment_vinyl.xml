@@ -32,7 +32,6 @@
             android:layout_height="30dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/helvetica"
-            android:text="33 RPM Vinyl Records"
             android:textAlignment="center"
 
             android:textColor="@color/darkwhite"
@@ -48,7 +47,6 @@
             android:layout_height="112dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/helvetica"
-            android:text="..."
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="17sp"

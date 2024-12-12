@@ -33,9 +33,7 @@
             android:layout_height="52dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/helvetica"
-            android:text="8 Millimeter Film Editor and Viewer "
             android:textAlignment="center"
-
             android:textColor="@color/darkwhite"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -49,7 +47,6 @@
             android:layout_height="112dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/helvetica"
-            android:text="A film making device that contains its own viewer, wherein you are able to watch and edit films by cutting the film tapes and use acetone to pin them back together, thus connecting the scenes. "
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="17sp"

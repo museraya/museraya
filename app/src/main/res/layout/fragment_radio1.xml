@@ -32,7 +32,7 @@
             android:layout_height="30dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/helvetica"
-            android:text="Bell Telephone "
+            android:text=""
             android:textAlignment="center"
 
             android:textColor="@color/darkwhite"
@@ -48,7 +48,7 @@
             android:layout_height="112dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/helvetica"
-    android:text="One of the first patented concepts of wired telephone started by Alexander Graham Bell. Before telephones were invented, telegraphs were used. "
+            android:text=""
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="17sp"
