@@ -17,6 +17,7 @@ material = "1.9.0"
 
 kotlinx-coroutines = "1.7.3"
 firebaseFirestore = "25.1.1"
+firebaseAuth = "23.1.0"
 
 
 
@@ -39,6 +40,7 @@ cardview = "androidx.cardview:cardview:1.0.0"
 
 kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 
 
 [plugins]
