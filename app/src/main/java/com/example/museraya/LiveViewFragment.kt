@@ -82,7 +82,7 @@ class LiveViewFragment : Fragment() {
                 isEditable = true
                 lifecycleScope.launch {
                     val modelInstance = arSceneView.modelLoader.loadModelInstance(
-                        "file:///android_asset/models/rubber_duck_toy_4k.gltf"
+                        "file:///android_asset/models/woodcutter.glb"
                     )
                     if (modelInstance != null) {
                         Toast.makeText(requireContext(), "Model loaded successfully", Toast.LENGTH_SHORT).show()
