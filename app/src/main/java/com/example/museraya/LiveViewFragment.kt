@@ -84,7 +84,7 @@ class LiveViewFragment : Fragment() {
                 isEditable = true
                 lifecycleScope.launch {
                     val modelInstance = arSceneView.modelLoader.loadModelInstance(
-                        "https://sceneview.github.io/assets/models/DamagedHelmet.glb"
+                        "file:///android_asset/models/woodcutter/frame.gltf"
                     )
                     if (modelInstance != null) {
                         Toast.makeText(requireContext(), "Model loaded successfully", Toast.LENGTH_SHORT).show()
@@ -96,34 +96,8 @@ class LiveViewFragment : Fragment() {
                             centerOrigin = Position(y = -0.5f)
                         ).apply { isEditable = true }
 
-                        // Modify the material instance to set a default color
-                        modelInstance.materialInstances.forEach { materialInstance ->
-                            try {
-                                // Use a float array for RGBA values
-                                materialInstance.setParameter(
-                                    "baseColorFactor",
-                                    1.0f, 1.0f, 0.0f, 1.0f // Yellow color
-                                )
-                            } catch (e: IllegalArgumentException) {
-                                // Log an error if the parameter is not supported
-                                e.printStackTrace()
-                                Toast.makeText(requireContext(), "Failed to set material color", Toast.LENGTH_SHORT).show()
-                            }
-                        }
 
-                        // Add a bounding box for visual feedback
-                        val boundingBoxNode = CubeNode(
-                            arSceneView.engine,
-                            size = modelNode.extents,
-                            center = modelNode.center,
-                            materialInstance = materialLoader.createColorInstance(
-                                Color.argb(51, 0, 255, 0) // Semi-transparent green
-                            )
-                        ).apply {
-                            isVisible = true // Make the bounding box visible
-                        }
 
-                        modelNode.addChildNode(boundingBoxNode)
                         addChildNode(modelNode)
                     } else {
                         Toast.makeText(requireContext(), "Failed to load model", Toast.LENGTH_SHORT).show()
