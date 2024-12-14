@@ -7,5 +7,8 @@
     <color name="gray">#757575</color>
     <color name="light_gray">#E0E0E0</color>
     <color name="red">#D32F2F</color>
-
+    <color name="charcoal">#333333</color>
+    <color name="beige">#D9CFC1</color>
+    <color name="olive">#B5B8A3</color>
+    <color name="orange">#D16A3B</color>
 </resources>

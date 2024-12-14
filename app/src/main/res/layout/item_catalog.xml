@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/itemImageView"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:scaleType="centerCrop"
         android:src="@drawable/logo"
         android:clipToOutline="true"
@@ -20,7 +20,7 @@
         android:text="Item Title"
         android:textSize="14sp"
         android:textColor="@color/black"
-        android:textStyle="italic"
+        android:textStyle="bold|italic"
         android:fontFamily="@font/helvetica"
         android:layout_marginTop="4dp" />
 </LinearLayout>
