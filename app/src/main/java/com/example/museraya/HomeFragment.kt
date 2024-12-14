@@ -20,7 +20,7 @@ class HomeFragment : Fragment() {
 
         // Initialize RecyclerView
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = GridLayoutManager(context, 2) // Display 2 items per row
+        recyclerView.layoutManager = GridLayoutManager(context, 1) // Display 2 items per row
 
         // Sample data for the catalog
         val catalogItems = listOf(
