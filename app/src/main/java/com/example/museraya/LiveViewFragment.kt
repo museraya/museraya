@@ -1,7 +1,7 @@
 package com.example.museraya
 
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,15 +15,18 @@ import com.google.ar.core.Plane
 import io.github.sceneview.ar.ARSceneView
 import io.github.sceneview.ar.arcore.getUpdatedPlanes
 import io.github.sceneview.ar.node.AnchorNode
+import io.github.sceneview.loaders.MaterialLoader
 import io.github.sceneview.math.Position
+import io.github.sceneview.node.CubeNode
 import io.github.sceneview.node.ModelNode
 import kotlinx.coroutines.launch
-
+import com.google.android.filament.utils.Float4
 
 class LiveViewFragment : Fragment() {
 
     private lateinit var arSceneView: ARSceneView
     private lateinit var placeModelButton: Button
+    private lateinit var materialLoader: MaterialLoader
     private var anchorNode: AnchorNode? = null
 
     override fun onCreateView(
@@ -33,6 +36,10 @@ class LiveViewFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_liveview, container, false)
         arSceneView = view.findViewById(R.id.arSceneView)
         placeModelButton = view.findViewById(R.id.btnPlaceModel)
+
+        // Initialize MaterialLoader with ARSceneView's engine
+        materialLoader = MaterialLoader(arSceneView.engine, requireContext())
+
         return view
     }
 
@@ -42,8 +49,9 @@ class LiveViewFragment : Fragment() {
         arSceneView.apply {
             lifecycle = viewLifecycleOwner.lifecycle
             planeRenderer.isEnabled = true
+            planeRenderer.isShadowReceiver = false
 
-            configureSession { session, config ->
+            configureSession { _, config ->
                 config.depthMode = Config.DepthMode.AUTOMATIC
                 config.instantPlacementMode = Config.InstantPlacementMode.DISABLED
                 config.lightEstimationMode = Config.LightEstimationMode.ENVIRONMENTAL_HDR
@@ -52,7 +60,7 @@ class LiveViewFragment : Fragment() {
             onSessionUpdated = { _, frame ->
                 frame.getUpdatedPlanes().firstOrNull { it.type == Plane.Type.HORIZONTAL_UPWARD_FACING }
                     ?.let { plane ->
-                        anchorNode ?: run {
+                        if (anchorNode == null) {
                             placeAnchor(plane.createAnchor(plane.centerPose))
                         }
                     }
@@ -60,20 +68,14 @@ class LiveViewFragment : Fragment() {
         }
 
         placeModelButton.setOnClickListener {
-            // Use the latest frame from the onSessionUpdated callback
             arSceneView.onSessionUpdated = { _, frame ->
-                // Explicitly define the type of the parameter as Plane
-                val plane: Plane? = frame.getUpdatedPlanes()
-                    .firstOrNull { detectedPlane -> detectedPlane.type == Plane.Type.HORIZONTAL_UPWARD_FACING }
-
-                // If a plane is found, create an anchor and place the model
-                plane?.let { detectedPlane ->
-                    placeAnchor(detectedPlane.createAnchor(detectedPlane.centerPose))
-                }
+                frame.getUpdatedPlanes()
+                    .firstOrNull { it.type == Plane.Type.HORIZONTAL_UPWARD_FACING }
+                    ?.let { plane ->
+                        placeAnchor(plane.createAnchor(plane.centerPose))
+                    }
             }
         }
-
-
     }
 
     private fun placeAnchor(anchor: Anchor) {
@@ -82,17 +84,47 @@ class LiveViewFragment : Fragment() {
                 isEditable = true
                 lifecycleScope.launch {
                     val modelInstance = arSceneView.modelLoader.loadModelInstance(
-                        "file:///android_asset/models/woodcutter/frame.gltf"
+                        "https://sceneview.github.io/assets/models/DamagedHelmet.glb"
                     )
                     if (modelInstance != null) {
                         Toast.makeText(requireContext(), "Model loaded successfully", Toast.LENGTH_SHORT).show()
-                        addChildNode(
-                            ModelNode(
-                                modelInstance = modelInstance,
-                                scaleToUnits = 0.5f,
-                                centerOrigin = Position(y = -0.5f)
-                            ).apply { isEditable = true }
-                        )
+
+                        // Create the main model node
+                        val modelNode = ModelNode(
+                            modelInstance = modelInstance,
+                            scaleToUnits = 0.5f,
+                            centerOrigin = Position(y = -0.5f)
+                        ).apply { isEditable = true }
+
+                        // Modify the material instance to set a default color
+                        modelInstance.materialInstances.forEach { materialInstance ->
+                            try {
+                                // Use a float array for RGBA values
+                                materialInstance.setParameter(
+                                    "baseColorFactor",
+                                    1.0f, 1.0f, 0.0f, 1.0f // Yellow color
+                                )
+                            } catch (e: IllegalArgumentException) {
+                                // Log an error if the parameter is not supported
+                                e.printStackTrace()
+                                Toast.makeText(requireContext(), "Failed to set material color", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
+                        // Add a bounding box for visual feedback
+                        val boundingBoxNode = CubeNode(
+                            arSceneView.engine,
+                            size = modelNode.extents,
+                            center = modelNode.center,
+                            materialInstance = materialLoader.createColorInstance(
+                                Color.argb(51, 0, 255, 0) // Semi-transparent green
+                            )
+                        ).apply {
+                            isVisible = true // Make the bounding box visible
+                        }
+
+                        modelNode.addChildNode(boundingBoxNode)
+                        addChildNode(modelNode)
                     } else {
                         Toast.makeText(requireContext(), "Failed to load model", Toast.LENGTH_SHORT).show()
                     }
@@ -102,6 +134,9 @@ class LiveViewFragment : Fragment() {
             }
         }
     }
+
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

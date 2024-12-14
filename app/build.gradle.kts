@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.auth)
+    implementation(libs.androidx.runtime.android)
 
 
     testImplementation(libs.junit)
@@ -62,7 +63,7 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.material)
 
-    implementation("io.github.sceneview:arsceneview:2.2.1")
+    implementation("io.github.sceneview:arsceneview:2.0.3")
     implementation(libs.kotlin.coroutines)
     implementation("com.google.ar:core:1.46.0")
     implementation(libs.cardview)
@@ -70,4 +71,19 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
     implementation("com.google.firebase:firebase-analytics")
 
+    //dito start ng changes
+    implementation("androidx.compose.ui:ui:1.4.0")
+    implementation("androidx.compose.material3:material3:1.1.0")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.4.0")
+
+    // Kotlin dependencies
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")
+
+    // Accompanist (Optional - for extra Compose functionality)
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.23.1")
+
+    // Test dependencies
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.4.0")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.4.0")
 }

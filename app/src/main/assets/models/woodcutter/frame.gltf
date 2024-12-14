@@ -1,286 +1,344 @@
 {
-	"asset": {
-		"generator": "Khronos glTF Blender I/O v4.2.70",
-		"version": "2.0"
+	"asset":{
+		"generator":"Khronos glTF Blender I/O v4.2.70",
+		"version":"2.0"
 	},
-	"scene": 0,
-	"scenes": [
+	"scene":0,
+	"scenes":[
 		{
-			"name": "Scene",
-			"nodes": [0, 1, 2]
+			"name":"Scene",
+			"nodes":[
+				0,
+				1,
+				2
+			]
 		}
 	],
-	"nodes": [
+	"nodes":[
 		{
-			"mesh": 0,
-			"name": "Plane",
-			"scale": [1.5, 1, 1]
+			"mesh":0,
+			"name":"Plane",
+			"scale":[
+				1.5,
+				1,
+				1
+			]
 		},
 		{
-			"mesh": 1,
-			"name": "Plane.001",
-			"scale": [1.5, 1, 1],
-			"translation": [-0.015598402358591557, -0.04975523799657822, 0.011103039607405663]
+			"mesh":1,
+			"name":"Plane.001",
+			"scale":[
+				1.5,
+				1,
+				1
+			],
+			"translation":[
+				-0.015598402358591557,
+				-0.04975523799657822,
+				0.011103039607405663
+			]
 		},
 		{
-			"mesh": 2,
-			"name": "Plane.002",
-			"scale": [1.5, 1, 1],
-			"translation": [-0.015598402358591557, -0.04975523799657822, 0.011103039607405663]
+			"mesh":2,
+			"name":"Plane.002",
+			"scale":[
+				1.5,
+				1,
+				1
+			],
+			"translation":[
+				-0.015598402358591557,
+				-0.04975523799657822,
+				0.011103039607405663
+			]
 		}
 	],
-	"materials": [
+	"materials":[
 		{
-			"doubleSided": true,
-			"name": "Material.003",
-			"pbrMetallicRoughness": {
-				"baseColorFactor": [0.02801782451570034, 0.02801782451570034, 0.02801782451570034, 1],
-				"metallicFactor": 0,
-				"roughnessFactor": 0.5
+			"doubleSided":true,
+			"name":"Material.003",
+			"pbrMetallicRoughness":{
+				"baseColorFactor":[
+					0.02801782451570034,
+					0.02801782451570034,
+					0.02801782451570034,
+					1
+				],
+				"metallicFactor":0,
+				"roughnessFactor":0.5
 			}
 		},
 		{
-			"doubleSided": true,
-			"name": "Material.005",
-			"pbrMetallicRoughness": {
-				"baseColorTexture": {
-					"index": 0
+			"doubleSided":true,
+			"name":"Material.005",
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":0
 				},
-				"metallicFactor": 0,
-				"roughnessFactor": 0.5
+				"metallicFactor":0,
+				"roughnessFactor":0.5
 			}
 		},
 		{
-			"doubleSided": true,
-			"name": "Material.004",
-			"pbrMetallicRoughness": {
-				"baseColorFactor": [0.800000011920929, 0.800000011920929, 0.800000011920929, 1],
-				"metallicFactor": 0,
-				"roughnessFactor": 0.5
+			"doubleSided":true,
+			"name":"Material.004",
+			"pbrMetallicRoughness":{
+				"baseColorFactor":[
+					0.800000011920929,
+					0.800000011920929,
+					0.800000011920929,
+					1
+				],
+				"metallicFactor":0,
+				"roughnessFactor":0.5
 			}
 		}
 	],
-	"meshes": [
+	"meshes":[
 		{
-			"name": "Plane.001",
-			"primitives": [
+			"name":"Plane.001",
+			"primitives":[
 				{
-					"attributes": {
-						"POSITION": 0,
-						"NORMAL": 1,
-						"TEXCOORD_0": 2
+					"attributes":{
+						"POSITION":0,
+						"NORMAL":1,
+						"TEXCOORD_0":2
 					},
-					"indices": 3,
-					"material": 0
+					"indices":3,
+					"material":0
 				}
 			]
 		},
 		{
-			"name": "Plane.003",
-			"primitives": [
+			"name":"Plane.003",
+			"primitives":[
 				{
-					"attributes": {
-						"POSITION": 4,
-						"NORMAL": 5,
-						"TEXCOORD_0": 6
+					"attributes":{
+						"POSITION":4,
+						"NORMAL":5,
+						"TEXCOORD_0":6
 					},
-					"indices": 7,
-					"material": 1
+					"indices":7,
+					"material":1
 				}
 			]
 		},
 		{
-			"name": "Plane.004",
-			"primitives": [
+			"name":"Plane.004",
+			"primitives":[
 				{
-					"attributes": {
-						"POSITION": 8,
-						"NORMAL": 9,
-						"TEXCOORD_0": 10
+					"attributes":{
+						"POSITION":8,
+						"NORMAL":9,
+						"TEXCOORD_0":10
 					},
-					"indices": 11,
-					"material": 2
+					"indices":11,
+					"material":2
 				}
 			]
 		}
 	],
-	"textures": [
+	"textures":[
 		{
-			"sampler": 0,
-			"source": 0
+			"sampler":0,
+			"source":0
 		}
 	],
-	"images": [
+	"images":[
 		{
-			"mimeType": "image/jpeg",
-			"name": "woodcutter_box",
-			"uri": "assets/models/woodcutter/woodcutter_box.jpg"
+			"mimeType":"image/jpeg",
+			"name":"woodcutter_box",
+			"uri":"woodcutter_box.jpg"
 		}
 	],
-	"accessors": [
+	"accessors":[
 		{
-			"bufferView": 0,
-			"componentType": 5126,
-			"count": 48,
-			"max": [1, 0.1051841676235199, 1],
-			"min": [-1, 0, -1],
-			"type": "VEC3"
+			"bufferView":0,
+			"componentType":5126,
+			"count":48,
+			"max":[
+				1,
+				0.1051841676235199,
+				1
+			],
+			"min":[
+				-1,
+				0,
+				-1
+			],
+			"type":"VEC3"
 		},
 		{
-			"bufferView": 1,
-			"componentType": 5126,
-			"count": 48,
-			"type": "VEC3"
+			"bufferView":1,
+			"componentType":5126,
+			"count":48,
+			"type":"VEC3"
 		},
 		{
-			"bufferView": 2,
-			"componentType": 5126,
-			"count": 48,
-			"type": "VEC2"
+			"bufferView":2,
+			"componentType":5126,
+			"count":48,
+			"type":"VEC2"
 		},
 		{
-			"bufferView": 3,
-			"componentType": 5123,
-			"count": 96,
-			"type": "SCALAR"
+			"bufferView":3,
+			"componentType":5123,
+			"count":96,
+			"type":"SCALAR"
 		},
 		{
-			"bufferView": 4,
-			"componentType": 5126,
-			"count": 4,
-			"max": [0.9246580004692078, 0.1051841676235199, 0.9246580004692078],
-			"min": [-0.9246580004692078, 0.1051841676235199, -0.9246580004692078],
-			"type": "VEC3"
+			"bufferView":4,
+			"componentType":5126,
+			"count":4,
+			"max":[
+				0.9246580004692078,
+				0.1051841676235199,
+				0.9246580004692078
+			],
+			"min":[
+				-0.9246580004692078,
+				0.1051841676235199,
+				-0.9246580004692078
+			],
+			"type":"VEC3"
 		},
 		{
-			"bufferView": 5,
-			"componentType": 5126,
-			"count": 4,
-			"type": "VEC3"
+			"bufferView":5,
+			"componentType":5126,
+			"count":4,
+			"type":"VEC3"
 		},
 		{
-			"bufferView": 6,
-			"componentType": 5126,
-			"count": 4,
-			"type": "VEC2"
+			"bufferView":6,
+			"componentType":5126,
+			"count":4,
+			"type":"VEC2"
 		},
 		{
-			"bufferView": 7,
-			"componentType": 5123,
-			"count": 6,
-			"type": "SCALAR"
+			"bufferView":7,
+			"componentType":5123,
+			"count":6,
+			"type":"SCALAR"
 		},
 		{
-			"bufferView": 8,
-			"componentType": 5126,
-			"count": 48,
-			"max": [0.9246580004692078, 0.14094316959381104, 0.9246580004692078],
-			"min": [-0.9246580004692078, 0.1051841676235199, -0.9246580004692078],
-			"type": "VEC3"
+			"bufferView":8,
+			"componentType":5126,
+			"count":48,
+			"max":[
+				0.9246580004692078,
+				0.14094316959381104,
+				0.9246580004692078
+			],
+			"min":[
+				-0.9246580004692078,
+				0.1051841676235199,
+				-0.9246580004692078
+			],
+			"type":"VEC3"
 		},
 		{
-			"bufferView": 9,
-			"componentType": 5126,
-			"count": 48,
-			"type": "VEC3"
+			"bufferView":9,
+			"componentType":5126,
+			"count":48,
+			"type":"VEC3"
 		},
 		{
-			"bufferView": 10,
-			"componentType": 5126,
-			"count": 48,
-			"type": "VEC2"
+			"bufferView":10,
+			"componentType":5126,
+			"count":48,
+			"type":"VEC2"
 		},
 		{
-			"bufferView": 11,
-			"componentType": 5123,
-			"count": 96,
-			"type": "SCALAR"
+			"bufferView":11,
+			"componentType":5123,
+			"count":96,
+			"type":"SCALAR"
 		}
 	],
-	"bufferViews": [
+	"bufferViews":[
 		{
-			"buffer": 0,
-			"byteLength": 576,
-			"byteOffset": 0,
-			"target": 34962
+			"buffer":0,
+			"byteLength":576,
+			"byteOffset":0,
+			"target":34962
 		},
 		{
-			"buffer": 0,
-			"byteLength": 576,
-			"byteOffset": 576,
-			"target": 34962
+			"buffer":0,
+			"byteLength":576,
+			"byteOffset":576,
+			"target":34962
 		},
 		{
-			"buffer": 0,
-			"byteLength": 384,
-			"byteOffset": 1152,
-			"target": 34962
+			"buffer":0,
+			"byteLength":384,
+			"byteOffset":1152,
+			"target":34962
 		},
 		{
-			"buffer": 0,
-			"byteLength": 192,
-			"byteOffset": 1536,
-			"target": 34963
+			"buffer":0,
+			"byteLength":192,
+			"byteOffset":1536,
+			"target":34963
 		},
 		{
-			"buffer": 0,
-			"byteLength": 48,
-			"byteOffset": 1728,
-			"target": 34962
+			"buffer":0,
+			"byteLength":48,
+			"byteOffset":1728,
+			"target":34962
 		},
 		{
-			"buffer": 0,
-			"byteLength": 48,
-			"byteOffset": 1776,
-			"target": 34962
+			"buffer":0,
+			"byteLength":48,
+			"byteOffset":1776,
+			"target":34962
 		},
 		{
-			"buffer": 0,
-			"byteLength": 32,
-			"byteOffset": 1824,
-			"target": 34962
+			"buffer":0,
+			"byteLength":32,
+			"byteOffset":1824,
+			"target":34962
 		},
 		{
-			"buffer": 0,
-			"byteLength": 12,
-			"byteOffset": 1856,
-			"target": 34963
+			"buffer":0,
+			"byteLength":12,
+			"byteOffset":1856,
+			"target":34963
 		},
 		{
-			"buffer": 0,
-			"byteLength": 576,
-			"byteOffset": 1868,
-			"target": 34962
+			"buffer":0,
+			"byteLength":576,
+			"byteOffset":1868,
+			"target":34962
 		},
 		{
-			"buffer": 0,
-			"byteLength": 576,
-			"byteOffset": 2444,
-			"target": 34962
+			"buffer":0,
+			"byteLength":576,
+			"byteOffset":2444,
+			"target":34962
 		},
 		{
-			"buffer": 0,
-			"byteLength": 384,
-			"byteOffset": 3020,
-			"target": 34962
+			"buffer":0,
+			"byteLength":384,
+			"byteOffset":3020,
+			"target":34962
 		},
 		{
-			"buffer": 0,
-			"byteLength": 192,
-			"byteOffset": 3404,
-			"target": 34963
+			"buffer":0,
+			"byteLength":192,
+			"byteOffset":3404,
+			"target":34963
 		}
 	],
-	"samplers": [
+	"samplers":[
 		{
-			"magFilter": 9729,
-			"minFilter": 9987
+			"magFilter":9729,
+			"minFilter":9987
 		}
 	],
-	"buffers": [
+	"buffers":[
 		{
-			"byteLength": 3596,
-			"uri": "assets/models/woodcutter/frame.bin"
+			"byteLength":3596,
+			"uri":"frame.bin"
 		}
 	]
 }
