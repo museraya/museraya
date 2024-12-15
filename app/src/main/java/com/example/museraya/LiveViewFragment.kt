@@ -17,7 +17,6 @@ import io.github.sceneview.ar.arcore.getUpdatedPlanes
 import io.github.sceneview.ar.node.AnchorNode
 import io.github.sceneview.loaders.MaterialLoader
 import io.github.sceneview.math.Position
-import io.github.sceneview.node.CubeNode
 import io.github.sceneview.node.ModelNode
 import kotlinx.coroutines.launch
 import com.google.android.filament.utils.Float4
@@ -50,6 +49,11 @@ class LiveViewFragment : Fragment() {
             lifecycle = viewLifecycleOwner.lifecycle
             planeRenderer.isEnabled = true
             planeRenderer.isShadowReceiver = false
+
+            // Load HDR environment
+            environment = environmentLoader.createHDREnvironment(
+                assetFileLocation = "environments/HDR_040_Field_Env.hdr"
+            )!!
 
             configureSession { _, config ->
                 config.depthMode = Config.DepthMode.AUTOMATIC
@@ -96,8 +100,6 @@ class LiveViewFragment : Fragment() {
                             centerOrigin = Position(y = -0.5f)
                         ).apply { isEditable = true }
 
-
-
                         addChildNode(modelNode)
                     } else {
                         Toast.makeText(requireContext(), "Failed to load model", Toast.LENGTH_SHORT).show()
@@ -108,9 +110,6 @@ class LiveViewFragment : Fragment() {
             }
         }
     }
-
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()
