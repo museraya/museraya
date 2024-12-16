@@ -1,6 +1,5 @@
 package com.example.museraya
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +18,6 @@ import io.github.sceneview.loaders.MaterialLoader
 import io.github.sceneview.math.Position
 import io.github.sceneview.node.ModelNode
 import kotlinx.coroutines.launch
-import com.google.android.filament.utils.Float4
 
 class LiveViewFragment : Fragment() {
 
@@ -27,6 +25,8 @@ class LiveViewFragment : Fragment() {
     private lateinit var placeModelButton: Button
     private lateinit var materialLoader: MaterialLoader
     private var anchorNode: AnchorNode? = null
+    private var modelNode: ModelNode? = null // Reference to the model node
+    private var isModelLocked = false // Tracks whether the model is locked in place
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,21 +71,16 @@ class LiveViewFragment : Fragment() {
             }
         }
 
+
         placeModelButton.setOnClickListener {
-            arSceneView.onSessionUpdated = { _, frame ->
-                frame.getUpdatedPlanes()
-                    .firstOrNull { it.type == Plane.Type.HORIZONTAL_UPWARD_FACING }
-                    ?.let { plane ->
-                        placeAnchor(plane.createAnchor(plane.centerPose))
-                    }
-            }
+            toggleModelLockState()
         }
     }
 
     private fun placeAnchor(anchor: Anchor) {
         if (anchorNode == null) {
             anchorNode = AnchorNode(arSceneView.engine, anchor).apply {
-                isEditable = true
+                isEditable = true // Initially allow movement
                 lifecycleScope.launch {
                     val modelInstance = arSceneView.modelLoader.loadModelInstance(
                         "file:///android_asset/models/woodcutter/frame.gltf"
@@ -94,13 +89,13 @@ class LiveViewFragment : Fragment() {
                         Toast.makeText(requireContext(), "Model loaded successfully", Toast.LENGTH_SHORT).show()
 
                         // Create the main model node
-                        val modelNode = ModelNode(
+                        modelNode = ModelNode(
                             modelInstance = modelInstance,
                             scaleToUnits = 0.5f,
                             centerOrigin = Position(y = -0.5f)
-                        ).apply { isEditable = true }
+                        ).apply { isEditable = true } // Initially editable
 
-                        addChildNode(modelNode)
+                        addChildNode(modelNode!!)
                     } else {
                         Toast.makeText(requireContext(), "Failed to load model", Toast.LENGTH_SHORT).show()
                     }
@@ -110,6 +105,30 @@ class LiveViewFragment : Fragment() {
             }
         }
     }
+
+    private fun toggleModelLockState() {
+        if (anchorNode != null && modelNode != null) {
+            isModelLocked = !isModelLocked // Toggle the lock state
+
+            if (isModelLocked) {
+                // bawal galawin bruh
+                anchorNode?.isEditable = false
+                modelNode?.isEditable = false
+                Toast.makeText(requireContext(), "Model rotation and size locked!", Toast.LENGTH_SHORT).show()
+            } else {
+                // pwede magalaw bruh
+                anchorNode?.isEditable = true
+                modelNode?.isEditable = true
+                Toast.makeText(requireContext(), "Model rotation and size unlocked!", Toast.LENGTH_SHORT).show()
+            }
+
+            // update ng text button bruh
+            placeModelButton.text = if (isModelLocked) "Unlock Rotation" else "lock Rotation"
+        } else {
+            Toast.makeText(requireContext(), "No model to lock!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
