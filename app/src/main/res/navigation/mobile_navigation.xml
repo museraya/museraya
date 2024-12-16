@@ -101,7 +101,11 @@
     <fragment
         android:id="@+id/woodcutterFragment"
         android:name="com.example.museraya.WoodcutterFragment"
-        android:label="WoodcutterFragment" />
+        android:label="WoodcutterFragment" >
+        <action
+            android:id="@+id/action_woodcutterFragment_to_navigation_liveview"
+            app:destination="@id/navigation_liveview" />
+    </fragment>
     <fragment
         android:id="@+id/filmCassetteFragment"
         android:name="com.example.museraya.FilmCassetteFragment"
