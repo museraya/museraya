@@ -97,7 +97,11 @@
     <fragment
         android:id="@+id/texFragment"
         android:name="com.example.museraya.TexFragment"
-        android:label="TexFragment" />
+        android:label="TexFragment" >
+        <action
+            android:id="@+id/action_texFragment_to_texArFragment"
+            app:destination="@id/texArFragment" />
+    </fragment>
     <fragment
         android:id="@+id/woodcutterFragment"
         android:name="com.example.museraya.WoodcutterFragment"
@@ -116,5 +120,10 @@
         android:name="com.example.museraya.FilmSlideFragment"
         android:label="fragment_film_slide"
         tools:layout="@layout/fragment_film_slide" />
+    <fragment
+        android:id="@+id/texArFragment"
+        android:name="com.example.museraya.TexArFragment"
+        android:label="fragment_tex_ar"
+        tools:layout="@layout/fragment_tex_ar" />
 
 </navigation>
