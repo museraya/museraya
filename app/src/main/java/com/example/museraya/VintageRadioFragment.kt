@@ -39,9 +39,9 @@ class VintageRadioFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_vintage_radio, container, false)
 
         // dito ilalagay yung id ng image
-        val radioImage: ImageView = view.findViewById(R.id.imageButton) // Replace with your actual ImageView ID
-        val nargaImage: ImageView = view.findViewById(R.id.imageButton2) // Replace with your actual second ImageView ID
-        val boomImage: ImageView = view.findViewById(R.id.imageButton3) // Replace with your actual second ImageView ID
+        val radioImage: ImageView = view.findViewById(R.id.imageButton) // Replace the actual ImageView ID yung nasa taas
+        val nargaImage: ImageView = view.findViewById(R.id.imageButton2)
+        val boomImage: ImageView = view.findViewById(R.id.imageButton3)
 
         // dito ilalagay yung kung saan mapupunta pag pinindot mo yung nasa taas which is imageButton ang ID HAHAHAHA
         radioImage.setOnClickListener {

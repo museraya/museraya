@@ -86,4 +86,10 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.4.0")
     debugImplementation("androidx.compose.ui:ui-tooling:1.4.0")
+
+    // ViewPager2 for the carousel
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
+
+    // Material Components for Android
+    implementation("com.google.android.material:material:1.6.1")
 }
