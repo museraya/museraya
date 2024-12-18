@@ -20,6 +20,7 @@ firebaseFirestore = "25.1.1"
 firebaseAuth = "23.1.0"
 runtimeAndroid = "1.7.6"
 firebaseDatabase = "21.0.0"
+uiTestAndroid = "1.5.4"
 
 
 
@@ -45,6 +46,7 @@ firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 androidx-runtime-android = { group = "androidx.compose.runtime", name = "runtime-android", version.ref = "runtimeAndroid" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
+androidx-ui-test-android = { group = "androidx.compose.ui", name = "ui-test-android", version.ref = "uiTestAndroid" }
 
 
 [plugins]

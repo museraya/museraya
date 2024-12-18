@@ -18,6 +18,7 @@ class BookingFragment : Fragment() {
 
     private lateinit var fullNameInput: EditText
     private lateinit var guestQuantityInput: EditText
+    private lateinit var contactInput: EditText
     private lateinit var datePickerButton: Button
     private lateinit var timePickerButton: Button
     private lateinit var selectedDateTime: TextView
@@ -37,6 +38,7 @@ class BookingFragment : Fragment() {
         // Initialize views
         fullNameInput = view.findViewById(R.id.full_name_input)
         guestQuantityInput = view.findViewById(R.id.guest_quantity_input)
+        contactInput = view.findViewById(R.id.contact_input)
         datePickerButton = view.findViewById(R.id.date_picker_button)
         timePickerButton = view.findViewById(R.id.time_picker_button)
         selectedDateTime = view.findViewById(R.id.selected_datetime)
@@ -105,8 +107,9 @@ class BookingFragment : Fragment() {
     private fun submitBooking() {
         val fullName = fullNameInput.text.toString()
         val guestQuantity = guestQuantityInput.text.toString()
+        val contactNumber = contactInput.text.toString()
 
-        if (fullName.isBlank() || guestQuantity.isBlank() || selectedDate == null || selectedTime == null) {
+        if (fullName.isBlank() || guestQuantity.isBlank() || contactNumber.isBlank() || selectedDate == null || selectedTime == null) {
             Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
             return
         }
@@ -128,12 +131,14 @@ class BookingFragment : Fragment() {
                     "appointment1"
                 }
 
-                // Create the booking document
+                // Create the booking document with "status" set to "pending"
                 val booking = hashMapOf(
                     "id" to nextId,
                     "name" to fullName,
                     "quantity" to guestQuantity.toInt(),
-                    "date" to bookingTimestamp
+                    "email" to contactNumber,
+                    "date" to bookingTimestamp,
+                    "status" to "pending"  // Add status field with "pending" value
                 )
 
                 db.collection("booking")
@@ -160,6 +165,7 @@ class BookingFragment : Fragment() {
     private fun resetInputs() {
         fullNameInput.text.clear()
         guestQuantityInput.text.clear()
+        contactInput.text.clear()
         selectedDate = null
         selectedTime = null
         selectedDateTime.text = "Selected Date & Time:"
