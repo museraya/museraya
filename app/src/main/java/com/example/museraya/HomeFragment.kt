@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import android.widget.Button
 
 class HomeFragment : Fragment() {
 
@@ -20,7 +21,7 @@ class HomeFragment : Fragment() {
 
         // Initialize RecyclerView
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = GridLayoutManager(context, 1) // Display 2 items per row
+        recyclerView.layoutManager = GridLayoutManager(context, 1) // Display 1 item per row
 
         // Sample data for the catalog
         val catalogItems = listOf(
@@ -30,21 +31,13 @@ class HomeFragment : Fragment() {
             CatalogItem("Paintings and Art", R.drawable.d4)
         )
 
-
         val adapter = CatalogAdapter(catalogItems) { item ->
-            if (item.title == "Vintage Audio") {
-                view.findNavController().navigate(R.id.navigation_vintage_radio)
+            when (item.title) {
+                "Vintage Audio" -> view.findNavController().navigate(R.id.navigation_vintage_radio)
+                "Vintage Film" -> view.findNavController().navigate(R.id.vintageFilmFragment)
+                "Vintage Music" -> view.findNavController().navigate(R.id.vintageMusicFragment)
+                "Paintings and Art" -> view.findNavController().navigate(R.id.artFragment)
             }
-            if (item.title == "Vintage Film") {
-                view.findNavController().navigate(R.id.vintageFilmFragment)
-            }
-            if (item.title == "Vintage Music") {
-                view.findNavController().navigate(R.id.vintageMusicFragment)
-            }
-            if (item.title == "Paintings and Art") {
-                view.findNavController().navigate(R.id.artFragment)
-            }
-
         }
         recyclerView.adapter = adapter
 

@@ -60,6 +60,9 @@ class HomeActivity : AppCompatActivity() {
                 R.id.nav_settings -> {
                     navController.navigate(R.id.navigation_settings)
                 }
+                R.id.nav_booking -> {
+                    navController.navigate(R.id.bookingFragment)
+                }
                 R.id.nav_logout -> {
                     logoutUser()
                 }

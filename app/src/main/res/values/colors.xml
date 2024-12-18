@@ -11,4 +11,8 @@
     <color name="beige">#D9CFC1</color>
     <color name="olive">#B5B8A3</color>
     <color name="orange">#D16A3B</color>
+    <color name="blue">#3F51B5</color>
+    <color name="dark_blue">#303F9F</color>
+    <color name="dark_orange">#FF8C00</color>
+
 </resources>

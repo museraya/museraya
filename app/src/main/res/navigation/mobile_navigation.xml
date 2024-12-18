@@ -125,5 +125,9 @@
         android:name="com.example.museraya.TexArFragment"
         android:label="fragment_tex_ar"
         tools:layout="@layout/fragment_tex_ar" />
+    <fragment
+        android:id="@+id/bookingFragment"
+        android:name="com.example.museraya.BookingFragment"
+        android:label="BookingFragment" />
 
 </navigation>

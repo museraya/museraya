@@ -1,0 +1,153 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/darkwhite"
+    tools:context=".BookingFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Book Your Appointment"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:paddingBottom="16dp" />
+
+        <!-- Input Section -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/darkwhite"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+
+                <!-- Full Name Input -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
+                    android:text="Full Name"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/full_name_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_background"
+                    android:hint="Enter your full name"
+                    android:inputType="textPersonName"
+                    android:padding="12dp" />
+
+                <!-- Guest Quantity Input -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:paddingBottom="8dp"
+                    android:text="Guest Quantity"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/guest_quantity_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_background"
+                    android:hint="Enter guest quantity"
+                    android:inputType="number"
+                    android:padding="12dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Date and Time Section -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/darkwhite"
+                android:padding="16dp">
+
+                <!-- Date Picker -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select Date"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:paddingBottom="8dp" />
+
+                <Button
+                    android:id="@+id/date_picker_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/olive"
+                    android:text="Pick a Date"
+                    android:textColor="@color/white"
+                    android:padding="12dp" />
+
+                <!-- Time Picker -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Select Time"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:paddingBottom="8dp" />
+
+                <Button
+                    android:id="@+id/time_picker_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/olive"
+                    android:text="Pick a Time"
+                    android:textColor="@color/white"
+                    android:padding="12dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Selected Date and Time -->
+        <TextView
+            android:id="@+id/selected_datetime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Selected Date and Time: "
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:background="@color/white"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Submit Button -->
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:text="Book Appointment"
+            android:textColor="@color/white"
+            android:padding="12dp" />
+    </LinearLayout>
+</ScrollView>
