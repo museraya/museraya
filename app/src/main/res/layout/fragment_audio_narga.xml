@@ -14,19 +14,17 @@
         android:layout_height="wrap_content"
         android:background="@color/olive">
 
-        <ImageView
-            android:id="@+id/imageView"
+        <!-- ViewPager2 for the image slider -->
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPagerImageSlider"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/nagra_box"
-            android:background="@drawable/roundedcorners_bottom"
-            android:clipToOutline="true"
+            android:layout_height="500dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
+        <!-- Name TextView -->
         <TextView
             android:id="@+id/nameTextView"
             android:layout_width="332dp"
@@ -39,8 +37,9 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@id/viewPagerImageSlider" />
 
+        <!-- Info TextView -->
         <TextView
             android:id="@+id/infoTextView"
             android:layout_width="371dp"
@@ -53,10 +52,7 @@
             android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
-
-
+            app:layout_constraintTop_toBottomOf="@id/nameTextView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>
