@@ -129,5 +129,10 @@
         android:id="@+id/bookingFragment"
         android:name="com.example.museraya.BookingFragment"
         android:label="BookingFragment" />
+    <fragment
+        android:id="@+id/bookingHistoryFragment"
+        android:name="com.example.museraya.BookingHistoryFragment"
+        android:label="fragment_booking_history"
+        tools:layout="@layout/fragment_booking_history" />
 
 </navigation>
