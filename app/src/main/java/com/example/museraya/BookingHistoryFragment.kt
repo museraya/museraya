@@ -64,11 +64,14 @@ class BookingHistoryFragment : Fragment() {
                             val dateTime = timestamp?.toDate()?.let { formatDateTime(it) } ?: "N/A"
                             val quantity = document.getLong("quantity")?.toString() ?: "N/A"
                             val status = document.getString("status") ?: "N/A"
+                            val dateCreatedTimestamp = document.getTimestamp("date_created")
+                            val dateCreated = dateCreatedTimestamp?.toDate()?.let { formatDateTime(it) } ?: "N/A"
 
                             stringBuilder.append("Name: $name\n")
                                 .append("Date & Time: $dateTime\n")
                                 .append("Quantity: $quantity\n")
-                                .append("Status: $status\n\n")
+                                .append("Status: $status\n")
+                                .append("Date Created: $dateCreated\n\n")
                         }
                     }
                 } else {

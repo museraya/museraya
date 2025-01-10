@@ -5,31 +5,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/logoutButton"
+    <!-- Admin Header -->
+    <TextView
+        android:id="@+id/headerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Logout"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        android:text="Admin"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Appointments Container in a ScrollView -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="16dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/logoutButton"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/headerText"
+        app:layout_constraintBottom_toTopOf="@id/logoutButton">
 
         <LinearLayout
             android:id="@+id/appointmentsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp" />
+            android:textColor="@android:color/black"
+            android:padding="16dp"
+            android:dividerPadding="8dp"
+            android:showDividers="middle" />
 
     </androidx.core.widget.NestedScrollView>
+
+    <!-- Logout Button -->
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:textColor="@android:color/white"
+        android:padding="12dp"
+        android:text="Logout"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

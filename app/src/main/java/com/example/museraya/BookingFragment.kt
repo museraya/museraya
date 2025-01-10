@@ -114,8 +114,9 @@ class BookingFragment : Fragment() {
             return
         }
 
-        // Use Firestore Timestamp to store the date and time
+        // Use Firestore Timestamp to store the date and time of booking creation
         val bookingTimestamp = Timestamp(calendar.time)
+        val dateCreatedTimestamp = Timestamp.now() // Current timestamp
 
         // Fetch the next document ID (e.g., appointment1, appointment2, ...)
         db.collection("booking")
@@ -131,14 +132,15 @@ class BookingFragment : Fragment() {
                     "appointment1"
                 }
 
-                // Create the booking document with "status" set to "pending"
+                // Create the booking document with "status" set to "pending" and "date_created"
                 val booking = hashMapOf(
                     "id" to nextId,
                     "name" to fullName,
                     "quantity" to guestQuantity.toInt(),
                     "email" to contactNumber,
                     "date" to bookingTimestamp,
-                    "status" to "pending"  // Add status field with "pending" value
+                    "date_created" to dateCreatedTimestamp, // New field
+                    "status" to "pending" // Add status field with "pending" value
                 )
 
                 db.collection("booking")
@@ -161,6 +163,7 @@ class BookingFragment : Fragment() {
                 Log.e("BookingFragment", "Error fetching document ID", e)
             }
     }
+
 
     private fun resetInputs() {
         fullNameInput.text.clear()

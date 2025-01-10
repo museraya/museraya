@@ -11,7 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.firestore.FirebaseFirestore
-import android.telephony.SmsManager  // Import SmsManager for sending SMS
+import com.google.firebase.Timestamp
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AdminActivity : AppCompatActivity() {
 
@@ -34,7 +36,6 @@ class AdminActivity : AppCompatActivity() {
         // Set up the Logout button click listener
         val logoutButton: Button = findViewById(R.id.logoutButton)
         logoutButton.setOnClickListener {
-            // Handle the logout action (finish the current activity)
             logout()
         }
 
@@ -45,7 +46,6 @@ class AdminActivity : AppCompatActivity() {
     private fun fetchAppointmentsData() {
         val db = FirebaseFirestore.getInstance()
 
-        // Loop through appointments 1 to 50
         for (i in 1..50) {
             val documentRef = db.collection("booking").document("appointment$i")
 
@@ -54,14 +54,18 @@ class AdminActivity : AppCompatActivity() {
                     if (document != null && document.exists()) {
                         val name = document.getString("name") ?: "N/A"
                         val quantity = document.getLong("quantity") ?: 0
-                        val date = document.getTimestamp("date")?.toDate() ?: "N/A"
+                        val date = document.getTimestamp("date")
+                        val formattedDate = date?.toDate()?.let { formatDateTime(it) } ?: "N/A"
                         val status = document.getString("status") ?: "N/A"
                         val email = document.getString("email") ?: "N/A"
+                        val dateCreated = document.getTimestamp("date_created")
+                        val formattedDateCreated =
+                            dateCreated?.toDate()?.let { formatDateTime(it) } ?: "N/A"
 
                         // Create UI elements for the appointment
-                        createAppointmentUI(i, name, quantity, date, status, email)
-                    } else {
-                        // No such appointment, leave it blank
+                        createAppointmentUI(
+                            i, name, quantity, formattedDate, formattedDateCreated, status, email
+                        )
                     }
                 }
                 .addOnFailureListener { exception ->
@@ -70,7 +74,15 @@ class AdminActivity : AppCompatActivity() {
         }
     }
 
-    private fun createAppointmentUI(appointmentNumber: Int, name: String, quantity: Long, date: Any, status: String, email: String) {
+    private fun createAppointmentUI(
+        appointmentNumber: Int,
+        name: String,
+        quantity: Long,
+        date: String,
+        dateCreated: String,
+        status: String,
+        email: String
+    ) {
         // Create a new TextView for appointment data
         val textViewData = TextView(this)
         textViewData.text = """
@@ -79,32 +91,35 @@ class AdminActivity : AppCompatActivity() {
             Quantity: $quantity
             Email: $email
             Date: $date
+            Appointment Created: $dateCreated
             Status: $status
         """.trimIndent()
         appointmentsLayout.addView(textViewData)
 
-        // Create a new Accept button for each appointment
+        // Create an Accept button
         val acceptButton = Button(this)
         acceptButton.text = "Accept"
         acceptButton.setOnClickListener {
-            updateAppointmentStatus(appointmentNumber, email)
+            updateAppointmentStatus(appointmentNumber, email, "accepted")
         }
         appointmentsLayout.addView(acceptButton)
+
+        // Create a Reject button
+        val rejectButton = Button(this)
+        rejectButton.text = "Reject"
+        rejectButton.setOnClickListener {
+            updateAppointmentStatus(appointmentNumber, email, "rejected")
+        }
+        appointmentsLayout.addView(rejectButton)
     }
 
-    private fun updateAppointmentStatus(appointmentNumber: Int, contact: String) {
+    private fun updateAppointmentStatus(appointmentNumber: Int, contact: String, status: String) {
         val db = FirebaseFirestore.getInstance()
-
-        // Reference to the appointment document
         val documentRef = db.collection("booking").document("appointment$appointmentNumber")
 
-        // Update the "status" field to "accepted"
-        documentRef.update("status", "accepted")
+        documentRef.update("status", status)
             .addOnSuccessListener {
-                Log.d("AdminActivity", "Appointment $appointmentNumber status updated successfully")
-
-
-                // Optionally, refresh the displayed data
+                Log.d("AdminActivity", "Appointment $appointmentNumber status updated to $status successfully")
                 appointmentsLayout.removeAllViews()
                 fetchAppointmentsData()
             }
@@ -113,11 +128,15 @@ class AdminActivity : AppCompatActivity() {
             }
     }
 
-
     private fun logout() {
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()
+    }
+
+    private fun formatDateTime(date: Date): String {
+        val formatter = SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault())
+        return formatter.format(date)
     }
 }
