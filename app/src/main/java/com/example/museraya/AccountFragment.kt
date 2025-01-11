@@ -16,8 +16,8 @@ import com.google.android.material.imageview.ShapeableImageView
 class AccountFragment : Fragment() {
 
     // Sample user data (you can replace it with actual data from your user authentication system)
-    private var userName = "John Doe"
-    private val userAvatar = R.drawable.dummy_avatar // Replace with actual avatar
+    private var userName = "test"
+    private val userAvatar = R.drawable.bpfp // Replace with actual avatar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +48,7 @@ class AccountFragment : Fragment() {
 
         // Set up change password button
         changePasswordButton?.setOnClickListener {
-            Toast.makeText(requireContext(), "Change Password clicked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Coming Soon", Toast.LENGTH_SHORT).show()
         }
 
         // Set up notifications switch
@@ -59,17 +59,17 @@ class AccountFragment : Fragment() {
 
         // Set up Google login button
         googleLoginButton?.setOnClickListener {
-            Toast.makeText(requireContext(), "Login with Google clicked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Login with Google is currently unavailable", Toast.LENGTH_SHORT).show()
         }
 
         // Set up Facebook login button
         facebookLoginButton?.setOnClickListener {
-            Toast.makeText(requireContext(), "Login with Facebook clicked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Login with Facebook is currently unavailable", Toast.LENGTH_SHORT).show()
         }
 
         // Set up Report a Problem button
         reportProblemButton?.setOnClickListener {
-            Toast.makeText(requireContext(), "Report a Problem clicked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Report a Problem is currently unavailable", Toast.LENGTH_SHORT).show()
         }
 
         return view

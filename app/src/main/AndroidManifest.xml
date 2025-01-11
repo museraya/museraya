@@ -38,6 +38,8 @@
             android:value="required"
             tools:replace="android:value" />
 
+        <activity android:name=".FullScreenImageActivity" />
+
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
