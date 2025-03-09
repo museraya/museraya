@@ -3,42 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:background="@drawable/item_border"
-    android:gravity="center_horizontal">
+    android:padding="8dp">
 
-    <!-- Model Thumbnail -->
     <ImageView
         android:id="@+id/modelThumbnail"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
         android:scaleType="centerCrop"
-        android:contentDescription="Model Thumbnail" />
+        android:src="@drawable/snorlax" />
 
-    <!-- Model Name -->
     <TextView
         android:id="@+id/modelName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Model Name"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:paddingTop="4dp" />
+        android:padding="4dp" />
 
-    <!-- Model Category -->
     <TextView
         android:id="@+id/modelCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Category"
         android:textSize="14sp"
-        android:textColor="@android:color/darker_gray" />
+        android:padding="4dp" />
 
-    <!-- Select Button -->
     <Button
         android:id="@+id/selectModelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="View in AR"
-        android:layout_marginTop="6dp"
-        android:backgroundTint="@color/primaryColor" />
+        android:layout_gravity="center_horizontal"
+        android:padding="4dp"/>
 </LinearLayout>
