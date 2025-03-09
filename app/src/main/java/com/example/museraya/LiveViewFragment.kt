@@ -5,133 +5,74 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
-import com.google.ar.core.Anchor
-import com.google.ar.core.Config
-import com.google.ar.core.Plane
-import io.github.sceneview.ar.ARSceneView
-import io.github.sceneview.ar.arcore.getUpdatedPlanes
-import io.github.sceneview.ar.node.AnchorNode
-import io.github.sceneview.loaders.MaterialLoader
-import io.github.sceneview.math.Position
-import io.github.sceneview.node.ModelNode
-import kotlinx.coroutines.launch
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
+// Model Data Class
+data class ModelItem(val name: String, val category: String, val fragment: Fragment, val thumbnailResId: Int)
+
+// RecyclerView Adapter
+class ModelAdapter(
+    private val models: List<ModelItem>,
+    private val onModelSelected: (ModelItem) -> Unit
+) : RecyclerView.Adapter<ModelAdapter.ModelViewHolder>() {
+
+    inner class ModelViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val name: TextView = itemView.findViewById(R.id.modelName)
+        val category: TextView = itemView.findViewById(R.id.modelCategory)
+        val thumbnail: ImageView = itemView.findViewById(R.id.modelThumbnail)
+        val selectButton: Button = itemView.findViewById(R.id.selectModelButton)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModelViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_model, parent, false)
+        return ModelViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {
+        val model = models[position]
+        holder.name.text = model.name
+        holder.category.text = model.category
+        holder.thumbnail.setImageResource(model.thumbnailResId)
+        holder.selectButton.setOnClickListener { onModelSelected(model) }
+    }
+
+    override fun getItemCount() = models.size
+}
+
+// Live View Fragment (Displays catalog)
 class LiveViewFragment : Fragment() {
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: ModelAdapter
 
-    private lateinit var arSceneView: ARSceneView
-    private lateinit var placeModelButton: Button
-    private lateinit var materialLoader: MaterialLoader
-    private var anchorNode: AnchorNode? = null
-    private var modelNode: ModelNode? = null // Reference to the model node
-    private var isModelLocked = false // Tracks whether the model is locked in place
+    private val models = listOf(
+        ModelItem("Woodcutter", "Vintage Artifacts", WoodcutterFragment(), R.drawable.snorlax),
+        ModelItem("Vintage Radio", "Vintage Audio", VintageRadioFragment(), R.drawable.snorlax),
+        ModelItem("Old Camera", "Vintage Film", WoodcutterFragment(), R.drawable.snorlax),
+        ModelItem("Classic TV", "Vintage Film", WoodcutterFragment(), R.drawable.snorlax),
+        ModelItem("Retro Telephone", "Vintage Audio", WoodcutterFragment(), R.drawable.snorlax),
+        ModelItem("Gramophone", "Vintage Music", WoodcutterFragment(), R.drawable.snorlax),
+        ModelItem("Film Projector", "Vintage Film", WoodcutterFragment(), R.drawable.snorlax)
+    )
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_liveview, container, false)
-        arSceneView = view.findViewById(R.id.arSceneView)
-        placeModelButton = view.findViewById(R.id.btnPlaceModel)
-
-        // Initialize MaterialLoader with ARSceneView's engine
-        materialLoader = MaterialLoader(arSceneView.engine, requireContext())
-
+        recyclerView = view.findViewById(R.id.recyclerViewModels)
+        recyclerView.layoutManager = GridLayoutManager(context, 2) // 2 columns
+        adapter = ModelAdapter(models) { model -> openARFragment(model.fragment) }
+        recyclerView.adapter = adapter
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        arSceneView.apply {
-            lifecycle = viewLifecycleOwner.lifecycle
-            planeRenderer.isEnabled = true
-            planeRenderer.isShadowReceiver = false
-
-            // Load HDR environment
-            environment = environmentLoader.createHDREnvironment(
-                assetFileLocation = "environments/HDR_040_Field_Env.hdr"
-            )!!
-
-            configureSession { _, config ->
-                config.depthMode = Config.DepthMode.AUTOMATIC
-                config.instantPlacementMode = Config.InstantPlacementMode.DISABLED
-                config.lightEstimationMode = Config.LightEstimationMode.ENVIRONMENTAL_HDR
-            }
-
-            onSessionUpdated = { _, frame ->
-                frame.getUpdatedPlanes().firstOrNull { it.type == Plane.Type.HORIZONTAL_UPWARD_FACING }
-                    ?.let { plane ->
-                        if (anchorNode == null) {
-                            placeAnchor(plane.createAnchor(plane.centerPose))
-                        }
-                    }
-            }
-        }
-
-
-        placeModelButton.setOnClickListener {
-            toggleModelLockState()
-        }
-    }
-
-    private fun placeAnchor(anchor: Anchor) {
-        if (anchorNode == null) {
-            anchorNode = AnchorNode(arSceneView.engine, anchor).apply {
-                isEditable = true // Initially allow movement
-                lifecycleScope.launch {
-                    val modelInstance = arSceneView.modelLoader.loadModelInstance(
-                        "file:///android_asset/models/woodcutter/frame.gltf"
-                    )
-                    if (modelInstance != null) {
-                        Toast.makeText(requireContext(), "Model loaded successfully", Toast.LENGTH_SHORT).show()
-
-                        // Create the main model node
-                        modelNode = ModelNode(
-                            modelInstance = modelInstance,
-                            scaleToUnits = 0.5f,
-                            centerOrigin = Position(y = -0.5f)
-                        ).apply { isEditable = true } // Initially editable
-
-                        addChildNode(modelNode!!)
-                    } else {
-                        Toast.makeText(requireContext(), "Failed to load model", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                arSceneView.addChildNode(this)
-            }
-        }
-    }
-
-    private fun toggleModelLockState() {
-        if (anchorNode != null && modelNode != null) {
-            isModelLocked = !isModelLocked // Toggle the lock state
-
-            if (isModelLocked) {
-                // bawal galawin bruh
-                anchorNode?.isEditable = false
-                modelNode?.isEditable = false
-                Toast.makeText(requireContext(), "Model rotation and size locked!", Toast.LENGTH_SHORT).show()
-            } else {
-                // pwede magalaw bruh
-                anchorNode?.isEditable = true
-                modelNode?.isEditable = true
-                Toast.makeText(requireContext(), "Model rotation and size unlocked!", Toast.LENGTH_SHORT).show()
-            }
-
-            // update ng text button bruh
-            placeModelButton.text = if (isModelLocked) "Unlock Rotation" else "lock Rotation"
-        } else {
-            Toast.makeText(requireContext(), "No model to lock!", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        arSceneView.destroy()
+    private fun openARFragment(fragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.nav_host_fragment, fragment) // Make sure this is the correct container ID
+            .addToBackStack(null)
+            .commit()
     }
 }

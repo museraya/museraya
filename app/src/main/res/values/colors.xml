@@ -14,5 +14,6 @@
     <color name="blue">#3F51B5</color>
     <color name="dark_blue">#303F9F</color>
     <color name="dark_orange">#FF8C00</color>
+    <color name="primaryColor">#6200EE</color> <!-- Adjust the color as needed -->
 
 </resources>

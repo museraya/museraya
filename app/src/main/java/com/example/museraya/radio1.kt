@@ -28,6 +28,7 @@ class radio1 : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_radio1, container, false)
 
+        // variables ng mga icons and resources
         nameTextView = view.findViewById(R.id.textView2)
         infoTextView = view.findViewById(R.id.textView8)
         viewPager = view.findViewById(R.id.viewPagerImageSlider)
@@ -35,6 +36,7 @@ class radio1 : Fragment() {
         rightArrow = view.findViewById(R.id.rightArrow)
         fullScreenIcon = view.findViewById(R.id.fullScreenIcon)
 
+        // dito lahat ng images na islaslide
         val imageList = listOf(
             R.drawable.bell_telephone_box,
             R.drawable.btb2,
@@ -51,6 +53,7 @@ class radio1 : Fragment() {
             }
         }
 
+        // next image to the right
         rightArrow.setOnClickListener {
             val currentItem = viewPager.currentItem
             if (currentItem < imageList.size - 1) {
