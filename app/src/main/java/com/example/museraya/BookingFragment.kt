@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.Timestamp
@@ -18,7 +19,6 @@ class BookingFragment : Fragment() {
 
     private lateinit var fullNameInput: EditText
     private lateinit var guestQuantityInput: EditText
-    private lateinit var contactInput: EditText
     private lateinit var datePickerButton: Button
     private lateinit var timePickerButton: Button
     private lateinit var selectedDateTime: TextView
@@ -28,6 +28,7 @@ class BookingFragment : Fragment() {
     private val calendar = Calendar.getInstance()
     private var selectedDate: String? = null
     private var selectedTime: String? = null
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +39,6 @@ class BookingFragment : Fragment() {
         // Initialize views
         fullNameInput = view.findViewById(R.id.full_name_input)
         guestQuantityInput = view.findViewById(R.id.guest_quantity_input)
-        contactInput = view.findViewById(R.id.contact_input)
         datePickerButton = view.findViewById(R.id.date_picker_button)
         timePickerButton = view.findViewById(R.id.time_picker_button)
         selectedDateTime = view.findViewById(R.id.selected_datetime)
@@ -107,9 +107,11 @@ class BookingFragment : Fragment() {
     private fun submitBooking() {
         val fullName = fullNameInput.text.toString()
         val guestQuantity = guestQuantityInput.text.toString()
-        val contactNumber = contactInput.text.toString()
 
-        if (fullName.isBlank() || guestQuantity.isBlank() || contactNumber.isBlank() || selectedDate == null || selectedTime == null) {
+        // Get the email of the currently logged-in user
+        val userEmail = auth.currentUser?.email
+
+        if (fullName.isBlank() || guestQuantity.isBlank() || userEmail == null || selectedDate == null || selectedTime == null) {
             Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
             return
         }
@@ -137,7 +139,7 @@ class BookingFragment : Fragment() {
                     "id" to nextId,
                     "name" to fullName,
                     "quantity" to guestQuantity.toInt(),
-                    "email" to contactNumber,
+                    "email" to userEmail, // Use the email from FirebaseAuth
                     "date" to bookingTimestamp,
                     "date_created" to dateCreatedTimestamp, // New field
                     "status" to "pending" // Add status field with "pending" value
@@ -164,11 +166,9 @@ class BookingFragment : Fragment() {
             }
     }
 
-
     private fun resetInputs() {
         fullNameInput.text.clear()
         guestQuantityInput.text.clear()
-        contactInput.text.clear()
         selectedDate = null
         selectedTime = null
         selectedDateTime.text = "Selected Date & Time:"
