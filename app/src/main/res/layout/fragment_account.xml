@@ -1,12 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#353e39"
+    android:background="@color/beige"
     android:fitsSystemWindows="true"
     tools:context=".AccountFragment">
 
+    <!-- CardView for user profile -->
     <androidx.cardview.widget.CardView
         android:id="@+id/account_card"
         android:layout_width="0dp"
@@ -25,17 +27,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
+            android:background="@color/darkwhite"
             android:gravity="center">
-
-            <!-- Personal Information (Move it higher) -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Personal Information"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"/>
 
             <!-- Avatar ImageView (Circular) -->
             <com.google.android.material.imageview.ShapeableImageView
@@ -43,31 +36,61 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_marginTop="20dp"
-                android:src="@drawable/dummy_avatar"
+                android:src="@drawable/ic_account_placeholder"
                 android:layout_gravity="center"
                 app:shapeAppearanceOverlay="@style/CircularImageView"
                 android:contentDescription="@string/avatar" />
 
-            <!-- Profile Name Text -->
+            <!-- User's Name Text -->
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Your Name"
+                android:text=""
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"/>
 
-            <!-- Change Name Button -->
+            <!-- Username Text -->
+            <TextView
+                android:id="@+id/user_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"/>
+
+            <!-- Email Text -->
+            <TextView
+                android:id="@+id/user_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"/>
+
+            <!-- Contact Text -->
+            <TextView
+                android:id="@+id/user_contact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"/>
+
+            <!-- Change Profile Button -->
             <Button
                 android:id="@+id/change_name_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Change Name"
+                android:text="Change Profile"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_button"/>
 
             <!-- Change Password Button -->
@@ -81,43 +104,12 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/rounded_button"/>
 
-            <!-- Notifications Switch -->
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/notifications_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Enable Notifications"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"/>
-
-            <!-- Google Login Button -->
+            <!-- Log Out Button -->
             <Button
-                android:id="@+id/login_google"
+                android:id="@+id/logout_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Login with Google"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/rounded_button"/>
-
-            <!-- Facebook Login Button -->
-            <Button
-                android:id="@+id/login_facebook"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Login with Facebook"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/rounded_button"/>
-
-            <!-- Report a Problem Button -->
-            <Button
-                android:id="@+id/report_problem_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Report a Problem"
+                android:text="Log Out"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:layout_marginTop="10dp"

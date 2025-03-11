@@ -1,23 +1,27 @@
 package com.example.museraya
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.android.material.imageview.ShapeableImageView
 
 class AccountFragment : Fragment() {
 
-    // Sample user data (you can replace it with actual data from your user authentication system)
-    private var userName = "test"
-    private val userAvatar = R.drawable.bpfp // Replace with actual avatar
+    private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
+    private val user = auth.currentUser
+    private val email = user?.email
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,87 +30,139 @@ class AccountFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_account, container, false)
 
-        // Make sure the view is not null before accessing it
-        val profileNameTextView: TextView? = view.findViewById(R.id.textView4)
-        val avatarImageView: ShapeableImageView? = view.findViewById(R.id.avatar_image)
-        val editNameButton: Button? = view.findViewById(R.id.change_name_button)
-        val changePasswordButton: Button? = view.findViewById(R.id.change_password_button)
-        val notificationsSwitch: SwitchCompat = view.findViewById(R.id.notifications_switch)
-        val googleLoginButton: Button? = view.findViewById(R.id.login_google)
-        val facebookLoginButton: Button? = view.findViewById(R.id.login_facebook)
-        val reportProblemButton: Button? = view.findViewById(R.id.report_problem_button)
+        val profileNameTextView: TextView = view.findViewById(R.id.name)
+        val avatarImageView: ShapeableImageView = view.findViewById(R.id.avatar_image)
+        val changeProfileButton: Button = view.findViewById(R.id.change_name_button)
+        val changePasswordButton: Button = view.findViewById(R.id.change_password_button)
+        val logoutButton: Button = view.findViewById(R.id.logout_button)
 
-        // Check if the views are properly initialized
-        profileNameTextView?.text = userName // Use dynamic user data
-        avatarImageView?.setImageResource(userAvatar) // Use dynamic user avatar
+        // Fetch user data from Firestore based on the email
+// Fetch user data from Firestore based on the email
+        if (email != null) {
+            db.collection("users").document(email).get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val name = document.getString("name")
+                        val username = document.getString("username")
+                        val email = document.getString("email") // This is redundant as you're already using `user?.email`
+                        val contact = document.getString("contact") // Fetch the contact info
 
-        // Set up Edit Name button
-        editNameButton?.setOnClickListener {
-            // Open a dialog to edit the name
-            showEditNameDialog(profileNameTextView)
+                        profileNameTextView.text = name
+                        val userUsernameTextView: TextView = view.findViewById(R.id.user_username)
+                        val userEmailTextView: TextView = view.findViewById(R.id.user_email)
+                        val userContactTextView: TextView = view.findViewById(R.id.user_contact)
+
+                        userUsernameTextView.text = username
+                        userEmailTextView.text = email
+                        userContactTextView.text = contact
+                    } else {
+                        Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT).show()
+                    }
+                }
         }
 
-        // Set up change password button
-        changePasswordButton?.setOnClickListener {
-            Toast.makeText(requireContext(), "Coming Soon", Toast.LENGTH_SHORT).show()
+        // Set up Change Profile button
+        changeProfileButton.setOnClickListener {
+            showChangeProfileDialog(profileNameTextView)
         }
 
-        // Set up notifications switch
-        notificationsSwitch?.setOnCheckedChangeListener { _, isChecked ->
-            val message = if (isChecked) "Notifications enabled" else "Notifications disabled"
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        // Set up Change Password button
+        changePasswordButton.setOnClickListener {
+            showChangePasswordDialog()
         }
 
-        // Set up Google login button
-        googleLoginButton?.setOnClickListener {
-            Toast.makeText(requireContext(), "Login with Google is currently unavailable", Toast.LENGTH_SHORT).show()
-        }
-
-        // Set up Facebook login button
-        facebookLoginButton?.setOnClickListener {
-            Toast.makeText(requireContext(), "Login with Facebook is currently unavailable", Toast.LENGTH_SHORT).show()
-        }
-
-        // Set up Report a Problem button
-        reportProblemButton?.setOnClickListener {
-            Toast.makeText(requireContext(), "Report a Problem is currently unavailable", Toast.LENGTH_SHORT).show()
+        // Set up Logout button
+        logoutButton.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            startActivity(intent)
+            activity?.finish() // Close current activity
         }
 
         return view
     }
 
-    private fun showEditNameDialog(profileNameTextView: TextView?) {
-        // Check if the TextView is not null before showing the dialog
-        profileNameTextView?.let { tv ->
-            val builder = AlertDialog.Builder(requireContext())
-            builder.setTitle("Edit Name")
+    private fun showChangeProfileDialog(profileNameTextView: TextView) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Change Profile Information")
 
-            // Set up the input field
-            val input = EditText(requireContext())
-            input.hint = "Enter your new name"
-            builder.setView(input)
+        // Set up input fields for new name and username
+        val layout = LinearLayout(requireContext())
+        layout.orientation = LinearLayout.VERTICAL
 
-            // Set up buttons
-            builder.setPositiveButton("OK") { _, _ ->
-                val newName = input.text.toString()
-                if (newName.isNotBlank()) {
-                    // Update the user name
-                    userName = newName
-                    // Update the TextView with the new name
-                    tv.text = userName
-                    // Optionally save the new name to SharedPreferences or a database
-                    Toast.makeText(requireContext(), "Name updated successfully", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(requireContext(), "Name cannot be empty", Toast.LENGTH_SHORT).show()
+        val nameInput = EditText(requireContext())
+        nameInput.hint = "Enter new name"
+        layout.addView(nameInput)
+
+        val usernameInput = EditText(requireContext())
+        usernameInput.hint = "Enter new username"
+        layout.addView(usernameInput)
+
+        builder.setView(layout)
+
+        builder.setPositiveButton("OK") { _, _ ->
+            val newName = nameInput.text.toString()
+            val newUsername = usernameInput.text.toString()
+
+            if (newName.isNotBlank() && newUsername.isNotBlank()) {
+                // Update Firestore with the new profile data
+                val updatedData = mapOf(
+                    "name" to newName,
+                    "username" to newUsername
+                )
+
+                if (email != null) {
+                    db.collection("users").document(email).update(updatedData)
+                        .addOnSuccessListener {
+                            profileNameTextView.text = newName
+                            Toast.makeText(requireContext(), "Profile updated", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(requireContext(), "Failed to update profile", Toast.LENGTH_SHORT).show()
+                        }
                 }
+            } else {
+                Toast.makeText(requireContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show()
             }
-            builder.setNegativeButton("Cancel") { dialog, _ ->
-                dialog.cancel()
-            }
-
-            builder.show()
-        } ?: run {
-            Toast.makeText(requireContext(), "Error: Profile name view not found", Toast.LENGTH_SHORT).show()
         }
+
+        builder.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.cancel()
+        }
+
+        builder.show()
+    }
+
+    private fun showChangePasswordDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Change Password")
+
+        // Set up input field for new password
+        val passwordInput = EditText(requireContext())
+        passwordInput.hint = "Enter new password"
+        builder.setView(passwordInput)
+
+        builder.setPositiveButton("OK") { _, _ ->
+            val newPassword = passwordInput.text.toString()
+
+            if (newPassword.isNotBlank()) {
+                // Update Firebase Authentication password
+                user?.updatePassword(newPassword)
+                    ?.addOnSuccessListener {
+                        Toast.makeText(requireContext(), "Password updated", Toast.LENGTH_SHORT).show()
+                    }
+                    ?.addOnFailureListener {
+                        Toast.makeText(requireContext(), "Failed to update password", Toast.LENGTH_SHORT).show()
+                    }
+            } else {
+                Toast.makeText(requireContext(), "Password cannot be empty", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        builder.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.cancel()
+        }
+
+        builder.show()
     }
 }
