@@ -1,13 +1,13 @@
 package com.example.museraya
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
         // Initialize FirebaseAuth
@@ -44,14 +43,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         signupBtn.setOnClickListener {
-            val email = usernameInput.text.toString()
-            val password = passwordInput.text.toString()
-
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                signupUser(email, password)
-            } else {
-                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
-            }
+            // Replace MainActivity content with SignUpFragment
+            val fragment = SignUpFragment()
+            val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+            transaction.replace(android.R.id.content, fragment)
+            transaction.addToBackStack(null) // Optionally add to back stack
+            transaction.commit()
         }
     }
 
@@ -75,17 +72,6 @@ class MainActivity : AppCompatActivity() {
                     }
                 } else {
                     Toast.makeText(this, "Login Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
-                }
-            }
-    }
-
-    private fun signupUser(email: String, password: String) {
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(this, "Signup Successful", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "Signup Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
     }

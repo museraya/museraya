@@ -1,0 +1,131 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/charcoal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="25dp"
+    tools:context=".SignUpFragment"
+    android:fitsSystemWindows="true">
+
+    <!-- ScrollView to make the layout scrollable -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <!-- App Logo -->
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logo"
+                android:contentDescription="App Logo"
+                android:layout_marginBottom="24dp" />
+
+            <!-- App Name -->
+            <TextView
+                android:id="@+id/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Museraya"
+                android:textColor="#FFFFFF"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="24dp"
+                android:letterSpacing="0.05"
+                android:fontFamily="@font/helvetica" />
+
+            <!-- Full Name Input -->
+            <EditText
+                android:id="@+id/etFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Full Name"
+                android:background="@drawable/rounded_corner"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:padding="18dp"
+                android:inputType="textPersonName"
+                android:textSize="18sp" />
+
+            <!-- Username Input -->
+            <EditText
+                android:id="@+id/etUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Username"
+                android:background="@drawable/rounded_corner"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:padding="18dp"
+                android:inputType="text"
+                android:textSize="18sp" />
+
+            <!-- E-mail Input -->
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="E-mail"
+                android:background="@drawable/rounded_corner"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:padding="18dp"
+                android:inputType="textEmailAddress"
+                android:textSize="18sp" />
+
+            <!-- Password Input -->
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Password"
+                android:background="@drawable/rounded_corner"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:padding="18dp"
+                android:inputType="textPassword"
+                android:textSize="18sp" />
+
+            <!-- Contact Number Input -->
+            <EditText
+                android:id="@+id/etContactNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Contact Number"
+                android:background="@drawable/rounded_corner"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:padding="18dp"
+                android:inputType="phone"
+                android:textSize="18sp" />
+
+            <!-- Sign Up Button -->
+            <Button
+                android:id="@+id/btnSignUp"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/rounded_button"
+                android:text="Sign Up"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:padding="16dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
