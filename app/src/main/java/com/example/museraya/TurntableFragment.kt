@@ -46,7 +46,7 @@ class TurntableFragment : Fragment() {
         vinylImageView = view.findViewById(R.id.vinylDisk)
 
         // Load Firestore data
-        db.collection("items").document("turntable")
+        db.collection("music").document("hVvc6QqxV7uIAempGcJb")
             .get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {

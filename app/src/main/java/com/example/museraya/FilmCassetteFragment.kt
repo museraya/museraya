@@ -24,7 +24,7 @@ class FilmCassetteFragment : Fragment() {
         nameTextView = view.findViewById(R.id.textView2)
         infoTextView = view.findViewById(R.id.textView8)
 
-        db.collection("items").document("cassette")
+        db.collection("film").document("3RbLjfxHLg5q3qSs2AG8")
             .get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {

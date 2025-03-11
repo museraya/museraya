@@ -31,7 +31,7 @@ class WoodcutterFragment : Fragment() {
         arButton = view.findViewById(R.id.button)
 
         // Fetch data from Firestore
-        db.collection("items").document("forester")
+        db.collection("art").document("Wh3B66PNeBQKeP7erVGw")
             .get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {

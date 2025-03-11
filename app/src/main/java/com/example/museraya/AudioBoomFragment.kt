@@ -69,7 +69,7 @@ class AudioBoomFragment : Fragment() {
         }
 
         // Fetch Firestore data
-        db.collection("items").document("boom")
+        db.collection("audio").document("8mtUfPSLOs8dKWaUzwPo")
             .get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {

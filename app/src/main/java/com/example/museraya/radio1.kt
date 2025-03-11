@@ -70,7 +70,7 @@ class radio1 : Fragment() {
         }
 
         // Retrieve item details from Firestore
-        db.collection("items").document("bell")
+        db.collection("audio").document("EuOjXwyYQgA7kM0HSsWI")
             .get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {

@@ -28,7 +28,7 @@ class TexFragment : Fragment() {
         infoTextView = view.findViewById(R.id.textView8)
         arButton = view.findViewById(R.id.button)
 
-        db.collection("items").document("tex")
+        db.collection("art").document("lhUCYDU5rD5RKz6avjo7")
             .get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {

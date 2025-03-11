@@ -24,7 +24,7 @@ class FilmSlideFragment : Fragment() {
         nameTextView = view.findViewById(R.id.textView2)
         infoTextView = view.findViewById(R.id.textView8)
 
-        db.collection("items").document("slide")
+        db.collection("film").document("z3L3N1LO0Zx7RxTPfJTx")
             .get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {

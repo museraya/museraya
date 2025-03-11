@@ -27,7 +27,7 @@ class FilmCameraFragment : Fragment() {
         infoTextView = view.findViewById(R.id.infoTextView)
 
         // Fetch specific document "narga" from Firestore
-        db.collection("items").document("camera")
+        db.collection("film").document("ativutcwWDP8Go72sUwd")
             .get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {

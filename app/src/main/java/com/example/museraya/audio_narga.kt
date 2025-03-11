@@ -72,7 +72,7 @@ class audio_narga : Fragment() {
         }
 
         // Fetch specific document "nagra" from Firestore
-        db.collection("items").document("nagra")
+        db.collection("audio").document("jyf8Pr4jQUsTKevNV338")
             .get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
