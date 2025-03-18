@@ -135,4 +135,10 @@
         android:label="fragment_booking_history"
         tools:layout="@layout/fragment_booking_history" />
 
+    <fragment
+        android:id="@+id/woodcutterARFragment"
+        android:name="com.example.museraya.woodcutter"
+        android:label="Woodcutter AR" />
+
+
 </navigation>

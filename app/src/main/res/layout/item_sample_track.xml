@@ -17,6 +17,16 @@
         android:textSize="16sp"
         android:paddingEnd="8dp" />
 
+    <!-- Time stamp added here -->
+    <TextView
+        android:id="@+id/trackTimestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:layout_marginEnd="8dp" />
+
     <SeekBar
         android:id="@+id/trackSeekBar"
         android:layout_width="0dp"
@@ -32,4 +42,5 @@
         android:background="?attr/selectableItemBackground"
         android:src="@drawable/ic_play_arrow"
         android:contentDescription="Play/Pause" />
+
 </LinearLayout>

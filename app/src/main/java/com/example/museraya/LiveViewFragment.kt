@@ -16,7 +16,7 @@ class LiveViewFragment : Fragment() {
     private lateinit var adapter: ModelAdapter
 
     private val models = listOf(
-        ModelItem("Woodcutter", "Vintage Artifacts", R.id.woodcutterFragment, R.drawable.snorlax),
+        ModelItem("Woodcutter", "Vintage Artifacts", R.id.woodcutterARFragment, R.drawable.snorlax),
         ModelItem("Vintage Radio", "Vintage Audio", R.id.navigation_vintage_radio, R.drawable.snorlax),
         ModelItem("Old Camera", "Vintage Film", R.id.filmCameraFragment, R.drawable.snorlax),
         ModelItem("Classic TV", "Vintage Film", R.id.filmViewerFragment, R.drawable.snorlax),
