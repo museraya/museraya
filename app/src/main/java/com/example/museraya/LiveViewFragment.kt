@@ -16,13 +16,13 @@ class LiveViewFragment : Fragment() {
     private lateinit var adapter: ModelAdapter
 
     private val models = listOf(
-        ModelItem("Woodcutter", "Vintage Artifacts", R.id.woodcutterARFragment, R.drawable.snorlax),
-        ModelItem("Vintage Radio", "Vintage Audio", R.id.navigation_vintage_radio, R.drawable.snorlax),
-        ModelItem("Old Camera", "Vintage Film", R.id.filmCameraFragment, R.drawable.snorlax),
-        ModelItem("Classic TV", "Vintage Film", R.id.filmViewerFragment, R.drawable.snorlax),
-        ModelItem("Retro Telephone", "Vintage Audio", R.id.audioBoomFragment, R.drawable.snorlax),
-        ModelItem("Gramophone", "Vintage Music", R.id.turntableFragment, R.drawable.snorlax),
-        ModelItem("Film Projector", "Vintage Film", R.id.filmPolaroidFragment, R.drawable.snorlax)
+        ModelItem("Woodcutter's Nightmare", "Painting", R.id.woodcutterARFragment, R.drawable.woodcutter_nobg),
+        ModelItem("Tex Reavis", "Painting", R.id.texArFragment, R.drawable.tex_nobg),
+        ModelItem("Pronto B! Polaroid Camera", "Vintage Film", R.id.PolaroidFragmentAR, R.drawable.polaroid_nobg),
+        ModelItem("Classic TV", "Vintage Film", R.id.filmViewerFragment, R.drawable.comingsoon),
+        ModelItem("Retro Telephone", "Vintage Audio", R.id.audioBoomFragment, R.drawable.comingsoon),
+        ModelItem("Gramophone", "Vintage Music", R.id.turntableFragment, R.drawable.comingsoon),
+        ModelItem("Film Projector", "Vintage Film", R.id.filmPolaroidFragment, R.drawable.comingsoon)
     )
 
     override fun onCreateView(

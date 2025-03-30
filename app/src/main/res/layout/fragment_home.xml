@@ -10,7 +10,7 @@
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Art World and Newseum"
+        android:text="Art World and Media Newseum"
         android:textSize="24sp"
         android:fontFamily="@font/helvetica"
         android:textColor="@color/black"
