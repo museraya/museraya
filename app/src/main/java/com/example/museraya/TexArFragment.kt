@@ -32,7 +32,7 @@ class TexArFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_liveview, container, false)
+        val view = inflater.inflate(R.layout.fragment_tex_ar, container, false)
         arSceneView = view.findViewById(R.id.arSceneView)
         placeModelButton = view.findViewById(R.id.btnPlaceModel)
 
