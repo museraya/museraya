@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+
 import androidx.navigation.findNavController
 import android.widget.ImageView
 
@@ -35,27 +38,23 @@ class VintageRadioFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val view = inflater.inflate(R.layout.fragment_vintage_radio, container, false)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.vintageRecyclerView)
 
-        // dito ilalagay yung id ng image
-        val radioImage: ImageView = view.findViewById(R.id.imageButton) // Replace the actual ImageView ID yung nasa taas
-        val nargaImage: ImageView = view.findViewById(R.id.imageButton2)
-        val boomImage: ImageView = view.findViewById(R.id.imageButton3)
+        val items = listOf(
+            VintageAudioItem("Bell Telephone", R.drawable.bell_telephone, R.id.radio1),
+            VintageAudioItem("Nagra Recorder", R.drawable.nagra, R.id.audio_narga),
+            VintageAudioItem("Boom Mic", R.drawable.boom_mic, R.id.audioBoomFragment)
+        )
 
-        // dito ilalagay yung kung saan mapupunta pag pinindot mo yung nasa taas which is imageButton ang ID HAHAHAHA
-        radioImage.setOnClickListener {
-            it.findNavController().navigate(R.id.radio1)
-        }
-        nargaImage.setOnClickListener {
-            it.findNavController().navigate(R.id.audio_narga) // Replace with the actual ID of fragment_audio_narga in your navigation graph
-        }
-        boomImage.setOnClickListener {
-            it.findNavController().navigate(R.id.audioBoomFragment) // Replace with the actual ID of fragment_audio_narga in your navigation graph
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = VintageAudioAdapter(items) { destinationId ->
+            view.findNavController().navigate(destinationId)
         }
 
         return view
     }
+
 
     companion object {
         /**
