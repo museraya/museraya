@@ -144,6 +144,11 @@
         android:id="@+id/PolaroidFragmentAR"
         android:name="com.example.museraya.PolaroidFragment"
         android:label="Woodcutter AR" />
+    <fragment
+        android:id="@+id/boomArFragment"
+        android:name="com.example.museraya.BoomArFragment"
+        android:label="fragment_boom_ar"
+        tools:layout="@layout/fragment_boom_ar" />
 
 
 </navigation>

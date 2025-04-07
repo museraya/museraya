@@ -19,7 +19,7 @@ class LiveViewFragment : Fragment() {
         ModelItem("Woodcutter's Nightmare", "Painting", R.id.woodcutterARFragment, R.drawable.woodcutter_nobg),
         ModelItem("Tex Reavis", "Painting", R.id.texArFragment, R.drawable.tex_nobg),
         ModelItem("Pronto B! Polaroid Camera", "Vintage Film", R.id.PolaroidFragmentAR, R.drawable.polaroid_nobg),
-        ModelItem("Classic TV", "Vintage Film", R.id.filmViewerFragment, R.drawable.comingsoon),
+        ModelItem("Boom Microphone", "Vintage Audio", R.id.boomArFragment, R.drawable.boommicrophonenobg),
         ModelItem("Retro Telephone", "Vintage Audio", R.id.audioBoomFragment, R.drawable.comingsoon),
         ModelItem("Gramophone", "Vintage Music", R.id.turntableFragment, R.drawable.comingsoon),
         ModelItem("Film Projector", "Vintage Film", R.id.filmPolaroidFragment, R.drawable.comingsoon)
