@@ -95,12 +95,64 @@ class SettingsFragment : Fragment() {
         // --- Terms & Privacy Row Click --- (Keep as is)
         binding.rowTermsPrivacy.setOnClickListener {
             Log.d("SettingsFragment", "Terms & Privacy clicked")
+
             val termsAndPolicyText = """
                 Terms of Service
-                {... Keep your existing terms text here ...}
+
+                Last Updated: March 30, 2025
+
+                Welcome to Museraya. These Terms of Service govern your use of the App, provided by Us. By using the App, you agree to these Terms. If you do not agree, please do not use the App.
+
+                1. Use of the App
+                You must be at least 13 years old to use the App.
+                The App provides an augmented reality (AR) museum experience, allowing users to view 3D models of vintage artifacts.
+                You agree to use the App only for lawful purposes and in compliance with all applicable laws.
+
+                2. Intellectual Property
+                All content in the App, including 3D models, images, and designs, are owned by our licensors.
+                You may not copy, modify, distribute, or sell any content from the App without our permission.
+
+                3. Limitation of Liability
+                We provide the App "as is" without warranties of any kind.
+                We are not responsible for any damages, data loss, or issues arising from the use of the App.
+
+                4. Changes to the Terms
+                We may update these Terms at any time. Continued use of the App after changes constitutes acceptance of the new Terms.
+
+                5. Contact
+                For questions about these Terms, contact us at museraya123@gmail.com.
+
+
                 Privacy Policy
-                {... Keep your existing policy text here ...}
-            """.trimIndent() // Keep your full text here
+
+                Last Updated: March 30, 2025
+
+                Museraya respects your privacy. This Privacy Policy explains how we collect, use, and protect your information.
+
+                1. Information We Collect
+                Usage Data: We may collect anonymized data on how you interact with the App.
+                Device Information: We may collect information such as device type and operating system.
+                AR Data: The App uses ARCore to detect surfaces for placing 3D models. This data is not stored or shared.
+
+                2. How We Use Your Information
+                To improve the App and user experience.
+                To troubleshoot and prevent technical issues.
+                We do not sell or share your personal data with third parties.
+
+                3. Data Security
+                We implement security measures to protect your data, but we cannot guarantee complete security.
+
+                4. Your Rights
+                You can request to delete any personal data we have collected (if applicable).
+
+                5. Changes to This Policy
+                We may update this Privacy Policy. Continued use of the App after changes means you accept the updated Policy.
+
+                6. Contact
+                For privacy-related inquiries, contact us at museraya123@gmail.com.
+            """.trimIndent()
+
+
             showInfoDialog("Terms & Privacy", termsAndPolicyText)
         }
 
