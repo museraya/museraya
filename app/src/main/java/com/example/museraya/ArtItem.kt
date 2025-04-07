@@ -1,7 +1,7 @@
 package com.example.museraya
 
 data class ArtItem(
-    val title: String = "",
-    val imageResId: Int = 0,
-    val fragmentId: Int = 0
+    val title: String,
+    val imageResId: Int,
+    val navId: Int? = null // ← this is the correct field name
 )
