@@ -1,29 +1,19 @@
 package com.example.museraya
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.navigation.findNavController
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [VintageMusicFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class VintageMusicFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: VintageMusicAdapter
+    private lateinit var artAdapter: ArtAdapter
+    private val artList = mutableListOf<ArtItem>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,20 +23,47 @@ class VintageMusicFragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.vintageMusicRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        artAdapter = ArtAdapter(artList)
+        recyclerView.adapter = artAdapter
 
-        val items = listOf(
-            VintageMusicItem(R.drawable.turntable, R.id.turntableFragment),
-            VintageMusicItem(R.drawable.vinyl, R.id.vinylFragment),
-            VintageMusicItem(R.drawable.single_vinyl, R.id.singleVinylFragment)
-        )
-
-        adapter = VintageMusicAdapter(items) { destinationId ->
-            view.findNavController().navigate(destinationId)
-        }
-
-        recyclerView.adapter = adapter
+        fetchArtFromFirestore()
 
         return view
     }
-}
 
+    private fun fetchArtFromFirestore() {
+        val db = FirebaseFirestore.getInstance()
+
+        db.collection("music").addSnapshotListener { snapshots, error ->
+            if (error != null || snapshots == null) return@addSnapshotListener
+
+            artList.clear()
+
+            for (doc in snapshots.documents) {
+                val name = doc.getString("name") ?: continue
+                val info = doc.getString("info") ?: "No info available"
+
+                val imageResId = when (name) {
+                    "33 RPM Vinyl Records" -> R.drawable.vinyl
+                    "45 RPM Single Vinyl Records" -> R.drawable.single_vinyl
+                    "Vintage Phonograph with AM Radio (1940s-1950s)" -> R.drawable.turntable
+                    else -> R.drawable.placeholder
+                }
+
+                val navId = when (name) {
+                    "33 RPM Vinyl Records" -> R.id.vinylFragment
+                    "45 RPM Single Vinyl Records" -> R.id.singleVinylFragment
+                    "Vintage Phonograph with AM Radio (1940s-1950s)" -> R.id.turntableFragment
+                    else -> null
+                }
+
+                artList.add(ArtItem(name, imageResId, info, navId))
+
+            }
+
+            artAdapter.notifyDataSetChanged()
+        }
+    }
+
+
+}

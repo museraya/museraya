@@ -150,5 +150,16 @@
         android:label="fragment_boom_ar"
         tools:layout="@layout/fragment_boom_ar" />
 
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.example.museraya.InfoFragment"
+        android:label="InfoFragment" >
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="info"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

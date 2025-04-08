@@ -35,29 +35,33 @@ class ArtFragment : Fragment() {
         val db = FirebaseFirestore.getInstance()
 
         db.collection("art").addSnapshotListener { snapshots, error ->
-            if (error != null || snapshots == null) {
-                return@addSnapshotListener
-            }
+            if (error != null || snapshots == null) return@addSnapshotListener
 
             artList.clear()
 
             for (doc in snapshots.documents) {
                 val name = doc.getString("name") ?: continue
+                val info = doc.getString("info") ?: "No info available"
+
                 val imageResId = when (name) {
                     "Forester’s Nightmare” (26x36) by Art Tibaldo (2010)" -> R.drawable.woodcutter
                     "“Tex Reavis Panning Gold in a Benguet River” (40x30cm) by Art Tibaldo (2024)" -> R.drawable.tex
-                    else -> R.drawable.film_camera // You can use a default image
+                    else -> R.drawable.placeholder
                 }
+
                 val navId = when (name) {
                     "Forester’s Nightmare” (26x36) by Art Tibaldo (2010)" -> R.id.woodcutterFragment
                     "“Tex Reavis Panning Gold in a Benguet River” (40x30cm) by Art Tibaldo (2024)" -> R.id.texFragment
                     else -> null
                 }
 
-                artList.add(ArtItem(name, imageResId, navId))
+                artList.add(ArtItem(name, imageResId, info, navId))
+
             }
 
             artAdapter.notifyDataSetChanged()
         }
     }
+
+
 }
