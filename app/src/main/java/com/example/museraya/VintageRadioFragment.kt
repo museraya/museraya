@@ -19,7 +19,7 @@ class VintageRadioFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_art, container, false)
+        val view = inflater.inflate(R.layout.fragment_vintage_radio, container, false)
 
         recyclerView = view.findViewById(R.id.artRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())

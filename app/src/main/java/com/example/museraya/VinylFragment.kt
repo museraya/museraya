@@ -24,7 +24,7 @@ class VinylFragment : Fragment() {
         nameTextView = view.findViewById(R.id.textView2)
         infoTextView = view.findViewById(R.id.textView8)
 
-        db.collection("music").document("IAgGDs2Ru1GHhdhq3jfN")
+        db.collection("music").document("msVxHh2fHVeivS5HsmMP")
             .get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
