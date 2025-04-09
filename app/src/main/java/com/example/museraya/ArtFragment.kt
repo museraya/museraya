@@ -30,7 +30,6 @@ class ArtFragment : Fragment() {
 
         return view
     }
-
     private fun fetchArtFromFirestore() {
         val db = FirebaseFirestore.getInstance()
 
@@ -42,6 +41,7 @@ class ArtFragment : Fragment() {
             for (doc in snapshots.documents) {
                 val name = doc.getString("name") ?: continue
                 val info = doc.getString("info") ?: "No info available"
+                val imageUrl = doc.getString("url") // Fetch the URL from Firebase
 
                 val imageResId = when (name) {
                     "Forester’s Nightmare” (26x36) by Art Tibaldo (2010)" -> R.drawable.woodcutter
@@ -55,13 +55,14 @@ class ArtFragment : Fragment() {
                     else -> null
                 }
 
-                artList.add(ArtItem(name, imageResId, info, navId))
-
+                // Pass the URL along with other details
+                artList.add(ArtItem(name, imageResId, imageUrl, info, navId))
             }
 
             artAdapter.notifyDataSetChanged()
         }
     }
+
 
 
 }

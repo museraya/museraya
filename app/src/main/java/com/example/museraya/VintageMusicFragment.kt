@@ -19,9 +19,9 @@ class VintageMusicFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_vintage_music, container, false)
+        val view = inflater.inflate(R.layout.fragment_art, container, false)
 
-        recyclerView = view.findViewById(R.id.vintageMusicRecyclerView)
+        recyclerView = view.findViewById(R.id.artRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         artAdapter = ArtAdapter(artList)
         recyclerView.adapter = artAdapter
@@ -30,7 +30,6 @@ class VintageMusicFragment : Fragment() {
 
         return view
     }
-
     private fun fetchArtFromFirestore() {
         val db = FirebaseFirestore.getInstance()
 
@@ -42,6 +41,7 @@ class VintageMusicFragment : Fragment() {
             for (doc in snapshots.documents) {
                 val name = doc.getString("name") ?: continue
                 val info = doc.getString("info") ?: "No info available"
+                val imageUrl = doc.getString("url") // Fetch the URL from Firebase
 
                 val imageResId = when (name) {
                     "33 RPM Vinyl Records" -> R.drawable.vinyl
@@ -57,13 +57,14 @@ class VintageMusicFragment : Fragment() {
                     else -> null
                 }
 
-                artList.add(ArtItem(name, imageResId, info, navId))
-
+                // Pass the URL along with other details
+                artList.add(ArtItem(name, imageResId, imageUrl, info, navId))
             }
 
             artAdapter.notifyDataSetChanged()
         }
     }
+
 
 
 }

@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class ArtAdapter(private val artList: List<ArtItem>) :
     RecyclerView.Adapter<ArtAdapter.ArtViewHolder>() {
@@ -25,9 +26,18 @@ class ArtAdapter(private val artList: List<ArtItem>) :
 
     override fun onBindViewHolder(holder: ArtViewHolder, position: Int) {
         val item = artList[position]
-        holder.image.setImageResource(item.imageResId)
 
-        // Conditionally show/hide title
+        // Use Glide to load the image from URL
+        if (item.imageUrl != null) {
+            Glide.with(holder.itemView.context)
+                .load(item.imageUrl)
+                .into(holder.image) // Load from URL
+        } else {
+            // If URL is not available, use the fallback resource
+            holder.image.setImageResource(item.imageResId ?: R.drawable.placeholder)
+        }
+
+        // Conditionally show/hide title (your existing logic)
         when (item.title) {
             "Forester’s Nightmare” (26x36) by Art Tibaldo (2010)",
             "“Tex Reavis Panning Gold in a Benguet River” (40x30cm) by Art Tibaldo (2024)",
@@ -41,7 +51,7 @@ class ArtAdapter(private val artList: List<ArtItem>) :
             "Portable Slide Projector (35 mm slides)",
             "Bell Telephone",
             "Nagra Open Real Field Recorder (1960s-2000s)",
-            "Boom Microphones"->  {
+            "Boom Microphones" -> {
                 holder.title.visibility = View.GONE
             }
             else -> {
@@ -50,28 +60,14 @@ class ArtAdapter(private val artList: List<ArtItem>) :
             }
         }
 
-        // Navigation logic
+        // Navigation logic (your existing logic)
         val bundle = Bundle().apply {
             putString("name", item.title)
             putString("info", item.info)
+            putString("imageUrl", item.imageUrl)
         }
 
-        val destinationId = when (item.title) {
-            "Forester’s Nightmare” (26x36) by Art Tibaldo (2010)" -> R.id.woodcutterFragment
-            "“Tex Reavis Panning Gold in a Benguet River” (40x30cm) by Art Tibaldo (2024)" -> R.id.texFragment
-            "33 RPM Vinyl Records" -> R.id.vinylFragment
-            "45 RPM Single Vinyl Records" -> R.id.singleVinylFragment
-            "Vintage Phonograph with AM Radio (1940s-1950s)" -> R.id.turntableFragment
-            "8 Millimeter Film Editor and Viewer" -> R.id.filmViewerFragment
-            "8 Millimeter Film Camera" -> R.id.filmCameraFragment
-            "Polaroid Instant Photo" -> R.id.filmPolaroidFragment
-            "Sony Cassette Tape Field Recorder" -> R.id.filmCassetteFragment
-            "Portable Slide Projector (35 mm slides)" -> R.id.filmSlideFragment
-            "Bell Telephone" -> R.id.radio1
-            "Nagra Open Real Field Recorder (1960s-2000s)" -> R.id.audio_narga
-            "Boom Microphones" -> R.id.audioBoomFragment
-            else -> R.id.infoFragment
-        }
+        val destinationId = item.navId ?: R.id.infoFragment
 
         holder.itemView.setOnClickListener { view ->
             view.findNavController().navigate(destinationId, bundle)

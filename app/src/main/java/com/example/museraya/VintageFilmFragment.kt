@@ -19,9 +19,9 @@ class VintageFilmFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_vintage_film, container, false)
+        val view = inflater.inflate(R.layout.fragment_art, container, false)
 
-        recyclerView = view.findViewById(R.id.filmRecyclerView)
+        recyclerView = view.findViewById(R.id.artRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         artAdapter = ArtAdapter(artList)
         recyclerView.adapter = artAdapter
@@ -30,7 +30,6 @@ class VintageFilmFragment : Fragment() {
 
         return view
     }
-
     private fun fetchArtFromFirestore() {
         val db = FirebaseFirestore.getInstance()
 
@@ -42,6 +41,7 @@ class VintageFilmFragment : Fragment() {
             for (doc in snapshots.documents) {
                 val name = doc.getString("name") ?: continue
                 val info = doc.getString("info") ?: "No info available"
+                val imageUrl = doc.getString("url") // Fetch the URL from Firebase
 
                 val imageResId = when (name) {
                     "8 Millimeter Film Editor and Viewer" -> R.drawable.film_viewer
@@ -61,14 +61,14 @@ class VintageFilmFragment : Fragment() {
                     else -> null
                 }
 
-
-                artList.add(ArtItem(name, imageResId, info, navId))
-
+                // Pass the URL along with other details
+                artList.add(ArtItem(name, imageResId, imageUrl, info, navId))
             }
 
             artAdapter.notifyDataSetChanged()
         }
     }
+
 
 
 }

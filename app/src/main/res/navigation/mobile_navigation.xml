@@ -160,6 +160,9 @@
         <argument
             android:name="info"
             app:argType="string" />
+        <argument
+            android:name="url"
+            app:argType="string" />
     </fragment>
 
 </navigation>
