@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,18 +10,49 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <ImageButton
+        android:id="@+id/btnInfoWoodcutter"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Info"
+        android:padding="8dp"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/ic_info_outline_24"
+        app:tint="@android:color/white" />
+
+    <ImageButton
+        android:id="@+id/btnHelpWoodcutter"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Help"
+        android:padding="8dp"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/ic_help_outline_24"
+        app:tint="@android:color/white" />
+
     <TextView
-        android:id="@+id/tvInstructions"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvInstructionsWoodcutter" android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_above="@id/btnPlaceModelWoodCutter"
         android:layout_marginBottom="24dp"
         android:padding="12dp"
-        android:background="#80000000"  android:textColor="@android:color/white"
+        android:background="#80000000"
+        android:textColor="@android:color/white"
         android:textSize="16sp"
         android:gravity="center"
-        android:visibility="gone"      tools:text="Instruction Text Here"
+        android:visibility="gone"
+        tools:text="Instruction Text Here"
         tools:visibility="visible"/>
 
     <Button
@@ -30,6 +62,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:text="Lock Rotation" />
+        android:text="Lock Interaction" />
 
 </RelativeLayout>

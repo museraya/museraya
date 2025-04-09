@@ -18,4 +18,22 @@
     <string name="live_view">Live View</string>
     <string name="home">Home</string>
     <string name="avatar" />
+
+    <string name="ar_help_title">How to Use AR View</string>
+    <string name="ar_help_message">1. Find a well-lit, flat surface (like a floor or table).\n2. Move your device slowly, pointing it at the surface to scan it.\n3. Once the surface is detected, the artifact will appear.\n4. Pinch with two fingers to resize the artifact.\n5. Use two fingers and twist to rotate the artifact.\n6. Use the Lock/Unlock button to enable/disable resizing and rotation.</string>
+
+    <string name="woodcutter_info_title">About the Woodcutter Frame</string>
+    <string name="woodcutter_info_message">This is a detailed description of the woodcutter frame artifact. Mention its history, significance, materials, etc.</string>
+
+    <string name="tex_info_title">About Tex</string>
+    <string name="tex_info_message">Information about the \'Tex\' artifact goes here. Describe what it is, its context, etc.</string>
+
+    <string name="boom_mic_info_title">About the Boom Microphone</string>
+    <string name="boom_mic_info_message">Details about the boom microphone model. Explain its use, components, or relevance.</string>
+
+    <string name="polaroid_info_title">About the Polaroid Camera</string>
+    <string name="polaroid_info_message">Information regarding the Polaroid camera model. Include facts about its history, function, or cultural impact.</string>
+
+    <string name="dialog_ok">OK</string>
+
 </resources>

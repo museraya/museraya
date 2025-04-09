@@ -1,4 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -6,6 +8,18 @@
         android:id="@+id/arSceneViewpolaroid"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/tvInstructionsPolaroid" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/btnPlaceModelpolaroid" android:layout_marginBottom="24dp"
+        android:padding="12dp"
+        android:background="#80000000"  android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:visibility="gone"      tools:text="Instruction Text Here"
+        tools:visibility="visible"/>
 
     <Button
         android:id="@+id/btnPlaceModelpolaroid"
@@ -15,4 +29,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
         android:text="Lock Rotation" />
+
 </RelativeLayout>
