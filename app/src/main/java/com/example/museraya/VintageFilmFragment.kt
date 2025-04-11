@@ -41,7 +41,10 @@ class VintageFilmFragment : Fragment() {
             for (doc in snapshots.documents) {
                 val name = doc.getString("name") ?: continue
                 val info = doc.getString("info") ?: "No info available"
-                val imageUrl = doc.getString("url") // Fetch the URL from Firebase
+                val rawUrl = doc.getString("url")
+
+                // Use image URL only if it is not blank or "undefined"
+                val imageUrl = if (!rawUrl.isNullOrBlank() && rawUrl != "undefined") rawUrl else null
 
                 val imageResId = when (name) {
                     "8 Millimeter Film Editor and Viewer" -> R.drawable.film_viewer

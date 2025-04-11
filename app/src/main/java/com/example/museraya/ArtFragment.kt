@@ -41,7 +41,10 @@ class ArtFragment : Fragment() {
             for (doc in snapshots.documents) {
                 val name = doc.getString("name") ?: continue
                 val info = doc.getString("info") ?: "No info available"
-                val imageUrl = doc.getString("url") // Fetch the URL from Firebase
+                val rawUrl = doc.getString("url")
+
+                // Use image URL only if it is not blank or "undefined"
+                val imageUrl = if (!rawUrl.isNullOrBlank() && rawUrl != "undefined") rawUrl else null
 
                 val imageResId = when (name) {
                     "Forester’s Nightmare” (26x36) by Art Tibaldo (2010)" -> R.drawable.woodcutter
