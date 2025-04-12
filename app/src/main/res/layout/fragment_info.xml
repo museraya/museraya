@@ -8,53 +8,70 @@
     android:background="@color/olive"
     android:fitsSystemWindows="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
         android:background="@color/olive">
 
-        <!-- ImageView for the Art Item -->
+        <!-- Title -->
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingBottom="4dp"
+            android:fontFamily="@font/helvetica"/>
+
+        <!-- Subtitle -->
+        <TextView
+            android:id="@+id/subTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About this artifact"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:fontFamily="@font/helvetica"
+            android:paddingBottom="12dp"/>
+
+        <!-- Pink Box Placeholder -->
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:background="@drawable/roundedcorners_bottom"
-            android:clipToOutline="true"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:scaleType="centerInside"
+            android:layout_marginBottom="16dp" />
 
-        <!-- Title TextView -->
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="325dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/helvetica"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/imageView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <!-- Info TextView -->
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="371dp"
-            android:layout_height="112dp"
+        <!-- Container for the content text -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/helvetica"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="17sp"
-            android:textStyle="italic"
-            app:layout_constraintTop_toBottomOf="@id/textView2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_marginBottom="16dp"
+            android:layout_marginHorizontal="4dp"
+            android:elevation="2dp"
+            android:backgroundTint="@color/darkwhite"
+            android:clipToOutline="true"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_background">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Content Paragraph -->
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:lineSpacingExtra="6dp"
+                android:textAlignment="viewStart"
+                android:fontFamily="@font/helvetica"/>
+        </LinearLayout>
+
+    </LinearLayout>
 </ScrollView>
