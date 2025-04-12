@@ -212,7 +212,7 @@ class woodcutter : Fragment() {
     // Restored Destroy View Method
     override fun onDestroyView() {
         super.onDestroyView()
-        interactionInstructionJob?.cancel() // Cancel job (Restored)
+        interactionInstructionJob?.cancel()
         arSceneView.destroy()
     }
 }
