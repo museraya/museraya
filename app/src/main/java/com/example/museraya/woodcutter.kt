@@ -24,6 +24,7 @@ import io.github.sceneview.node.ModelNode
 import kotlinx.coroutines.Job // Import Job
 import kotlinx.coroutines.delay // Import delay
 import kotlinx.coroutines.launch
+import androidx.lifecycle.Lifecycle // Import Lifecycle for state check
 
 class woodcutter : Fragment() {
 
@@ -40,6 +41,11 @@ class woodcutter : Fragment() {
     // Instruction-related variables (Restored)
     private var interactionInstructionJob: Job? = null
     private var modelHasBeenPlaced = false
+
+    // --- NEW: Variables for Plane Renderer Timer ---
+    private var planeRendererTimerJob: Job? = null
+    private var planeRendererTimerStarted = false
+    // --- END NEW ---
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,6 +66,10 @@ class woodcutter : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // --- NEW: Reset timer flag on view creation ---
+        planeRendererTimerStarted = false
+        // --- END NEW ---
+
         // Show initial scanning instruction (Restored)
         showScanningInstructions()
 
@@ -67,7 +77,7 @@ class woodcutter : Fragment() {
 
         arSceneView.apply {
             lifecycle = viewLifecycleOwner.lifecycle
-            planeRenderer.isEnabled = true
+            planeRenderer.isEnabled = true // Ensure it starts enabled
             planeRenderer.isShadowReceiver = false
 
             environment = environmentLoader.createHDREnvironment(
@@ -80,9 +90,24 @@ class woodcutter : Fragment() {
                 config.lightEstimationMode = Config.LightEstimationMode.ENVIRONMENTAL_HDR
             }
 
-            // Session update logic with instruction handling (Restored)
+            // Session update logic with instruction handling AND plane renderer timer
             onSessionUpdated = { session, frame ->
                 if (frame.camera.trackingState == TrackingState.TRACKING) {
+
+                    // --- START NEW CODE for Plane Renderer Timer ---
+                    if (!planeRendererTimerStarted) {
+                        planeRendererTimerStarted = true // Mark as started
+                        planeRendererTimerJob = viewLifecycleOwner.lifecycleScope.launch {
+                            delay(10000L) // Wait for 10 seconds (10000 milliseconds)
+                            // Check if the view is still valid before accessing planeRenderer
+                            if (viewLifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+                                planeRenderer.isEnabled = false // Disable the dots
+                            }
+                        }
+                    }
+                    // --- END NEW CODE ---
+
+
                     if (!modelHasBeenPlaced) {
                         showScanningInstructions() // Keep showing scanning instructions
                         // Try to find a plane and place the anchor
@@ -96,6 +121,8 @@ class woodcutter : Fragment() {
                     // If model IS placed, interaction instructions are handled by showInteractionInstructions timeout
                 } else {
                     // Optional: showScanningInstructions() or "Tracking Lost"
+                    // Consider resetting planeRendererTimerStarted here if you want the timer to restart
+                    // upon regaining tracking after loss. For now, it only runs once.
                 }
             }
         }
@@ -167,7 +194,6 @@ class woodcutter : Fragment() {
                     )
                     if (modelInstance != null) {
                         modelHasBeenPlaced = true // Mark model as placed (Restored)
-                        // Toast.makeText(requireContext(), "Artifact placed", Toast.LENGTH_SHORT).show() // Can be simpler now
 
                         modelNode = ModelNode(
                             modelInstance = modelInstance,
@@ -213,6 +239,9 @@ class woodcutter : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         interactionInstructionJob?.cancel()
+        // --- NEW: Cancel the plane renderer timer job ---
+        planeRendererTimerJob?.cancel()
+        // --- END NEW ---
         arSceneView.destroy()
     }
 }

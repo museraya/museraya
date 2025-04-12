@@ -151,6 +151,24 @@
         tools:layout="@layout/fragment_boom_ar" />
 
     <fragment
+        android:id="@+id/AntiqueAR"
+        android:name="com.example.museraya.AntiqueBrass"
+        android:label="fragment_antique"
+        tools:layout="@layout/fragment_woodcutterar" />
+
+    <fragment
+        android:id="@+id/Nagrafield"
+        android:name="com.example.museraya.NagraOpen"
+        android:label="fragment_nagrafield"
+        tools:layout="@layout/fragment_woodcutterar" />
+
+    <fragment
+        android:id="@+id/Bell"
+        android:name="com.example.museraya.BellTphone"
+        android:label="fragment_Bell"
+        tools:layout="@layout/fragment_woodcutterar" />
+
+    <fragment
         android:id="@+id/infoFragment"
         android:name="com.example.museraya.InfoFragment"
         android:label="InfoFragment" >

@@ -20,9 +20,9 @@ class LiveViewFragment : Fragment() {
         ModelItem("Tex Reavis", "Painting", R.id.texArFragment, R.drawable.tex_nobg),
         ModelItem("Pronto B! Polaroid Camera", "Vintage Film", R.id.PolaroidFragmentAR, R.drawable.polaroid_nobg),
         ModelItem("Boom Microphone", "Vintage Audio", R.id.boomArFragment, R.drawable.boommicrophonenobg),
-        ModelItem("Retro Telephone", "Vintage Audio", R.id.audioBoomFragment, R.drawable.comingsoon),
-        ModelItem("Gramophone", "Vintage Music", R.id.turntableFragment, R.drawable.comingsoon),
-        ModelItem("Film Projector", "Vintage Film", R.id.filmPolaroidFragment, R.drawable.comingsoon)
+        ModelItem("Antique Brass telescope", "Optical Instrument", R.id.AntiqueAR, R.drawable.telenobg),
+        ModelItem("Nagra Open Real Field Recorder", "Vintage Audio", R.id.Nagrafield, R.drawable.nagranobg),
+        ModelItem("Bell telephone", "Vintage Audio", R.id.Bell, R.drawable.bellnobg)
     )
 
     override fun onCreateView(

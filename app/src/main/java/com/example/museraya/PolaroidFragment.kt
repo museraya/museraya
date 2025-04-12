@@ -22,11 +22,12 @@ import io.github.sceneview.node.ModelNode
 import kotlinx.coroutines.Job // Import Job
 import kotlinx.coroutines.delay // Import delay
 import kotlinx.coroutines.launch
+import androidx.lifecycle.Lifecycle // Import Lifecycle for state check
 
 class PolaroidFragment : Fragment(){
     private lateinit var arSceneView: ARSceneView
     private lateinit var placeModelButton: Button
-    private lateinit var tvInstructions: TextView // Add TextView reference
+    private lateinit var tvInstructions: TextView // Instruction TextView reference
     private lateinit var materialLoader: MaterialLoader
     private var anchorNode: AnchorNode? = null
     private var modelNode: ModelNode? = null
@@ -38,14 +39,20 @@ class PolaroidFragment : Fragment(){
     // Flag to track if the model has been placed at least once
     private var modelHasBeenPlaced = false
 
+    // --- NEW: Variables for Plane Renderer Timer ---
+    private var planeRendererTimerJob: Job? = null
+    private var planeRendererTimerStarted = false
+    // --- END NEW ---
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Ensure this layout and IDs are correct for PolaroidFragment
         val view = inflater.inflate(R.layout.fragment_polaroid, container, false)
-        arSceneView = view.findViewById(R.id.arSceneViewpolaroid)
-        placeModelButton = view.findViewById(R.id.btnPlaceModelpolaroid)
-        tvInstructions = view.findViewById(R.id.tvInstructionsPolaroid) // Get reference to TextView
+        arSceneView = view.findViewById(R.id.arSceneViewpolaroid) // Verify ID
+        placeModelButton = view.findViewById(R.id.btnPlaceModelpolaroid) // Verify ID
+        tvInstructions = view.findViewById(R.id.tvInstructionsPolaroid) // Verify ID
 
         materialLoader = MaterialLoader(arSceneView.engine, requireContext())
 
@@ -55,12 +62,16 @@ class PolaroidFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // --- NEW: Reset timer flag on view creation ---
+        planeRendererTimerStarted = false
+        // --- END NEW ---
+
         // Show initial scanning instruction
         showScanningInstructions()
 
         arSceneView.apply {
             lifecycle = viewLifecycleOwner.lifecycle
-            planeRenderer.isEnabled = true
+            planeRenderer.isEnabled = true // Ensure it starts enabled
             planeRenderer.isShadowReceiver = false
 
             environment = environmentLoader.createHDREnvironment(
@@ -73,13 +84,26 @@ class PolaroidFragment : Fragment(){
                 config.lightEstimationMode = Config.LightEstimationMode.ENVIRONMENTAL_HDR
             }
 
+            // Session update logic with instruction handling AND plane renderer timer
             onSessionUpdated = { session, frame ->
-                // Check if ARCore is tracking
                 if (frame.camera.trackingState == TrackingState.TRACKING) {
+
+                    // --- START NEW CODE for Plane Renderer Timer ---
+                    if (!planeRendererTimerStarted) {
+                        planeRendererTimerStarted = true // Mark as started
+                        planeRendererTimerJob = viewLifecycleOwner.lifecycleScope.launch {
+                            delay(10000L) // Wait for 10 seconds (10000 milliseconds)
+                            // Check if the view is still valid before accessing planeRenderer
+                            if (viewLifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+                                planeRenderer.isEnabled = false // Disable the dots
+                            }
+                        }
+                    }
+                    // --- END NEW CODE ---
+
                     // Check if a model has been placed yet. If not, keep showing scanning instructions.
                     if (!modelHasBeenPlaced) {
                         showScanningInstructions() // Keep showing if no model placed yet
-
                         // Try to find a plane and place the anchor
                         frame.getUpdatedPlanes().firstOrNull { it.type == Plane.Type.HORIZONTAL_UPWARD_FACING }
                             ?.let { plane ->
@@ -90,8 +114,7 @@ class PolaroidFragment : Fragment(){
                     }
                     // If model is placed, instructions are handled elsewhere
                 } else {
-                    // Optional: Handle tracking loss indication
-                    // showScanningInstructions() // Or show a specific "Tracking Lost" message
+                    // Optional: Handle tracking loss
                 }
             }
         }
@@ -111,14 +134,15 @@ class PolaroidFragment : Fragment(){
     private fun showInteractionInstructions() {
         // Cancel any pending hide job before starting a new one
         interactionInstructionJob?.cancel()
-
         tvInstructions.text = "Pinch to resize\nTwist to rotate"
         tvInstructions.visibility = View.VISIBLE
 
         // Launch a coroutine to hide the instructions after 5 seconds
         interactionInstructionJob = viewLifecycleOwner.lifecycleScope.launch {
             delay(5000) // 5 seconds delay
-            tvInstructions.visibility = View.GONE // Hide the text view
+            if (tvInstructions.visibility == View.VISIBLE) {
+                tvInstructions.visibility = View.GONE // Hide the text view
+            }
         }
     }
 
@@ -134,12 +158,12 @@ class PolaroidFragment : Fragment(){
                     )
                     if (modelInstance != null) {
                         modelHasBeenPlaced = true // Mark that the model is now placed
-                        Toast.makeText(requireContext(), "Model loaded successfully", Toast.LENGTH_SHORT).show()
+                        // Toast.makeText(requireContext(), "Model loaded successfully", Toast.LENGTH_SHORT).show() // Optional Toast
 
                         modelNode = ModelNode(
                             modelInstance = modelInstance,
-                            scaleToUnits = 0.1f, // *** ADJUST SCALE for Polaroid - 0.5 might be too big ***
-                            centerOrigin = Position(y = -0.05f) // *** ADJUST ORIGIN for Polaroid ***
+                            scaleToUnits = 0.1f, // Adjusted scale for Polaroid
+                            centerOrigin = Position(y = -0.05f) // Adjusted origin for Polaroid
                         ).apply {
                             isEditable = !isModelLocked // Sync with lock state
                         }
@@ -188,6 +212,9 @@ class PolaroidFragment : Fragment(){
         super.onDestroyView()
         // Cancel any ongoing coroutine job
         interactionInstructionJob?.cancel()
+        // --- NEW: Cancel the plane renderer timer job ---
+        planeRendererTimerJob?.cancel()
+        // --- END NEW ---
         arSceneView.destroy()
     }
 }

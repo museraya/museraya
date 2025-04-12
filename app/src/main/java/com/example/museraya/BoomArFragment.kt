@@ -22,12 +22,13 @@ import io.github.sceneview.node.ModelNode
 import kotlinx.coroutines.Job // Import Job
 import kotlinx.coroutines.delay // Import delay
 import kotlinx.coroutines.launch
+import androidx.lifecycle.Lifecycle // Import Lifecycle for state check
 
 class BoomArFragment : Fragment() {
 
     private lateinit var arSceneView: ARSceneView
     private lateinit var placeModelButton: Button
-    private lateinit var tvInstructions: TextView // Add TextView reference
+    private lateinit var tvInstructions: TextView // Instruction TextView reference
     private lateinit var materialLoader: MaterialLoader
     private var anchorNode: AnchorNode? = null
     private var modelNode: ModelNode? = null
@@ -39,18 +40,22 @@ class BoomArFragment : Fragment() {
     // Flag to track if the model has been placed at least once
     private var modelHasBeenPlaced = false
 
+    // --- NEW: Variables for Plane Renderer Timer ---
+    private var planeRendererTimerJob: Job? = null
+    private var planeRendererTimerStarted = false
+    // --- END NEW ---
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // *** CORRECTION: Assuming the layout file is fragment_boom.xml based on provided XML ***
+        // !! IMPORTANT !! Ensure this layout and the IDs below are correct for BoomArFragment
         val view = inflater.inflate(R.layout.fragment_boom_ar, container, false)
-        // --- End Correction ---
 
-        // IDs match fragment_boom.xml
-        arSceneView = view.findViewById(R.id.arSceneViewWoodCutter)
-        placeModelButton = view.findViewById(R.id.btnPlaceModelWoodCutter)
-        tvInstructions = view.findViewById(R.id.tvInstructionsBoom) // Get reference to the new TextView
+        // IDs should match fragment_boom_ar.xml (or your actual layout)
+        arSceneView = view.findViewById(R.id.arSceneViewWoodCutter) // Verify ID
+        placeModelButton = view.findViewById(R.id.btnPlaceModelWoodCutter) // Verify ID
+        tvInstructions = view.findViewById(R.id.tvInstructionsBoom) // Verify ID
 
         materialLoader = MaterialLoader(arSceneView.engine, requireContext())
 
@@ -60,12 +65,15 @@ class BoomArFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Show initial scanning instruction
+        // --- NEW: Reset timer flag on view creation ---
+        planeRendererTimerStarted = false
+        // --- END NEW ---
+
         showScanningInstructions()
 
         arSceneView.apply {
             lifecycle = viewLifecycleOwner.lifecycle
-            planeRenderer.isEnabled = true
+            planeRenderer.isEnabled = true // Ensure it starts enabled
             planeRenderer.isShadowReceiver = false
 
             environment = environmentLoader.createHDREnvironment(
@@ -78,14 +86,26 @@ class BoomArFragment : Fragment() {
                 config.lightEstimationMode = Config.LightEstimationMode.ENVIRONMENTAL_HDR
             }
 
+            // Session update logic with instruction handling AND plane renderer timer
             onSessionUpdated = { session, frame ->
-                // Check if ARCore is tracking
                 if (frame.camera.trackingState == TrackingState.TRACKING) {
-                    // Check if a model has been placed yet. If not, keep showing scanning instructions.
+
+                    // --- START NEW CODE for Plane Renderer Timer ---
+                    if (!planeRendererTimerStarted) {
+                        planeRendererTimerStarted = true // Mark as started
+                        planeRendererTimerJob = viewLifecycleOwner.lifecycleScope.launch {
+                            delay(10000L) // Wait for 10 seconds (10000 milliseconds)
+                            // Check if the view is still valid before accessing planeRenderer
+                            if (viewLifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+                                planeRenderer.isEnabled = false // Disable the dots
+                            }
+                        }
+                    }
+                    // --- END NEW CODE ---
+
+
                     if (!modelHasBeenPlaced) {
                         showScanningInstructions() // Keep showing if no model placed yet
-
-                        // Try to find a plane and place the anchor
                         frame.getUpdatedPlanes().firstOrNull { it.type == Plane.Type.HORIZONTAL_UPWARD_FACING }
                             ?.let { plane ->
                                 if (anchorNode == null) { // Place only once initially
@@ -93,10 +113,8 @@ class BoomArFragment : Fragment() {
                                 }
                             }
                     }
-                    // If model is placed, instructions are handled elsewhere
                 } else {
-                    // Optional: Handle tracking loss indication
-                    // showScanningInstructions() // Or show a specific "Tracking Lost" message
+                    // Optional: Handle tracking loss
                 }
             }
         }
@@ -107,67 +125,56 @@ class BoomArFragment : Fragment() {
     }
 
     private fun showScanningInstructions() {
-        // Cancel any pending hide operations for interaction instructions
         interactionInstructionJob?.cancel()
         tvInstructions.text = "Find a well-lit surface.\nSlowly move device to scan."
         tvInstructions.visibility = View.VISIBLE
     }
 
     private fun showInteractionInstructions() {
-        // Cancel any pending hide job before starting a new one
         interactionInstructionJob?.cancel()
-
         tvInstructions.text = "Pinch to resize\nTwist to rotate"
         tvInstructions.visibility = View.VISIBLE
 
-        // Launch a coroutine to hide the instructions after 5 seconds
         interactionInstructionJob = viewLifecycleOwner.lifecycleScope.launch {
-            delay(5000) // 5 seconds delay
-            tvInstructions.visibility = View.GONE // Hide the text view
+            delay(5000) // 5 seconds delay for interaction instructions
+            if (tvInstructions.visibility == View.VISIBLE) {
+                tvInstructions.visibility = View.GONE
+            }
         }
     }
 
     private fun placeAnchor(anchor: Anchor) {
-        if (anchorNode == null) { // Ensure we only place the anchor and model once automatically
+        if (anchorNode == null) {
             anchorNode = AnchorNode(arSceneView.engine, anchor).apply {
-                isEditable = !isModelLocked // Sync with lock state initially
+                isEditable = !isModelLocked
 
                 lifecycleScope.launch {
-                    // Make sure the path is correct for this fragment's model
                     val modelInstance = arSceneView.modelLoader.loadModelInstance(
                         "file:///android_asset/models/woodcutter/boommicrophone.glb" // Verify this path
                     )
                     if (modelInstance != null) {
-                        modelHasBeenPlaced = true // Mark that the model is now placed
-                        Toast.makeText(requireContext(), "Model loaded successfully", Toast.LENGTH_SHORT).show()
+                        modelHasBeenPlaced = true
+                        // Toast.makeText(requireContext(), "Model loaded successfully", Toast.LENGTH_SHORT).show() // Optional Toast
 
                         modelNode = ModelNode(
                             modelInstance = modelInstance,
-                            scaleToUnits = 0.5f, // Adjust scale as needed
-                            centerOrigin = Position(y = -0.5f) // Adjust origin as needed
+                            scaleToUnits = 0.5f,
+                            centerOrigin = Position(y = -0.5f)
                         ).apply {
-                            isEditable = !isModelLocked // Sync with lock state
+                            isEditable = !isModelLocked
                         }
-
                         addChildNode(modelNode!!)
-
-                        // Model is placed, show interaction instructions
                         showInteractionInstructions()
 
                     } else {
                         Toast.makeText(requireContext(), "Failed to load model", Toast.LENGTH_SHORT).show()
-                        // Reset to allow retrying placement
-                        anchorNode?.let { // Safely access anchorNode
-                            try { arSceneView.removeChildNode(it) } catch (e: Exception) { /* Ignore if already removed */ }
-                        }
+                        anchorNode?.let { try { arSceneView.removeChildNode(it) } catch (e: Exception) {} }
                         anchorNode = null
-                        modelHasBeenPlaced = false // Reset flag
-                        showScanningInstructions() // Revert to scanning instructions
+                        modelHasBeenPlaced = false
+                        showScanningInstructions()
                     }
                 }
-                // Add anchor node regardless of model load success initially
-                // It gets removed above if model loading fails.
-                try { arSceneView.addChildNode(this) } catch (e: Exception) { /* Ignore if node already added elsewhere or error occurs */ }
+                try { arSceneView.addChildNode(this) } catch (e: Exception) {}
             }
         }
     }
@@ -176,26 +183,22 @@ class BoomArFragment : Fragment() {
     private fun toggleModelLockState() {
         if (anchorNode != null && modelNode != null) {
             isModelLocked = !isModelLocked
-
-            anchorNode?.isEditable = !isModelLocked // Update editability based on lock state
-            modelNode?.isEditable = !isModelLocked // Update editability based on lock state
-
+            anchorNode?.isEditable = !isModelLocked
+            modelNode?.isEditable = !isModelLocked
             val message = if (isModelLocked) "Model interaction locked!" else "Model interaction unlocked!"
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-
-            // Update button text
             placeModelButton.text = if (isModelLocked) "Unlock Interaction" else "Lock Interaction"
-
         } else {
             Toast.makeText(requireContext(), "Place the model first!", Toast.LENGTH_SHORT).show()
         }
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
-        // Cancel any ongoing coroutine job
         interactionInstructionJob?.cancel()
+        // --- NEW: Cancel the plane renderer timer job ---
+        planeRendererTimerJob?.cancel()
+        // --- END NEW ---
         arSceneView.destroy()
     }
 }

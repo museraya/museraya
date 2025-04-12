@@ -36,4 +36,15 @@
 
     <string name="dialog_ok">OK</string>
 
+    <string name="Antique_title">About the Antique Brass Telescope</string>
+    <string name="Antique_Message">Raise your YAYAYA</string>
+
+    <string name="Nagra_title">Nagra</string>
+    <string name="Nagra_message">YAYAYA</string>
+
+    <string name="Bell_title">OK</string>
+    <string name="Bell_message">OK</string>
+
+
+
 </resources>
