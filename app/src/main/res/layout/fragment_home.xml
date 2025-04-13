@@ -1,36 +1,103 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@color/beige"
-    android:fitsSystemWindows="true">
+    android:background="@color/screenBackground"
+    android:fitsSystemWindows="true"
+    tools:context=".HomeFragment">
 
-    <TextView
-        android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Art World and Media Newseum"
-        android:textSize="24sp"
-        android:fontFamily="@font/helvetica"
-        android:textColor="@color/black"
-        android:layout_marginBottom="16dp"
-        android:textStyle="bold|italic"
-        android:layout_gravity="center"/>
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height_expanded"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"> <!-- Theme for Toolbar text color -->
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/colorPrimary"
+            app:expandedTitleMarginStart="16dp"
+            app:expandedTitleMarginEnd="24dp"
+            app:expandedTitleMarginBottom="28dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:title="@string/home_screen_title"
+            app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Collapsed">
+
+        <!-- Parallax Image Background -->
+            <ImageView
+                android:id="@+id/parallaxImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/app_bar_background_image"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/medianew"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7"
+                android:foreground="@drawable/gradient_bottom_shadow" />
+
+        <!-- Toolbar Pinned at the Top -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_collapseMode="pin"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+</com.google.android.material.appbar.AppBarLayout>
+
+
+<androidx.core.widget.NestedScrollView
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/screen_padding"
+    android:paddingHorizontal="@dimen/screen_padding"
+    android:clipToPadding="false"> <!-- Allow padding around RecyclerView -->
 
     <TextView
         android:id="@+id/subtitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="All Items"
-        android:textColor="@color/black"
-        android:textSize="22sp"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="@dimen/subtitle_size"
         android:fontFamily="@font/helvetica"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="@dimen/subtitle_margin_bottom" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical" />
+        android:layout_height="wrap_content"
+    android:nestedScrollingEnabled="false"
+    android:paddingBottom="@dimen/screen_padding"
+    tools:listitem="@layout/itemhome_catalog" />
 </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
+
+    <!-- Optional: FloatingActionButton -->
+    <!-- <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:srcCompat="@android:drawable/ic_dialog_email"
+        app:layout_anchor="@id/appBarLayout"
+        app:layout_anchorGravity="bottom|end" /> -->
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -11,11 +11,12 @@
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
 
-    <!-- Base application theme. -->
+    <!-- REMOVE THIS UNUSED AppTheme BLOCK -->
+    <!--
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
         ... existing theme attributes ...
     </style>
+    -->
 
     <!-- Style for Section Headers (e.g., Help & Support, About) -->
     <style name="SettingsSectionHeader">
@@ -86,6 +87,42 @@
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:textSize">16sp</item>
     </style>
+
+    <!-- REMOVE THIS THEME BLOCK - It should only be in themes.xml -->
+    <!--
+    <style name="Theme.Museraya" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/dark_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/orange</item>
+        <item name="colorSecondaryVariant">@color/dark_orange</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+    </style>
+    -->
+
+    <!-- Style for the Expanded Collapsing Toolbar Title -->
+    <!-- Keep this here -->
+    <style name="TextAppearance.App.CollapsingToolbar.Expanded" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold|italic</item>
+        <item name="android:fontFamily">@font/helvetica</item>
+        <item name="android:shadowColor">#80000000</item> <!-- Semi-transparent black -->
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+        <item name="android:textSize">22sp</item>
+        
+
+    </style>
+
+    <!-- Style for the Collapsed Collapsing Toolbar Title -->
+    <!-- Keep this here -->
+    <style name="TextAppearance.App.CollapsingToolbar.Collapsed" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/white</item> <!-- Or headerTitleColor if you prefer -->
+        <item name="android:fontFamily">@font/helvetica</item>
+    </style>
+
 
 
 </resources>

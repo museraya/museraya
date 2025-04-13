@@ -27,7 +27,8 @@ class BookingHistoryFragment : Fragment() {
 
     private val firestore = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
-    private val inflater: LayoutInflater by lazy { LayoutInflater.from(requireContext()) } // Efficient inflater
+    // Use lazy initialization for the inflater for efficiency
+    private val inflater: LayoutInflater by lazy { LayoutInflater.from(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,7 +72,7 @@ class BookingHistoryFragment : Fragment() {
                     showNoBookingsMessage(true)
                 } else {
                     showNoBookingsMessage(false)
-                    displayBookingHistory(documents)
+                    displayBookingHistory(documents) // Pass the QuerySnapshot directly
                 }
             }
             .addOnFailureListener { exception ->
@@ -86,6 +87,7 @@ class BookingHistoryFragment : Fragment() {
 
         for (document in snapshot.documents) {
             // Inflate the list item layout for each booking
+            // Ensure list_item_booking.xml is your correct layout file name
             val bookingView = inflater.inflate(R.layout.list_item_booking, bookingHistoryLayout, false)
 
             // Find views within the inflated layout
@@ -94,6 +96,8 @@ class BookingHistoryFragment : Fragment() {
             val quantityTextView = bookingView.findViewById<TextView>(R.id.booking_quantity)
             val statusTextView = bookingView.findViewById<TextView>(R.id.booking_status)
             val dateCreatedTextView = bookingView.findViewById<TextView>(R.id.booking_date_created)
+            // <<< Find the Reason TextView >>>
+            val reasonTextView = bookingView.findViewById<TextView>(R.id.booking_reason) // Added
 
             // Extract data with null checks and defaults
             val name = document.getString("name") ?: "N/A"
@@ -103,16 +107,37 @@ class BookingHistoryFragment : Fragment() {
             val status = document.getString("status") ?: "N/A"
             val dateCreatedTimestamp = document.getTimestamp("date_created")
             val dateCreated = dateCreatedTimestamp?.toDate()?.let { formatDateTime(it) } ?: "N/A"
+            // <<< Extract the reason field >>>
+            val reason = document.getString("reason") // Added, can be null
 
             // Populate the views
-            nameTextView.text = "Name: $name" // Or just name, depending on preference
+            nameTextView.text = "Name: $name"
             dateTimeTextView.text = "Date & Time: $dateTime"
             quantityTextView.text = "Quantity: $quantity"
-            statusTextView.text = status.uppercase(Locale.getDefault()) // Show status in uppercase
+            statusTextView.text = status.uppercase(Locale.getDefault())
             dateCreatedTextView.text = "Created: $dateCreated"
 
             // Set status background color
             setStatusBackground(statusTextView, status)
+
+            // <<< Conditionally display the reason >>>
+            // <<< START INSERTED BLOCK >>>
+            if (status.equals("declined", ignoreCase = true)) { // Check if status is declined
+                if (!reason.isNullOrBlank()) { // Check if reason exists and is not empty
+                    reasonTextView.text = "Reason: $reason" // Set the reason text
+                    reasonTextView.visibility = View.VISIBLE // Make it visible
+                } else {
+                    // Optional: Handle declined status with no reason provided
+                    // reasonTextView.text = "Reason: Not specified"
+                    // reasonTextView.visibility = View.VISIBLE
+                    reasonTextView.visibility = View.GONE // Hide if no reason is provided
+                }
+            } else {
+                // Ensure reason is hidden for non-declined statuses
+                reasonTextView.visibility = View.GONE
+            }
+            // <<< END INSERTED BLOCK >>>
+
 
             // Add the populated item view to the main layout
             bookingHistoryLayout.addView(bookingView)
@@ -124,30 +149,33 @@ class BookingHistoryFragment : Fragment() {
             "pending" -> R.drawable.status_background_pending
             "accepted" -> R.drawable.status_background_accepted
             "declined" -> R.drawable.status_background_declined
-            else -> R.drawable.status_background_other
+            else -> R.drawable.status_background_other // Default/fallback background
         }
-        // Use ContextCompat for backward compatibility
-        textView.background = ContextCompat.getDrawable(textView.context, backgroundDrawableId)
+        // Use ContextCompat for backward compatibility and null safety
+        ContextCompat.getDrawable(textView.context, backgroundDrawableId)?.let {
+            textView.background = it
+        }
     }
 
 
     private fun formatDateTime(date: java.util.Date): String {
-        // Consider making the format slightly more concise if needed
+        // Using a common, unambiguous format
         val formatter = SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault())
         return formatter.format(date)
     }
 
     private fun showLoading(isLoading: Boolean) {
         loadingProgress.visibility = if (isLoading) View.VISIBLE else View.GONE
-        // Hide content while loading
+        // Hide/show content based on loading state
         scrollView.visibility = if (isLoading) View.GONE else View.VISIBLE
-        noBookingsMessage.visibility = View.GONE // Ensure message is hidden when loading starts
+        noBookingsMessage.visibility = View.GONE // Ensure message is hidden when loading starts or content shown
     }
 
     private fun showNoBookingsMessage(show: Boolean, message: String = "No bookings found for this account.") {
         noBookingsMessage.text = message
         noBookingsMessage.visibility = if (show) View.VISIBLE else View.GONE
-        // Hide the scroll view if the message is shown
+        // Hide the scroll view if the 'no bookings' message is shown
         scrollView.visibility = if (show) View.GONE else View.VISIBLE
+        loadingProgress.visibility = View.GONE // Ensure loading is hidden when showing message
     }
 }

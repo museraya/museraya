@@ -45,6 +45,9 @@
     <string name="Bell_title">About Bell Telephone</string>
     <string name="Bell_message">This is an antique rotary telephone inspired by the early inventions of Alexander Graham Bell. It features a heavy, rounded base with a circular dial at the center and a separate earpiece and mouthpiece mounted on a horizontal bar. These phones were among the first devices to allow people to speak with each other over long distances using a wired connection, a big improvement over the telegraph. Alexander Graham Bell, with the help of his assistant Thomas A. Watson, discovered that sound waves could be converted into electrical signals and sent through a wire. This breakthrough made real-time voice communication possible for the first time. Bell’s goal was to make communication faster and easier, especially for reaching others in different towns or countries without relying on slow letter delivery.</string>
 
+    <string name="catalog_item_image_description">Image for catalog item</string>
+    <string name="app_bar_background_image">Background image for the collapsing app bar</string>
 
+    <string name="home_screen_title">Art World and Media Newseum</string>
 
 </resources>

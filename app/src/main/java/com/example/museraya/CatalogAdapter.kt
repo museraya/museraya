@@ -26,7 +26,7 @@ class CatalogAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_catalog, parent, false)
+            .inflate(R.layout.itemhome_catalog, parent, false)
         return ViewHolder(view)
     }
 

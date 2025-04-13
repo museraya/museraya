@@ -22,9 +22,9 @@
     <color name="cardBackground">#FFFFFF</color>
     <color name="imageOverlay">#4D000000</color>
 
-    <color name="status_pending_background">#FFEB3B</color>
+    <color name="status_pending_background">#C8911E</color>
     <color name="status_declined_background">#F44336</color>
-    <color name="status_accepted_background">#4CAF50</color>
+    <color name="status_accepted_background">#257334</color>
     <color name="status_other_background">#9E9E9E</color>
     <color name="status_text_color">#FFFFFF</color>
     <color name="card_background">#FFFFFF</color>
@@ -32,5 +32,8 @@
     <color name="text_primary">#212121</color>
     <color name="text_secondary">#757575</color>
     <color name="screen_background">#F5F5F5</color>
+
+    <color name="login_button">#257334</color>
+    <color name="Register_button">#C8911E</color>
 
 </resources>

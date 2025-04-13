@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Solid background color -->
+    <solid android:color="@color/Register_button"/>
+
+    <!-- Rounded corners -->
+    <corners android:radius="200dp"/> <!-- This makes the corners rounded. You can adjust the radius value as needed -->
+
+    <!-- Padding inside the button -->
+    <padding android:left="16dp"
+        android:top="12dp"
+        android:right="16dp"
+        android:bottom="12dp"/>
+</shape>

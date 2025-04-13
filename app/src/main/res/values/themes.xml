@@ -1,13 +1,35 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme -->
-    <style name="Base.Theme.Museraya" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Transparent Status Bar -->
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:fitsSystemWindows">true</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:colorPrimary">@android:color/transparent</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+    <!-- Base application theme. -->
+    <!-- Using MaterialComponents parent as CollapsingToolbarLayout etc. work well with it -->
+    <style name="Theme.Museraya" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/dark_blue</item> <!-- Or choose another variant like dark_orange -->
+        <item name="colorOnPrimary">@color/white</item> <!-- Text/icons on primary color -->
+
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/orange</item>
+        <item name="colorSecondaryVariant">@color/dark_orange</item>
+        <item name="colorOnSecondary">@color/black</item> <!-- Text/icons on secondary color -->
+
+        <!-- Status bar color - Make it slightly darker than primary for contrast -->
+        <!-- The ?attr/ syntax refers to attributes defined *within this theme* -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+        <!-- Background color for the app screens -->
+        <item name="android:colorBackground">@color/screenBackground</item>
+
+        <!-- Control properties for Material Components -->
+        <!-- <item name="textAppearanceHeadline5">@style/YourHeadline5Style</item> -->
+        <!-- Add other theme-wide customizations here -->
+
+        <!-- Remove windowTranslucentStatus - it often conflicts with CoordinatorLayout/fitsSystemWindows -->
+        <!-- <item name="android:windowTranslucentStatus">true</item> -->
+        <!-- fitsSystemWindows is handled by the CoordinatorLayout and AppBarLayout -->
+        <!-- <item name="android:fitsSystemWindows">false</item> --> <!-- Default is usually false anyway -->
+        <!-- <item name="android:windowLightStatusBar">true</item> --> <!-- Adjust based on your statusBarColor -->
     </style>
 
-    <style name="Theme.Museraya" parent="Base.Theme.Museraya" />
+    <!-- Optional: Define a separate theme for night mode in res/values-night/themes.xml if needed -->
+
 </resources>

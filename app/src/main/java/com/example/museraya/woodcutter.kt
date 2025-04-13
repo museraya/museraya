@@ -98,7 +98,7 @@ class woodcutter : Fragment() {
                     if (!planeRendererTimerStarted) {
                         planeRendererTimerStarted = true // Mark as started
                         planeRendererTimerJob = viewLifecycleOwner.lifecycleScope.launch {
-                            delay(10000L) // Wait for 10 seconds (10000 milliseconds)
+                            delay(5000L) // Wait for 10 seconds (10000 milliseconds)
                             // Check if the view is still valid before accessing planeRenderer
                             if (viewLifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
                                 planeRenderer.isEnabled = false // Disable the dots

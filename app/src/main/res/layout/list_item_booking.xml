@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="12dp"
-    android:layout_marginVertical="6dp"
-    app:cardCornerRadius="8dp"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="12dp"
     app:cardElevation="4dp"
-    app:cardBackgroundColor="@color/card_background">
+    app:cardBackgroundColor="@color/card_background"> <!-- Use your card background color -->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,56 +22,69 @@
             android:id="@+id/booking_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:textColor="@color/text_primary"
-            tools:text="Name: Hoshi"/>
+            tools:text="Name: John Doe" />
 
         <TextView
             android:id="@+id/booking_datetime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/text_secondary"
             android:layout_marginTop="4dp"
-            tools:text="Date &amp; Time: 18 Apr 2025, 02:30 AM"/>
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textColor="@color/text_secondary"
+            tools:text="Date &amp; Time: 25 Apr 2025, 04:30 AM" />
 
         <TextView
             android:id="@+id/booking_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/text_secondary"
             android:layout_marginTop="4dp"
-            tools:text="Quantity: 24"/>
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textColor="@color/text_secondary"
+            tools:text="Quantity: 23" />
 
         <TextView
             android:id="@+id/booking_date_created"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:layout_marginTop="4dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             android:textColor="@color/text_secondary"
+            tools:text="Created: 13 Apr 2025, 09:46 PM" />
+
+        <!-- ADDED: TextView for the decline reason -->
+        <TextView
+            android:id="@+id/booking_reason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            tools:text="Created: 13 Apr 2025, 01:37 PM"/>
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textColor="@color/red"
+            android:textStyle="italic"
+            android:visibility="gone"
+            tools:text="Reason: Slot unavailable"
+            tools:visibility="visible"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/divider_color"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="12dp"
+            android:background="@color/divider_color" /> <!-- Use your divider color -->
 
         <TextView
             android:id="@+id/booking_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="12dp"
-            android:paddingVertical="5dp"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textAllCaps="true"
+            android:paddingVertical="6dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             android:textColor="@color/status_text_color"
-            android:background="@drawable/status_background_pending"  tools:text="Pending"/>
+            android:textStyle="bold"
+            tools:text="ACCEPTED"
+            tools:background="@drawable/status_background_accepted"/>
 
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+
+</com.google.android.material.card.MaterialCardView>

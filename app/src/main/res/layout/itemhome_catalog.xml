@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/card_margin"
+    android:layout_marginTop="@dimen/card_margin"
+    android:layout_marginBottom="@dimen/card_margin"
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    app:cardElevation="@dimen/card_elevation"
+    app:cardBackgroundColor="@color/cardBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"> <!-- Height driven by content -->
+
+<ImageView
+    android:id="@+id/itemImageView"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+android:adjustViewBounds="true"
+android:scaleType="centerCrop"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+tools:srcCompat="@drawable/d1"
+android:contentDescription="@string/catalog_item_image_description" /> <!-- Add content description -->
+
+<!-- Gradient Overlay View -->
+<View
+    android:id="@+id/gradientOverlay"
+    android:layout_width="0dp"
+    android:layout_height="@dimen/staggered_card_text_gradient_height"
+    android:background="@drawable/gradient_overlay"
+    app:layout_constraintBottom_toBottomOf="@+id/itemImageView"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent" />
+
+<TextView
+    android:id="@+id/itemTitleTextView"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/item_text_padding"
+    android:paddingVertical="8dp"
+    android:textSize="@dimen/item_text_size"
+    android:fontFamily="@font/helvetica"
+    android:textColor="@color/white"
+    android:textStyle="bold"
+    android:maxLines="2"
+    android:ellipsize="end"
+    app:layout_constraintBottom_toBottomOf="@+id/gradientOverlay"
+    app:layout_constraintStart_toStartOf="@+id/gradientOverlay"
+    app:layout_constraintEnd_toEndOf="@+id/gradientOverlay"
+    tools:text="Very Long Vintage Audio Title That Might Wrap" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
