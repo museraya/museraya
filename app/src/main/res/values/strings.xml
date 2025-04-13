@@ -22,14 +22,14 @@
     <string name="ar_help_title">How to Use AR View</string>
     <string name="ar_help_message">1. Find a well-lit, flat surface (like a floor or table).\n2. Move your device slowly, pointing it at the surface to scan it.\n3. Once the surface is detected, the artifact will appear.\n4. Pinch with two fingers to resize the artifact.\n5. Use two fingers and twist to rotate the artifact.\n6. Use the Lock/Unlock button to enable/disable resizing and rotation.</string>
 
-    <string name="woodcutter_info_title">About the Woodcutter Frame</string>
-    <string name="woodcutter_info_message">This is a detailed description of the woodcutter frame artifact. Mention its history, significance, materials, etc.</string>
+    <string name="woodcutter_info_title">"About Woodcutter's Nightmare"</string>
+    <string name="woodcutter_info_message">(Acrylic Painting) A surreal depiction of nature getting back at a man’s treatment to Earth.</string>
 
-    <string name="tex_info_title">About Tex</string>
-    <string name="tex_info_message">Information about the \'Tex\' artifact goes here. Describe what it is, its context, etc.</string>
+    <string name="tex_info_title">About Tex Reavis</string>
+    <string name="tex_info_message">(Pen and Ink) A historical depiction of an American soldier who stayed in the Philippines after the war and settled as a gold panner.</string>
 
     <string name="boom_mic_info_title">About the Boom Microphone</string>
-    <string name="boom_mic_info_message">Details about the boom microphone model. Explain its use, components, or relevance.</string>
+    <string name="boom_mic_info_message">"These vintage microphones from AJK Microphones were once some of the best in the world. Made with strong metal bodies and mesh tops, they were designed to last a long time and give clear, high-quality sound. Their simple but solid design made them a favorite for both live shows and studio recordings. Famous musicians like John Lennon and Elton John used these kinds of microphones. AJK was known for making reliable equipment that worked well in many situations. Today, these microphones are a piece of music history, showing how sound technology looked and worked in the past. They're still loved by collectors and music fans around the world."</string>
 
     <string name="polaroid_info_title">About the Polaroid Camera</string>
     <string name="polaroid_info_message">Information regarding the Polaroid camera model. Include facts about its history, function, or cultural impact.</string>
@@ -39,11 +39,11 @@
     <string name="Antique_title">About the Antique Brass Telescope</string>
     <string name="Antique_Message">Raise your YAYAYA</string>
 
-    <string name="Nagra_title">Nagra</string>
-    <string name="Nagra_message">YAYAYA</string>
+    <string name="Nagra_title">About Nagra Open Real Field Recorder</string>
+    <string name="Nagra_message">Used as a portable device for recording in live interviews and shooting for films. Along this, it is partnered with headphones for live recording, and is typically handled by the soundman with specific instructions to maintain audio control from the sound director. This portable reel-to-reel tape recorder plays a crucial role in capturing high-quality sound in dynamic environments, particularly in film and broadcast production. The soundman, equipped with this device and the necessary headphones, monitors and adjusts the audio output during recording to ensure optimal clarity and balance.</string>
 
-    <string name="Bell_title">OK</string>
-    <string name="Bell_message">OK</string>
+    <string name="Bell_title">About Bell Telephone</string>
+    <string name="Bell_message">This is an antique rotary telephone inspired by the early inventions of Alexander Graham Bell. It features a heavy, rounded base with a circular dial at the center and a separate earpiece and mouthpiece mounted on a horizontal bar. These phones were among the first devices to allow people to speak with each other over long distances using a wired connection, a big improvement over the telegraph. Alexander Graham Bell, with the help of his assistant Thomas A. Watson, discovered that sound waves could be converted into electrical signals and sent through a wire. This breakthrough made real-time voice communication possible for the first time. Bell’s goal was to make communication faster and easier, especially for reaching others in different towns or countries without relying on slow letter delivery.</string>
 
 
 

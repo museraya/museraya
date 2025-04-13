@@ -14,6 +14,23 @@
     <color name="blue">#3F51B5</color>
     <color name="dark_blue">#303F9F</color>
     <color name="dark_orange">#FF8C00</color>
-    <color name="primaryColor">#6200EE</color> <!-- Adjust the color as needed -->
+
+
+    <color name="textColorPrimary">#212121</color>
+    <color name="textColorSecondary">#757575</color>
+    <color name="screenBackground">#F8F8F3</color>
+    <color name="cardBackground">#FFFFFF</color>
+    <color name="imageOverlay">#4D000000</color>
+
+    <color name="status_pending_background">#FFEB3B</color>
+    <color name="status_declined_background">#F44336</color>
+    <color name="status_accepted_background">#4CAF50</color>
+    <color name="status_other_background">#9E9E9E</color>
+    <color name="status_text_color">#FFFFFF</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="divider_color">#E0E0E0</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="screen_background">#F5F5F5</color>
 
 </resources>
