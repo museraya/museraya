@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- State when selected -->
+    <item android:state_selected="true">
+        <shape android:shape="oval"> <!-- Keep it oval for circular view -->
+            <stroke
+                android:width="3dp"
+                android:color="?attr/colorPrimary"/> <!-- Use your primary color -->
+        </shape>
+    </item>
+    <!-- Default state -->
+    <item>
+        <shape android:shape="oval">
+            <stroke
+                android:width="3dp"
+                android:color="@android:color/transparent"/> <!-- Transparent border -->
+        </shape>
+    </item>
+</selector>
