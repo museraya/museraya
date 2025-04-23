@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.androidx.runtime.android)
     implementation(libs.firebase.database)
     implementation(libs.androidx.ui.test.android)
+    implementation(libs.firebase.messaging.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
