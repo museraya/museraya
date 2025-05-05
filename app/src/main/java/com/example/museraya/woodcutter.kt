@@ -5,47 +5,47 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton // Import ImageButton
-import android.widget.TextView // Import TextView
+import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog // Import AlertDialog
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.ar.core.Anchor
 import com.google.ar.core.Config
 import com.google.ar.core.Plane
-import com.google.ar.core.TrackingState // Import TrackingState
+import com.google.ar.core.TrackingState
 import io.github.sceneview.ar.ARSceneView
 import io.github.sceneview.ar.arcore.getUpdatedPlanes
 import io.github.sceneview.ar.node.AnchorNode
 import io.github.sceneview.loaders.MaterialLoader
 import io.github.sceneview.math.Position
 import io.github.sceneview.node.ModelNode
-import kotlinx.coroutines.Job // Import Job
-import kotlinx.coroutines.delay // Import delay
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import androidx.lifecycle.Lifecycle // Import Lifecycle for state check
+import androidx.lifecycle.Lifecycle
 
 class woodcutter : Fragment() {
 
     private lateinit var arSceneView: ARSceneView
     private lateinit var placeModelButton: Button
-    private lateinit var btnInfo: ImageButton // Info button reference
-    private lateinit var btnHelp: ImageButton // Help button reference
-    private lateinit var tvInstructions: TextView // Instruction TextView reference
+    private lateinit var btnInfo: ImageButton
+    private lateinit var btnHelp: ImageButton
+    private lateinit var tvInstructions: TextView
     private lateinit var materialLoader: MaterialLoader
     private var anchorNode: AnchorNode? = null
     private var modelNode: ModelNode? = null
     private var isModelLocked = false
 
-    // Instruction-related variables (Restored)
+
     private var interactionInstructionJob: Job? = null
     private var modelHasBeenPlaced = false
 
-    // --- NEW: Variables for Plane Renderer Timer ---
+    // variables para sa timer ng white dots
     private var planeRendererTimerJob: Job? = null
     private var planeRendererTimerStarted = false
-    // --- END NEW ---
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,7 +56,7 @@ class woodcutter : Fragment() {
         placeModelButton = view.findViewById(R.id.btnPlaceModelWoodCutter)
         btnInfo = view.findViewById(R.id.btnInfoWoodcutter)
         btnHelp = view.findViewById(R.id.btnHelpWoodcutter)
-        tvInstructions = view.findViewById(R.id.tvInstructionsWoodcutter) // Use unique ID
+        tvInstructions = view.findViewById(R.id.tvInstructionsWoodcutter)
 
         materialLoader = MaterialLoader(arSceneView.engine, requireContext())
 
@@ -66,18 +66,18 @@ class woodcutter : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // --- NEW: Reset timer flag on view creation ---
+        // white dot timer reset to 0
         planeRendererTimerStarted = false
-        // --- END NEW ---
 
-        // Show initial scanning instruction (Restored)
+
+        // function para makita yung instructions initially
         showScanningInstructions()
 
-        setupButtonClickListeners() // Setup listeners for ALL buttons
+        setupButtonClickListeners() // functions for all listeners
 
         arSceneView.apply {
             lifecycle = viewLifecycleOwner.lifecycle
-            planeRenderer.isEnabled = true // Ensure it starts enabled
+            planeRenderer.isEnabled = true
             planeRenderer.isShadowReceiver = false
 
             environment = environmentLoader.createHDREnvironment(
@@ -90,27 +90,26 @@ class woodcutter : Fragment() {
                 config.lightEstimationMode = Config.LightEstimationMode.ENVIRONMENTAL_HDR
             }
 
-            // Session update logic with instruction handling AND plane renderer timer
+
             onSessionUpdated = { session, frame ->
                 if (frame.camera.trackingState == TrackingState.TRACKING) {
 
-                    // --- START NEW CODE for Plane Renderer Timer ---
+                    // timer starts here
                     if (!planeRendererTimerStarted) {
-                        planeRendererTimerStarted = true // Mark as started
+                        planeRendererTimerStarted = true
                         planeRendererTimerJob = viewLifecycleOwner.lifecycleScope.launch {
-                            delay(5000L) // Wait for 10 seconds (10000 milliseconds)
-                            // Check if the view is still valid before accessing planeRenderer
+                            delay(5000L) // 10 seconds
+
                             if (viewLifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
-                                planeRenderer.isEnabled = false // Disable the dots
+                                planeRenderer.isEnabled = false // Disable white dots
                             }
                         }
                     }
-                    // --- END NEW CODE ---
+
 
 
                     if (!modelHasBeenPlaced) {
-                        showScanningInstructions() // Keep showing scanning instructions
-                        // Try to find a plane and place the anchor
+                        showScanningInstructions()
                         frame.getUpdatedPlanes().firstOrNull { it.type == Plane.Type.HORIZONTAL_UPWARD_FACING }
                             ?.let { plane ->
                                 if (anchorNode == null) {
@@ -118,19 +117,17 @@ class woodcutter : Fragment() {
                                 }
                             }
                     }
-                    // If model IS placed, interaction instructions are handled by showInteractionInstructions timeout
+
                 } else {
-                    // Optional: showScanningInstructions() or "Tracking Lost"
-                    // Consider resetting planeRendererTimerStarted here if you want the timer to restart
-                    // upon regaining tracking after loss. For now, it only runs once.
+                    // Could be "tracking lost"
                 }
             }
         }
     }
 
-    // Restored Instruction Methods
+    // show scanning instructions AGAIN
     private fun showScanningInstructions() {
-        interactionInstructionJob?.cancel() // Cancel hiding job if active
+        interactionInstructionJob?.cancel() //
         tvInstructions.text = "Find a well-lit surface.\nSlowly move device to scan."
         tvInstructions.visibility = View.VISIBLE
     }
@@ -142,13 +139,12 @@ class woodcutter : Fragment() {
 
         interactionInstructionJob = viewLifecycleOwner.lifecycleScope.launch {
             delay(5000)
-            // Check if still visible before hiding, in case user manually showed again
             if (tvInstructions.visibility == View.VISIBLE) {
                 tvInstructions.visibility = View.GONE
             }
         }
     }
-    // --- End Restored Methods ---
+
 
     private fun setupButtonClickListeners() {
         placeModelButton.setOnClickListener {
@@ -158,14 +154,13 @@ class woodcutter : Fragment() {
         btnHelp.setOnClickListener {
             // Show the relevant instruction again, based on current state
             if (modelHasBeenPlaced) {
-                showInteractionInstructions() // Show pinch/rotate and start timer
+                showInteractionInstructions()
             } else {
-                showScanningInstructions() // Show scanning instructions
+                showScanningInstructions()
             }
         }
 
         btnInfo.setOnClickListener {
-            // Only show info if the model is actually placed
             if (modelNode != null) {
                 showInfoDialog()
             } else {
@@ -174,16 +169,16 @@ class woodcutter : Fragment() {
         }
     }
 
-    // Added Info Dialog Method
+
     private fun showInfoDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle(R.string.woodcutter_info_title) // Specific title
-            .setMessage(R.string.woodcutter_info_message) // Specific message
+            .setTitle(R.string.woodcutter_info_title)
+            .setMessage(R.string.woodcutter_info_message)
             .setPositiveButton(R.string.dialog_ok, null)
             .show()
     }
 
-    // Updated Place Anchor Method (Restored instruction call)
+    // LIFECYCLE STARTS HERE IG FOR AR
     private fun placeAnchor(anchor: Anchor) {
         if (anchorNode == null) {
             anchorNode = AnchorNode(arSceneView.engine, anchor).apply {
@@ -193,7 +188,7 @@ class woodcutter : Fragment() {
                         "file:///android_asset/models/woodcutter/frame.gltf"
                     )
                     if (modelInstance != null) {
-                        modelHasBeenPlaced = true // Mark model as placed (Restored)
+                        modelHasBeenPlaced = true
 
                         modelNode = ModelNode(
                             modelInstance = modelInstance,
@@ -203,7 +198,6 @@ class woodcutter : Fragment() {
 
                         addChildNode(modelNode!!)
 
-                        // Show interaction instructions when model is placed (Restored)
                         showInteractionInstructions()
 
                     } else {
@@ -212,8 +206,8 @@ class woodcutter : Fragment() {
                             try { arSceneView.removeChildNode(it) } catch (e: Exception) { /* Ignore */ }
                         }
                         anchorNode = null
-                        modelHasBeenPlaced = false // Reset flag (Restored)
-                        showScanningInstructions() // Show scanning instructions again if load fails (Restored)
+                        modelHasBeenPlaced = false // Reset flag
+                        showScanningInstructions() // Show scanning instructions again if load fails
                     }
                 }
                 try { arSceneView.addChildNode(this) } catch (e: Exception) { /* Ignore */ }
@@ -239,9 +233,7 @@ class woodcutter : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         interactionInstructionJob?.cancel()
-        // --- NEW: Cancel the plane renderer timer job ---
         planeRendererTimerJob?.cancel()
-        // --- END NEW ---
         arSceneView.destroy()
     }
 }
