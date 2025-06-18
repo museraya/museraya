@@ -360,22 +360,5 @@ class AccountFragment : Fragment() {
         activity?.finish() // Close the current activity (HomeActivity)
     }
 
-    // --- ** ADDED: PFP Selector Drawable ** ---
-    // Create this file: res/drawable/pfp_image_selector.xml
-    /*
-    <?xml version="1.0" encoding="utf-8"?>
-    <selector xmlns:android="http://schemas.android.com/apk/res/android">
-        <item android:state_selected="true">
-            <shape android:shape="oval">
-                <stroke android:width="3dp" android:color="?attr/colorPrimary"/>
-            </shape>
-        </item>
-        <item>
-            <shape android:shape="oval">
-                <stroke android:width="3dp" android:color="@android:color/transparent"/>
-            </shape>
-        </item>
-    </selector>
-    */
 
 }

@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Title -->
         <TextView
             android:id="@+id/title_text"
             android:layout_width="wrap_content"
@@ -23,7 +22,6 @@
             android:textColor="@color/black"
             android:paddingBottom="16dp" />
 
-        <!-- Input Section -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,6 +34,25 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
+                <!-- Name Input -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
+                    android:text="Your Name"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/booking_name_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_background"
+                    android:hint="Enter your full name"
+                    android:inputType="textPersonName"
+                    android:padding="12dp"
+                    android:textColor="@color/black"
+                    tools:text="Miranda West" />
 
                 <!-- Guest Quantity Input -->
                 <TextView
@@ -59,7 +76,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Date and Time Section -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,7 +88,6 @@
                 android:background="@color/darkwhite"
                 android:padding="16dp">
 
-                <!-- Date Picker -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,7 +105,6 @@
                     android:textColor="@color/white"
                     android:padding="12dp" />
 
-                <!-- Time Picker -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -111,7 +125,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Selected Date and Time -->
         <TextView
             android:id="@+id/selected_datetime"
             android:layout_width="match_parent"
@@ -123,7 +136,6 @@
             android:background="@color/white"
             android:layout_marginBottom="16dp" />
 
-        <!-- Submit Button -->
         <Button
             android:id="@+id/submit_button"
             android:layout_width="match_parent"

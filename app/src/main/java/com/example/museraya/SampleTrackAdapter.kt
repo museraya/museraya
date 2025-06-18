@@ -22,30 +22,39 @@ class SampleTrackAdapter(
     private var currentPlayingPosition: Int = -1
     private var playbackListener: TurntableFragment.PlaybackListener? = null
     private val handler = Handler(Looper.getMainLooper())
-    private val stopPlaybackRunnable = Runnable {
-        stopPlayback()
-    }
+
+    private val stopPlaybackRunnable = Runnable { stopPlayback() }
+
     private val updateSeekBarRunnable = object : Runnable {
         override fun run() {
             currentMediaPlayer?.let { player ->
                 if (player.isPlaying) {
-                    val currentTime = player.currentPosition
-                    val timeText = formatTime(currentTime)
-                    currentSeekBar?.progress = currentTime
-                    currentTimestamp?.text = timeText
-
-                    if (currentTime < 15000) {
-                        handler.postDelayed(this, 1000)
+                    findViewHolderForAdapterPosition(currentPlayingPosition)?.let { holder ->
+                        val currentTime = player.currentPosition
+                        if (currentTime <= 15000) {
+                            holder.trackSeekBar.progress = currentTime
+                            holder.trackTimestamp.text = formatTime(currentTime)
+                        }
                     }
+                    handler.postDelayed(this, 500)
                 }
             }
         }
     }
 
-    private var currentSeekBar: SeekBar? = null
-    private var currentTimestamp: TextView? = null
+    private var recyclerView: RecyclerView? = null
 
-    // Method to set the PlaybackListener
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        this.recyclerView = recyclerView
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView)
+        this.recyclerView = null
+        stopPlayback()
+    }
+
     fun setPlaybackListener(listener: TurntableFragment.PlaybackListener) {
         playbackListener = listener
     }
@@ -56,25 +65,48 @@ class SampleTrackAdapter(
     }
 
     override fun onBindViewHolder(holder: SampleTrackViewHolder, position: Int) {
-        val track = tracks[position]
-        holder.trackTitle.text = track
+        holder.trackTitle.text = tracks[position]
+        holder.trackSeekBar.max = 15000
+
+        if (position == currentPlayingPosition) {
+            // This is the active track, check if it's currently playing or paused
+            if (currentMediaPlayer?.isPlaying == true) {
+                holder.playPauseButton.setImageResource(R.drawable.ic_pause)
+            } else {
+                holder.playPauseButton.setImageResource(R.drawable.ic_play)
+            }
+            holder.trackSeekBar.progress = currentMediaPlayer?.currentPosition ?: 0
+            holder.trackTimestamp.text = formatTime(currentMediaPlayer?.currentPosition ?: 0)
+        } else {
+            // This is an inactive track, reset its UI
+            holder.playPauseButton.setImageResource(R.drawable.ic_play)
+            holder.trackSeekBar.progress = 0
+            holder.trackTimestamp.text = "00:00"
+        }
 
         holder.playPauseButton.setOnClickListener {
-            val currentPosition = holder.adapterPosition
-            if (currentPosition == RecyclerView.NO_POSITION) return@setOnClickListener
+            val clickedPosition = holder.adapterPosition
+            if (clickedPosition == RecyclerView.NO_POSITION) return@setOnClickListener
 
-            if (currentPlayingPosition == currentPosition && currentMediaPlayer?.isPlaying == true) {
-                stopPlayback()
+            if (clickedPosition == currentPlayingPosition) {
+                // Clicked on the currently active track
+                if (currentMediaPlayer?.isPlaying == true) {
+                    pauseTrack()
+                } else {
+                    resumeTrack()
+                }
             } else {
-                playTrack(holder, currentPosition)
+                // Clicked on a new track
+                playTrack(clickedPosition)
             }
         }
 
         holder.trackSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser) currentMediaPlayer?.seekTo(progress)
+                if (fromUser && holder.adapterPosition == currentPlayingPosition) {
+                    currentMediaPlayer?.seekTo(progress)
+                }
             }
-
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
@@ -82,46 +114,62 @@ class SampleTrackAdapter(
 
     override fun getItemCount(): Int = tracks.size
 
-    private fun playTrack(holder: SampleTrackViewHolder, position: Int) {
-        stopPlayback() // Stop any currently playing track
+    private fun playTrack(position: Int) {
+        stopPlayback() // Fully stop and release any previous track
         currentPlayingPosition = position
-        currentSeekBar = holder.trackSeekBar
-        currentTimestamp = holder.trackTimestamp
-
         currentMediaPlayer = MediaPlayer.create(context, getTrackResource(position)).apply {
+            setOnCompletionListener { stopPlayback() }
             start()
-            holder.playPauseButton.setImageResource(R.drawable.ic_pause)
-            playbackListener?.onTrackPlay()
-
-            setOnPreparedListener {
-                holder.trackSeekBar.max = 15000 // Set max to 15 seconds
-            }
-
-            setOnCompletionListener {
-                stopPlayback()
-            }
         }
-
-        // Start updating SeekBar and timestamp
+        playbackListener?.onTrackPlay()
+        notifyItemChanged(position)
         handler.post(updateSeekBarRunnable)
-
-        // Schedule stopping after 15 seconds
         handler.postDelayed(stopPlaybackRunnable, 15000)
     }
 
+    private fun pauseTrack() {
+        currentMediaPlayer?.pause()
+        // Stop the timeout and seekbar updaters
+        handler.removeCallbacks(stopPlaybackRunnable)
+        handler.removeCallbacks(updateSeekBarRunnable)
+        playbackListener?.onTrackPause()
+        // Update the UI to show the 'play' icon
+        notifyItemChanged(currentPlayingPosition)
+    }
+
+    private fun resumeTrack() {
+        currentMediaPlayer?.start()
+        playbackListener?.onTrackPlay()
+        handler.post(updateSeekBarRunnable)
+        // Recalculate remaining time and restart the timeout handler
+        val remainingTime = 15000 - (currentMediaPlayer?.currentPosition ?: 0)
+        if (remainingTime > 0) {
+            handler.postDelayed(stopPlaybackRunnable, remainingTime.toLong())
+        }
+        // Update the UI to show the 'pause' icon
+        notifyItemChanged(currentPlayingPosition)
+    }
+
     private fun stopPlayback() {
+        // Cancel any pending operations
+        handler.removeCallbacks(stopPlaybackRunnable)
+        handler.removeCallbacks(updateSeekBarRunnable)
+
         currentMediaPlayer?.apply {
-            stop()
+            if (isPlaying) stop()
             release()
         }
         currentMediaPlayer = null
+
+        val previouslyPlayingPosition = currentPlayingPosition
         currentPlayingPosition = -1
-        currentSeekBar?.progress = 0
-        currentTimestamp?.text = "00:00"
+
         playbackListener?.onTrackPause()
-        handler.removeCallbacks(stopPlaybackRunnable)
-        handler.removeCallbacks(updateSeekBarRunnable)
-        notifyDataSetChanged()
+
+        if (previouslyPlayingPosition != -1) {
+            // Update the UI of the stopped track to its reset state
+            notifyItemChanged(previouslyPlayingPosition)
+        }
     }
 
     private fun getTrackResource(position: Int): Int {
@@ -138,6 +186,10 @@ class SampleTrackAdapter(
     private fun formatTime(ms: Int): String {
         val seconds = (ms / 1000) % 60
         return String.format(Locale.getDefault(), "00:%02d", seconds)
+    }
+
+    private fun findViewHolderForAdapterPosition(position: Int): SampleTrackViewHolder? {
+        return recyclerView?.findViewHolderForAdapterPosition(position) as? SampleTrackViewHolder
     }
 
     class SampleTrackViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
