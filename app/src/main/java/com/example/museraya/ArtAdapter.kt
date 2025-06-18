@@ -27,31 +27,18 @@ class ArtAdapter(private val artList: List<ArtItem>) :
     override fun onBindViewHolder(holder: ArtViewHolder, position: Int) {
         val item = artList[position]
 
-        // Use Glide to load the image from URL
+        // Load image using Glide
         if (item.imageUrl != null) {
             Glide.with(holder.itemView.context)
                 .load(item.imageUrl)
-                .into(holder.image) // Load from URL
+                .into(holder.image)
         } else {
-            // If URL is not available, use the fallback resource
             holder.image.setImageResource(item.imageResId ?: R.drawable.placeholder)
         }
 
-        // Conditionally show/hide title (your existing logic)
+        // Conditionally show/hide title
         when (item.title) {
-//            "Forester’s Nightmare” (26x36) by Art Tibaldo (2010)",
-//            "“Tex Reavis Panning Gold in a Benguet River” (40x30cm) by Art Tibaldo (2024)",
-//            "33 RPM Vinyl Records",
-//            "45 RPM Single Vinyl Records",
-//            "8 Millimeter Film Editor and Viewer",
-//            "8 Millimeter Film Camera",
-//            "Polaroid Instant Photo",
-//            "Sony Cassette Tape Field Recorder",
-//            "Portable Slide Projector (35 mm slides)",
-//            "Bell Telephone",
-//            "Nagra Open Real Field Recorder (1960s-2000s)",
-//            "Boom Microphones",
-            "Vintage Phonograph with AM Radio",-> {
+            "Vintage Phonograph with AM Radio" -> {
                 holder.title.visibility = View.GONE
             }
             else -> {
@@ -60,13 +47,16 @@ class ArtAdapter(private val artList: List<ArtItem>) :
             }
         }
 
-        // Navigation logic (your existing logic)
+        // Prepare bundle with all 3 image URLs
         val bundle = Bundle().apply {
             putString("name", item.title)
             putString("info", item.info)
-            putString("imageUrl", item.url) // pass full-sized image for detail view
+            putString("url", item.url)
+            putString("url2", item.url2)
+            putString("url3", item.url3)
+            putString("url4", item.url4)
+            putString("url5", item.url5)
         }
-
 
         val destinationId = item.navId ?: R.id.infoFragment
 
@@ -74,8 +64,6 @@ class ArtAdapter(private val artList: List<ArtItem>) :
             view.findNavController().navigate(destinationId, bundle)
         }
     }
-
-
 
     override fun getItemCount(): Int = artList.size
 }
