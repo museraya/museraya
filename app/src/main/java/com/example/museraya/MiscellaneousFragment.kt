@@ -42,9 +42,14 @@ class MiscellaneousFragment : Fragment() {
                 val name = doc.getString("name") ?: continue
                 val info = doc.getString("info") ?: "No info available"
                 val rawUrl = doc.getString("url")
+                val rawCover = doc.getString("cover")
+                val rawUrl2 = doc.getString("url2")
+                val rawUrl3 = doc.getString("url3")
+                val rawUrl4 = doc.getString("url4")
+                val rawUrl5 = doc.getString("url5")
 
                 // Use image URL only if it is not blank or "undefined"
-                val imageUrl = if (!rawUrl.isNullOrBlank() && rawUrl != "undefined") rawUrl else null
+                val imageUrl = if (!rawCover.isNullOrBlank() && rawCover != "undefined") rawCover else null
                 val imageResId = when (name) {
                     else -> R.drawable.placeholder
                 }
@@ -54,7 +59,20 @@ class MiscellaneousFragment : Fragment() {
                 }
 
                 // Pass the URL along with other details
-                artList.add(ArtItem(name, imageResId, imageUrl, info, navId))
+                artList.add(
+                    ArtItem(
+                        title = name,
+                        imageResId = imageResId,
+                        imageUrl = imageUrl,
+                        info = info,
+                        navId = navId,
+                        url = rawUrl,
+                        url2 = rawUrl2,
+                        url3 = rawUrl3,
+                        url4 = rawUrl4,
+                        url5 = rawUrl5
+                    )
+                )
             }
 
             artAdapter.notifyDataSetChanged()

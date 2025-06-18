@@ -17,7 +17,6 @@ import java.util.*
 
 class BookingFragment : Fragment() {
 
-    private lateinit var fullNameInput: EditText
     private lateinit var guestQuantityInput: EditText
     private lateinit var datePickerButton: Button
     private lateinit var timePickerButton: Button
@@ -37,17 +36,14 @@ class BookingFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_booking, container, false)
 
         // Initialize views
-        fullNameInput = view.findViewById(R.id.full_name_input)
         guestQuantityInput = view.findViewById(R.id.guest_quantity_input)
         datePickerButton = view.findViewById(R.id.date_picker_button)
         timePickerButton = view.findViewById(R.id.time_picker_button)
         selectedDateTime = view.findViewById(R.id.selected_datetime)
         submitButton = view.findViewById(R.id.submit_button)
 
-        // Set up date picker
+        // Set up pickers
         datePickerButton.setOnClickListener { showDatePicker() }
-
-        // Set up time picker
         timePickerButton.setOnClickListener { showTimePicker() }
 
         // Set up submit button
@@ -105,69 +101,79 @@ class BookingFragment : Fragment() {
     }
 
     private fun submitBooking() {
-        val fullName = fullNameInput.text.toString()
         val guestQuantity = guestQuantityInput.text.toString()
-
-        // Get the email of the currently logged-in user
         val userEmail = auth.currentUser?.email
 
-        if (fullName.isBlank() || guestQuantity.isBlank() || userEmail == null || selectedDate == null || selectedTime == null) {
+        if (guestQuantity.isBlank() || userEmail == null || selectedDate == null || selectedTime == null) {
             Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Use Firestore Timestamp to store the date and time of booking creation
         val bookingTimestamp = Timestamp(calendar.time)
-        val dateCreatedTimestamp = Timestamp.now() // Current timestamp
+        val dateCreatedTimestamp = Timestamp.now()
 
-        // Fetch the next document ID (e.g., appointment1, appointment2, ...)
-        db.collection("booking")
-            .orderBy("id", Query.Direction.DESCENDING)
-            .limit(1)
+        // Fetch user details from Firestore using email as document ID
+        db.collection("users")
+            .document(userEmail)
             .get()
-            .addOnSuccessListener { querySnapshot ->
-                val lastAppointmentId = querySnapshot.documents.firstOrNull()?.getString("id")
-                val nextId = if (lastAppointmentId != null) {
-                    val lastNumber = lastAppointmentId.removePrefix("appointment").toInt()
-                    "appointment${lastNumber + 1}"
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    val name = document.getString("name") ?: ""
+                    val contact = document.getString("contact") ?: ""
+
+                    // Fetch next appointment ID
+                    db.collection("booking")
+                        .orderBy("id", Query.Direction.DESCENDING)
+                        .limit(1)
+                        .get()
+                        .addOnSuccessListener { querySnapshot ->
+                            val lastAppointmentId = querySnapshot.documents.firstOrNull()?.getString("id")
+                            val nextId = if (lastAppointmentId != null) {
+                                val lastNumber = lastAppointmentId.removePrefix("appointment").toInt()
+                                "appointment${lastNumber + 1}"
+                            } else {
+                                "appointment1"
+                            }
+
+                            val booking = hashMapOf(
+                                "id" to nextId,
+                                "name" to name,
+                                "contact" to contact,
+                                "quantity" to guestQuantity.toInt(),
+                                "email" to userEmail,
+                                "date" to bookingTimestamp,
+                                "date_created" to dateCreatedTimestamp,
+                                "status" to "pending"
+                            )
+
+                            db.collection("booking")
+                                .document(nextId)
+                                .set(booking)
+                                .addOnSuccessListener {
+                                    Toast.makeText(requireContext(), "Booking successful!", Toast.LENGTH_SHORT).show()
+                                    Log.d("BookingFragment", "Document added with ID: $nextId")
+                                    resetInputs()
+                                }
+                                .addOnFailureListener { e ->
+                                    Toast.makeText(requireContext(), "Booking failed!", Toast.LENGTH_SHORT).show()
+                                    Log.e("BookingFragment", "Error adding document", e)
+                                }
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(requireContext(), "Failed to fetch document ID", Toast.LENGTH_SHORT).show()
+                            Log.e("BookingFragment", "Error fetching document ID", e)
+                        }
                 } else {
-                    "appointment1"
+                    Toast.makeText(requireContext(), "User profile not found", Toast.LENGTH_SHORT).show()
                 }
-
-                // Create the booking document with "status" set to "pending" and "date_created"
-                val booking = hashMapOf(
-                    "id" to nextId,
-                    "name" to fullName,
-                    "quantity" to guestQuantity.toInt(),
-                    "email" to userEmail, // Use the email from FirebaseAuth
-                    "date" to bookingTimestamp,
-                    "date_created" to dateCreatedTimestamp, // New field
-                    "status" to "pending" // Add status field with "pending" value
-                )
-
-                db.collection("booking")
-                    .document(nextId)
-                    .set(booking)
-                    .addOnSuccessListener {
-                        Toast.makeText(requireContext(), "Booking successful!", Toast.LENGTH_SHORT).show()
-                        Log.d("BookingFragment", "Document added with ID: $nextId")
-
-                        // Reset inputs after successful booking
-                        resetInputs()
-                    }
-                    .addOnFailureListener { e ->
-                        Toast.makeText(requireContext(), "Booking failed!", Toast.LENGTH_SHORT).show()
-                        Log.e("BookingFragment", "Error adding document", e)
-                    }
             }
             .addOnFailureListener { e ->
-                Toast.makeText(requireContext(), "Failed to fetch document ID", Toast.LENGTH_SHORT).show()
-                Log.e("BookingFragment", "Error fetching document ID", e)
+                Toast.makeText(requireContext(), "Failed to retrieve user info", Toast.LENGTH_SHORT).show()
+                Log.e("BookingFragment", "Error fetching user info", e)
             }
     }
 
     private fun resetInputs() {
-        fullNameInput.text.clear()
         guestQuantityInput.text.clear()
         selectedDate = null
         selectedTime = null
