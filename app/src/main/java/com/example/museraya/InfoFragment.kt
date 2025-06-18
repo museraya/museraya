@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.bumptech.glide.Glide
 
 class InfoFragment : Fragment() {
 
@@ -30,15 +29,22 @@ class InfoFragment : Fragment() {
         val name = arguments?.getString("name") ?: "Unknown"
         val info = arguments?.getString("info") ?: "No information available"
 
-        // Collect up to 3 image URLs
-        val imageList = listOfNotNull(
+        // Filter and collect valid image URLs
+        val rawUrls = listOf(
             arguments?.getString("url"),
             arguments?.getString("url2"),
             arguments?.getString("url3"),
             arguments?.getString("url4"),
             arguments?.getString("url5")
-        ).ifEmpty {
-            listOf("placeholder") // Use keyword for placeholder
+        )
+
+        val validUrls = rawUrls.filterNotNull()
+            .filter { it.isNotBlank() && it != "https://via.placeholder.com/100?text=No+Image" }
+
+        val imageList = if (validUrls.isEmpty()) {
+            listOf("placeholder") // Show a single placeholder image only when nothing valid
+        } else {
+            validUrls
         }
 
         // Set data to UI components
