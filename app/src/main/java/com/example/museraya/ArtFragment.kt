@@ -48,14 +48,14 @@ class ArtFragment : Fragment() {
                 val imageUrl = if (!rawCover.isNullOrBlank() && rawCover != "undefined") rawCover else null
 
                 val imageResId = when (name) {
-                    "Forester’s Nightmare” (26x36) by Art Tibaldo (2010)" -> R.drawable.woodcutter
-                    "“Tex Reavis Panning Gold in a Benguet River” (40x30cm) by Art Tibaldo (2024)" -> R.drawable.tex
+//                    "Forester’s Nightmare” (26x36) by Art Tibaldo (2010)" -> R.drawable.woodcutter
+//                    "“Tex Reavis Panning Gold in a Benguet River” (40x30cm) by Art Tibaldo (2024)" -> R.drawable.tex
                     else -> R.drawable.placeholder
                 }
 
                 val navId = when (name) {
-                    "Forester’s Nightmare” (26x36) by Art Tibaldo (2010)" -> R.id.woodcutterFragment
-                    "“Tex Reavis Panning Gold in a Benguet River” (40x30cm) by Art Tibaldo (2024)" -> R.id.texFragment
+//                    "Forester’s Nightmare” (26x36) by Art Tibaldo (2010)" -> R.id.woodcutterFragment
+//                    "“Tex Reavis Panning Gold in a Benguet River” (40x30cm) by Art Tibaldo (2024)" -> R.id.texFragment
                     else -> null
                 }
 

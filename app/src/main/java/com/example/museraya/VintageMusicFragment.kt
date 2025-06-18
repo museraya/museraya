@@ -47,15 +47,15 @@ class VintageMusicFragment : Fragment() {
                 // Use image URL only if it is not blank or "undefined"
                 val imageUrl = if (!rawCover.isNullOrBlank() && rawCover != "undefined") rawCover else null
                 val imageResId = when (name) {
-                    "33 RPM Vinyl Records" -> R.drawable.vinyl
-                    "45 RPM Single Vinyl Records" -> R.drawable.single_vinyl
+//                    "33 RPM Vinyl Records" -> R.drawable.vinyl
+//                    "45 RPM Single Vinyl Records" -> R.drawable.single_vinyl
                     "Vintage Phonograph with AM Radio (1940s-1950s)" -> R.drawable.turntable
                     else -> R.drawable.placeholder
                 }
 
                 val navId = when (name) {
-                    "33 RPM Vinyl Records" -> R.id.vinylFragment
-                    "45 RPM Single Vinyl Records" -> R.id.singleVinylFragment
+//                    "33 RPM Vinyl Records" -> R.id.vinylFragment
+//                    "45 RPM Single Vinyl Records" -> R.id.singleVinylFragment
                     "Vintage Phonograph with AM Radio (1940s-1950s)" -> R.id.turntableFragment
                     else -> null
                 }

@@ -48,20 +48,20 @@ class VintageFilmFragment : Fragment() {
                 val imageUrl = if (!rawCover.isNullOrBlank() && rawCover != "undefined") rawCover else null
 
                 val imageResId = when (name) {
-                    "8 Millimeter Film Editor and Viewer" -> R.drawable.film_viewer
-                    "8 Millimeter Film Camera" -> R.drawable.film_camera
-                    "Polaroid Instant Photo" -> R.drawable.polaroid
-                    "Sony Cassette Tape Field Recorder" -> R.drawable.cassette_recorder
-                    "Portable Slide Projector (35 mm slides)" -> R.drawable.slide_projector
+//                    "8 Millimeter Film Editor and Viewer" -> R.drawable.film_viewer
+//                    "8 Millimeter Film Camera" -> R.drawable.film_camera
+//                    "Polaroid Instant Photo" -> R.drawable.polaroid
+//                    "Sony Cassette Tape Field Recorder" -> R.drawable.cassette_recorder
+//                    "Portable Slide Projector (35 mm slides)" -> R.drawable.slide_projector
                     else -> R.drawable.placeholder
                 }
 
                 val navId = when (name) {
-                    "8 Millimeter Film Editor and Viewer" -> R.id.filmViewerFragment
-                    "8 Millimeter Film Camera" -> R.id.filmCameraFragment
-                    "Polaroid Instant Photo" -> R.id.filmPolaroidFragment
-                    "Sony Cassette Tape Field Recorder" -> R.id.filmCassetteFragment
-                    "Portable Slide Projector (35 mm slides)" -> R.id.filmSlideFragment
+//                    "8 Millimeter Film Editor and Viewer" -> R.id.filmViewerFragment
+//                    "8 Millimeter Film Camera" -> R.id.filmCameraFragment
+//                    "Polaroid Instant Photo" -> R.id.filmPolaroidFragment
+//                    "Sony Cassette Tape Field Recorder" -> R.id.filmCassetteFragment
+//                    "Portable Slide Projector (35 mm slides)" -> R.id.filmSlideFragment
                     else -> null
                 }
 

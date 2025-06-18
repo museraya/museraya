@@ -49,16 +49,16 @@ class VintageRadioFragment : Fragment() {
                 val imageUrl = if (!rawCover.isNullOrBlank() && rawCover != "undefined") rawCover else null
 
                 val imageResId = when (name) {
-                    "Bell Telephone" -> R.drawable.bell_telephone
-                    "Nagra Open Real Field Recorder (1960s-2000s)" -> R.drawable.nagra
-                    "Boom Microphones" -> R.drawable.boom_mic
+//                    "Bell Telephone" -> R.drawable.bell_telephone
+//                    "Nagra Open Real Field Recorder (1960s-2000s)" -> R.drawable.nagra
+//                    "Boom Microphones" -> R.drawable.boom_mic
                     else -> R.drawable.placeholder
                 }
 
                 val navId = when (name) {
-                    "Bell Telephone" -> R.id.radio1
-                    "Nagra Open Real Field Recorder (1960s-2000s)" -> R.id.audio_narga
-                    "Boom Microphones" -> R.id.audioBoomFragment
+//                    "Bell Telephone" -> R.id.radio1
+//                    "Nagra Open Real Field Recorder (1960s-2000s)" -> R.id.audio_narga
+//                    "Boom Microphones" -> R.id.audioBoomFragment
                     else -> null
                 }
 

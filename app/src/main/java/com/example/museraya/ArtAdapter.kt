@@ -39,19 +39,19 @@ class ArtAdapter(private val artList: List<ArtItem>) :
 
         // Conditionally show/hide title (your existing logic)
         when (item.title) {
-            "Forester’s Nightmare” (26x36) by Art Tibaldo (2010)",
-            "“Tex Reavis Panning Gold in a Benguet River” (40x30cm) by Art Tibaldo (2024)",
-            "33 RPM Vinyl Records",
-            "45 RPM Single Vinyl Records",
-            "Vintage Phonograph with AM Radio (1940s-1950s)",
-            "8 Millimeter Film Editor and Viewer",
-            "8 Millimeter Film Camera",
-            "Polaroid Instant Photo",
-            "Sony Cassette Tape Field Recorder",
-            "Portable Slide Projector (35 mm slides)",
-            "Bell Telephone",
-            "Nagra Open Real Field Recorder (1960s-2000s)",
-            "Boom Microphones" -> {
+//            "Forester’s Nightmare” (26x36) by Art Tibaldo (2010)",
+//            "“Tex Reavis Panning Gold in a Benguet River” (40x30cm) by Art Tibaldo (2024)",
+//            "33 RPM Vinyl Records",
+//            "45 RPM Single Vinyl Records",
+//            "8 Millimeter Film Editor and Viewer",
+//            "8 Millimeter Film Camera",
+//            "Polaroid Instant Photo",
+//            "Sony Cassette Tape Field Recorder",
+//            "Portable Slide Projector (35 mm slides)",
+//            "Bell Telephone",
+//            "Nagra Open Real Field Recorder (1960s-2000s)",
+//            "Boom Microphones",
+            "Vintage Phonograph with AM Radio",-> {
                 holder.title.visibility = View.GONE
             }
             else -> {
