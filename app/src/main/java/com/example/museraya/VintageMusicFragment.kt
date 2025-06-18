@@ -42,9 +42,10 @@ class VintageMusicFragment : Fragment() {
                 val name = doc.getString("name") ?: continue
                 val info = doc.getString("info") ?: "No info available"
                 val rawUrl = doc.getString("url")
+                val rawCover = doc.getString("cover")
 
                 // Use image URL only if it is not blank or "undefined"
-                val imageUrl = if (!rawUrl.isNullOrBlank() && rawUrl != "undefined") rawUrl else null
+                val imageUrl = if (!rawCover.isNullOrBlank() && rawCover != "undefined") rawCover else null
                 val imageResId = when (name) {
                     "33 RPM Vinyl Records" -> R.drawable.vinyl
                     "45 RPM Single Vinyl Records" -> R.drawable.single_vinyl
@@ -60,7 +61,7 @@ class VintageMusicFragment : Fragment() {
                 }
 
                 // Pass the URL along with other details
-                artList.add(ArtItem(name, imageResId, imageUrl, info, navId))
+                artList.add(ArtItem(name, imageResId, imageUrl, info, navId, url = rawUrl))
             }
 
             artAdapter.notifyDataSetChanged()

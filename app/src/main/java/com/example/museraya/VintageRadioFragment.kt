@@ -30,6 +30,7 @@ class VintageRadioFragment : Fragment() {
 
         return view
     }
+
     private fun fetchArtFromFirestore() {
         val db = FirebaseFirestore.getInstance()
 
@@ -42,9 +43,10 @@ class VintageRadioFragment : Fragment() {
                 val name = doc.getString("name") ?: continue
                 val info = doc.getString("info") ?: "No info available"
                 val rawUrl = doc.getString("url")
+                val rawCover = doc.getString("cover")
 
-                // Use image URL only if it is not blank or "undefined"
-                val imageUrl = if (!rawUrl.isNullOrBlank() && rawUrl != "undefined") rawUrl else null
+                // Use cover for list thumbnail display
+                val imageUrl = if (!rawCover.isNullOrBlank() && rawCover != "undefined") rawCover else null
 
                 val imageResId = when (name) {
                     "Bell Telephone" -> R.drawable.bell_telephone
@@ -60,14 +62,11 @@ class VintageRadioFragment : Fragment() {
                     else -> null
                 }
 
-                // Pass the URL along with other details
-                artList.add(ArtItem(name, imageResId, imageUrl, info, navId))
+                // Send actual "url" to InfoFragment, but show "cover" in the list
+                artList.add(ArtItem(name, imageResId, imageUrl, info, navId, url = rawUrl))
             }
 
             artAdapter.notifyDataSetChanged()
         }
     }
-
-
-
 }

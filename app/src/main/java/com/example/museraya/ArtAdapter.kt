@@ -64,8 +64,9 @@ class ArtAdapter(private val artList: List<ArtItem>) :
         val bundle = Bundle().apply {
             putString("name", item.title)
             putString("info", item.info)
-            putString("imageUrl", item.imageUrl)
+            putString("imageUrl", item.url) // pass full-sized image for detail view
         }
+
 
         val destinationId = item.navId ?: R.id.infoFragment
 
