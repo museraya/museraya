@@ -39,12 +39,29 @@
             android:fontFamily="@font/helvetica"
             android:paddingBottom="12dp"/>
 
-        <!-- Pink Box Placeholder -->
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager"
+        <!-- Image ViewPager Container -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp" />
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp">
+
+            <!-- ViewPager for images -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- Dots indicator -->
+            <LinearLayout
+                android:id="@+id/dotsIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal" />
+
+        </LinearLayout>
 
         <!-- Container for the content text -->
         <LinearLayout

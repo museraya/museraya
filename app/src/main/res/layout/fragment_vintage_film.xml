@@ -12,7 +12,7 @@
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Vintage Film"
+        android:text="Vintage Film Camera Collection"
         android:textColor="@color/black"
         android:textSize="22sp"
         android:textStyle="bold"
